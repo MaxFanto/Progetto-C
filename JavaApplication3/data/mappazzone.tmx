@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="52" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="grass" tilewidth="52" tileheight="32" tilecount="8" columns="2">
+  <image source="../../../NetBeansProjects/prove/data/grass.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="9" name="rocks" tilewidth="52" tileheight="32" tilecount="8" columns="2">
+  <image source="../../../NetBeansProjects/prove/data/rocks.png" width="128" height="128"/>
+ </tileset>
+ <layer name="Livello tile 1" width="10" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA42Q2wrAMAhD3a0bUpz//7XLQCEIjj0cciihDVURuYF/pIIJFrCCQa7kb8fABvbopU9yi3uP6AxyI8+3T3DFWbqT131d1n1d1n1denRzR5f2448zH1OP2E2QAQAA
+  </data>
+ </layer>
+</map>
