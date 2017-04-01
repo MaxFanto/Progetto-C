@@ -75,24 +75,24 @@ public class WizardGame extends BasicGame
         
         blocked = new boolean[grassMap.getWidth()][grassMap.getHeight()];
         
-        for (int i = 0; i < grassMap.getWidth(); i++) {
-            for (int j = 0; j < grassMap.getHeight(); j++) {
-                
-                int tileID = grassMap.getTileId(i, j, layer);
-                
-                String value = grassMap.getTileProperty(tileID, "blocked", "false");
-                
-                if(value.equals("true")) {
-
-                    // We set that index of the TileMap as blocked
-                    blocked[i][j] = true;
-
-                    
-                }
-            }
-            
-            
-        }
+//        for (int i = 0; i < grassMap.getWidth(); i++) {
+//            for (int j = 0; j < grassMap.getHeight(); j++) {
+//                
+//                int tileID = grassMap.getTileId(i, j, layer);
+//                
+//                String value = grassMap.getTileProperty(tileID, "blocked", "false");
+//                
+//                if(value.equals("true")) {
+//
+//                    // We set that index of the TileMap as blocked
+//                    blocked[i][j] = true;
+//
+//                    
+//                }
+//            }
+//            
+//            
+//        }
     }
  
     @Override
