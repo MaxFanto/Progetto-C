@@ -54,7 +54,7 @@ public class WizardGame extends BasicGame
     {
         int layer = 1;
         
-        grassMap = new TiledMap("data/mappazzone.tmx");
+        grassMap = new TiledMap("data/mappazzone1.tmx");
         Image [] movementUp = {new Image("data/rocketU.png"), new Image("data/rocketU.png")};
         Image [] movementDown = {new Image("data/rocketB.png"), new Image("data/rocketB.png")};
         Image [] movementLeft = {new Image("data/rocketLX.png"), new Image("data/rocketLX.png")};
@@ -84,12 +84,11 @@ public class WizardGame extends BasicGame
 //                
 //                if(value.equals("true")) {
 //
-//            // We set that index of the TileMap as blocked
-//            blocked[i][j] = true;
+//                    // We set that index of the TileMap as blocked
+//                    blocked[i][j] = true;
 //
-//            // And create the collision Rectangle
-////            blocks.add(new Rectangle((float)i * tileSize, (float)j * tileSize, tileSize, tileSize));
-//        }
+//                    
+//                }
 //            }
 //            
 //            
@@ -103,9 +102,13 @@ public class WizardGame extends BasicGame
         if (input.isKeyDown(Input.KEY_UP))
         {
             sprite = up;
-            sprite.update(delta);
-            // The lower the delta the slowest the sprite will animate.
-            y -= delta * 0.1f;
+            
+            if (!isBlocked(x, y - delta * 0.1f))
+                {
+                sprite.update(delta);
+                // The lower the delta the slowest the sprite will animate.
+                y -= delta * 0.1f;
+                }
         }
         else if (input.isKeyDown(Input.KEY_DOWN))
         {
@@ -131,6 +134,12 @@ public class WizardGame extends BasicGame
     {
         grassMap.render(0, 0);
         sprite.draw((int)x, (int)y);
+    }
+
+    private boolean isBlocked(float x, float y) {
+        int xBlock = (int)x / 52;
+        int yBlock = (int)y / 32;
+        return blocked[xBlock][yBlock];
     }
     
     
