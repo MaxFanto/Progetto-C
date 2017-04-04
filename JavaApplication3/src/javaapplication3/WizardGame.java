@@ -27,7 +27,7 @@ public class WizardGame extends BasicGame
     
     private Animation sprite, up, down, left, right;
     
-    private float x = 104f, y = 64f;
+    private float x = 32f, y = 32f;
     
     public WizardGame() throws SlickException
     {
@@ -56,11 +56,11 @@ public class WizardGame extends BasicGame
     {
         int layer = 1;
         
-        grassMap = new TiledMap("data/mappazzone1.tmx");
-        Image [] movementUp = {new Image("data/rocketU.png"), new Image("data/rocketU.png")};
-        Image [] movementDown = {new Image("data/rocketB.png"), new Image("data/rocketB.png")};
-        Image [] movementLeft = {new Image("data/rocketLX.png"), new Image("data/rocketLX.png")};
-        Image [] movementRight = {new Image("data/rocketRX.png"), new Image("data/rocketRX.png")};
+        grassMap = new TiledMap("data/map_1010.tmx");
+        Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
+        Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
+        Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
+        Image [] movementRight = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
         int [] duration = {300, 300};
         
         
@@ -104,8 +104,7 @@ public class WizardGame extends BasicGame
         if (input.isKeyDown(Input.KEY_UP))
         {
             sprite = up;
-            if (!isBlocked(x, y - delta * 0.1f))
-                {
+            if ((!isBlocked(x, y - delta * 0.1f)) && (!isBlocked(x + 31, y - delta * 0.1f))){
                 sprite.update(delta);
                 y -= delta * 0.1f;
                 }
@@ -115,7 +114,7 @@ public class WizardGame extends BasicGame
         {
             sprite = down;
             
-            if (!isBlocked(x, y + 45 + delta * 0.1f))
+            if (!isBlocked(x, y + 31 + delta * 0.1f) && (!isBlocked(x + 31, y + 31 + delta * 0.1f)))
             {
                 sprite.update(delta);
                 y += delta * 0.1f;
@@ -124,7 +123,7 @@ public class WizardGame extends BasicGame
         else if (input.isKeyDown(Input.KEY_LEFT))
         {
             sprite = left;
-            if (!isBlocked(x - delta * 0.1f, y)) {
+            if (!isBlocked(x - delta * 0.1f, y) && (!isBlocked(x - delta * 0.1f, y + 31))) {
             sprite.update(delta);
             x -= delta * 0.1f;
             }
@@ -132,7 +131,7 @@ public class WizardGame extends BasicGame
         else if (input.isKeyDown(Input.KEY_RIGHT))
         {
             sprite = right;
-            if (!isBlocked(x + 45 + delta * 0.1f, y)) {
+            if (!isBlocked(x + 31 + delta * 0.1f, y) && (!isBlocked(x + 31 + delta * 0.1f, y + 31))) {
             sprite.update(delta);
             x += delta * 0.1f;
             }
@@ -146,7 +145,7 @@ public class WizardGame extends BasicGame
     }
 
     private boolean isBlocked(float x, float y) {
-        int xBlock = (int)x / 52; //normalizzazione
+        int xBlock = (int)x / 32; //normalizzazione
         int yBlock = (int)y / 32;
         return blocked[xBlock][yBlock];
     }
