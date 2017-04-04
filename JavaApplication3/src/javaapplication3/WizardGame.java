@@ -88,7 +88,7 @@ public class WizardGame extends BasicGame
                 if(value.equals("true")) {
 
                     blocked[i][j] = true;
-
+                    //commento di prova
                     
                 }
             }
