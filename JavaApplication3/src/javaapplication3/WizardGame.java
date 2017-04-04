@@ -62,6 +62,8 @@ public class WizardGame extends BasicGame
         Image [] movementLeft = {new Image("data/rocketLX.png"), new Image("data/rocketLX.png")};
         Image [] movementRight = {new Image("data/rocketRX.png"), new Image("data/rocketRX.png")};
         int [] duration = {300, 300};
+        
+        
         /*
 * false variable means do not auto update the animation.
 * By setting it to false animation will update only when
@@ -113,7 +115,7 @@ public class WizardGame extends BasicGame
         {
             sprite = down;
             
-            if (!isBlocked(x, y + 45  + delta * 0.1f))
+            if (!isBlocked(x, y + 45 + delta * 0.1f))
             {
                 sprite.update(delta);
                 y += delta * 0.1f;
@@ -144,7 +146,7 @@ public class WizardGame extends BasicGame
     }
 
     private boolean isBlocked(float x, float y) {
-        int xBlock = (int)x / 52;
+        int xBlock = (int)x / 52; //normalizzazione
         int yBlock = (int)y / 32;
         return blocked[xBlock][yBlock];
     }
