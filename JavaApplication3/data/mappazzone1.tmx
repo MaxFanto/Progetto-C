@@ -4,11 +4,54 @@
   <image source="grass.png" width="128" height="128"/>
  </tileset>
  <tileset firstgid="9" name="rocks" tilewidth="52" tileheight="32" tilecount="8" columns="2">
+  <properties>
+   <property name="blocked" value="true"/>
+  </properties>
   <image source="rocks.png" width="128" height="128"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Livello tile 1" width="10" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA32Q2wrAMAhD3bUyRtv//9opKBxk9CEkhgTSDhEZhgl+fjznzbCDX2iNjHcPwwnu0BoZ716GGzyhNTLebXEnV92jW/dp0fm2uo/eah+91T563Ff/NDXvDysb7+2QAQAA
+   H4sIAAAAAAAAA31QWwrAMAzK3ukYXe5/2iVgQYT1QzSiIGlm1gR34k2E8JJYiR/Sjkx1t8RO3Ek7MtU9EidxkHZkqnvhHqy6o6v7XHT87GNvto+92T72eJ/+dGi+P3mN6gaQAQAA
   </data>
  </layer>
 </map>
