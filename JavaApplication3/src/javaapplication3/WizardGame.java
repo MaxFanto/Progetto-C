@@ -27,11 +27,11 @@ public class WizardGame extends BasicGame
     
     private Animation sprite, up, down, left, right;
     
-    private float x = 52f, y = 32f;
+    private float x = 104f, y = 64f;
     
     public WizardGame() throws SlickException
     {
-        super("Wizard game");
+        super("Wizard game");  
     }
  
     public static void main(String[] arguments) throws SlickException
@@ -41,7 +41,9 @@ public class WizardGame extends BasicGame
         {
             AppGameContainer app = new AppGameContainer(new WizardGame());
             app.setDisplayMode(500, 400, false);
+            app.setTargetFrameRate(60);
             app.start();
+            
         }
         catch (SlickException e)
         {
@@ -75,26 +77,24 @@ public class WizardGame extends BasicGame
         
         blocked = new boolean[grassMap.getWidth()][grassMap.getHeight()];
         
-//        for (int i = 0; i < grassMap.getWidth(); i++) {
-//            for (int j = 0; j < grassMap.getHeight(); j++) {
-//                
-//                int tileID = grassMap.getTileId(i, j, layer);
-//                
-//                String value = grassMap.getTileProperty(tileID, "blocked", "false");
-//                
-//                if(value.equals("true")) {
-//
-//                    // We set that index of the TileMap as blocked
-//                    blocked[i][j] = true;
-//
-//                    
-//                }
-//            }
-//            
-//            
-//        }
+        for (int i = 0; i < grassMap.getWidth(); i++) {
+            for (int j = 0; j < grassMap.getHeight(); j++) {
+                
+                int tileID = grassMap.getTileId(i, j, grassMap.getLayerIndex("Livello tile 1"));
+                
+                String value = grassMap.getTileProperty(tileID, "blocked", "false");
+                if(value.equals("true")) {
+
+                    blocked[i][j] = true;
+
+                    
+                }
+            }
+            
+        }            
+
     }
- 
+    
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
@@ -102,31 +102,38 @@ public class WizardGame extends BasicGame
         if (input.isKeyDown(Input.KEY_UP))
         {
             sprite = up;
-            
             if (!isBlocked(x, y - delta * 0.1f))
                 {
                 sprite.update(delta);
-                // The lower the delta the slowest the sprite will animate.
                 y -= delta * 0.1f;
                 }
+            
         }
         else if (input.isKeyDown(Input.KEY_DOWN))
         {
             sprite = down;
-            sprite.update(delta);
-            y += delta * 0.1f;
+            
+            if (!isBlocked(x, y + 45  + delta * 0.1f))
+            {
+                sprite.update(delta);
+                y += delta * 0.1f;
+            }
         }
         else if (input.isKeyDown(Input.KEY_LEFT))
         {
             sprite = left;
+            if (!isBlocked(x - delta * 0.1f, y)) {
             sprite.update(delta);
             x -= delta * 0.1f;
+            }
         }
         else if (input.isKeyDown(Input.KEY_RIGHT))
         {
             sprite = right;
+            if (!isBlocked(x + 45 + delta * 0.1f, y)) {
             sprite.update(delta);
             x += delta * 0.1f;
+            }
         }
     }
  
