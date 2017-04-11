@@ -10,5 +10,46 @@ package logicModel;
  * @author cl427927
  */
 public class PacMan extends Giocatore{
+    private int vite;
+    private double xPos, yPos;
+    private boolean power;
+    
+    /*
+    TODO: definire le posizioni iniziali di PacMan
+    */
+    private final double X_MAIN_POS = 0.5;
+    private final double Y_MAIN_POS = 0.5;
+    private final int MAIN_VITE = 5;
+
+    public PacMan() {
+        xPos = X_MAIN_POS;
+        yPos = Y_MAIN_POS;
+        vite = MAIN_VITE;
+    }
+
+    
+    //getter
+    public double getxPos() {return xPos;}
+    public double getyPos() {return yPos;}
+    public int getVite() {return vite;}
+    public boolean isPower() {return power;}
+    
+    
+
+    //setter
+    public void setVite(int vite) {this.vite = vite;}
+    public void setPower(boolean power) {this.power = power;}
+    
+    
+    public void movimento(int x, int y){
+        if(x != 0)
+            setXPos(x);
+        if(y != 0)
+            setYPos(y);
+    }
+    private void setXPos(double x){xPos += x;}
+    private void setYPos(double y){yPos += y;}
+    
+    
     
 }
