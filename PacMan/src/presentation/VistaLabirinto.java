@@ -74,7 +74,6 @@ public class VistaLabirinto extends BasicGame{
         left = new Animation(movementLeft, duration, false);
         right = new Animation(movementRight, duration, false);
         
-// Original orientation of the sprite. It will look right.
         pacman = right;
         
         blocked = new boolean[grassMap.getWidth()][grassMap.getHeight()];
@@ -88,7 +87,6 @@ public class VistaLabirinto extends BasicGame{
                 if(value.equals("true")) {
 
                     blocked[i][j] = true;
-                    //commento di prova
                     
                 }
             }
