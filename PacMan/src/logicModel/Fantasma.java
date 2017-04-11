@@ -20,6 +20,10 @@ public abstract class Fantasma extends Giocatore{
     
     //getter
     public boolean isBlu() {return blu;}
+
+    public double getxPos() {return xPos;}
+
+    public double getyPos() {return yPos;}
     
     //setter
     public void setBlu(boolean blu) {this.blu = blu;}
@@ -28,6 +32,6 @@ public abstract class Fantasma extends Giocatore{
         //fa qualcosa       
     }
     
-    public abstract void movimento();
+    public abstract void movimento(double xPacMan, double yPacMan);
     
 }
