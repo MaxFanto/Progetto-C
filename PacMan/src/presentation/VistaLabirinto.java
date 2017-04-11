@@ -21,7 +21,9 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 public class VistaLabirinto extends BasicGame{
     
-    private boolean[][] blocked;
+    private int TILE_WIDTH, TILE_HEIGHT;
+    
+    boolean[][] blocked;
     
     public TiledMap grassMap;
     
@@ -57,6 +59,9 @@ public class VistaLabirinto extends BasicGame{
         int layer = 1;
         
         grassMap = new TiledMap("data/map_1010.tmx");
+        TILE_HEIGHT = grassMap.getTileHeight();
+        TILE_WIDTH = grassMap.getTileWidth();
+        System.out.println(TILE_HEIGHT + "" + TILE_WIDTH);
         Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
         Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
         Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
@@ -103,7 +108,7 @@ public class VistaLabirinto extends BasicGame{
         if (input.isKeyDown(Input.KEY_UP))
         {
             pacman = up;
-            if ((!isBlocked(x, y - delta * 0.1f)) && (!isBlocked(x + 31, y - delta * 0.1f))){
+            if ((!isBlocked(x, y - delta * 0.1f)) && (!isBlocked(x + (TILE_WIDTH - 1), y - delta * 0.1f))){
                 pacman.update(delta);
                 y -= delta * 0.1f;
                 }
@@ -113,7 +118,7 @@ public class VistaLabirinto extends BasicGame{
         {
             pacman = down;
             
-            if (!isBlocked(x, y + 31 + delta * 0.1f) && (!isBlocked(x + 31, y + 31 + delta * 0.1f)))
+            if (!isBlocked(x, y + (TILE_HEIGHT - 1) + delta * 0.1f) && (!isBlocked(x + (TILE_WIDTH - 1), y + 31 + delta * 0.1f)))
             {
                 pacman.update(delta);
                 y += delta * 0.1f;
@@ -122,7 +127,7 @@ public class VistaLabirinto extends BasicGame{
         else if (input.isKeyDown(Input.KEY_LEFT))
         {
             pacman = left;
-            if (!isBlocked(x - delta * 0.1f, y) && (!isBlocked(x - delta * 0.1f, y + 31))) {
+            if (!isBlocked(x - delta * 0.1f, y) && (!isBlocked(x - delta * 0.1f, y + (TILE_HEIGHT - 1)))) {
             pacman.update(delta);
             x -= delta * 0.1f;
             }
@@ -130,7 +135,7 @@ public class VistaLabirinto extends BasicGame{
         else if (input.isKeyDown(Input.KEY_RIGHT))
         {
             pacman = right;
-            if (!isBlocked(x + 31 + delta * 0.1f, y) && (!isBlocked(x + 31 + delta * 0.1f, y + 31))) {
+            if (!isBlocked(x + (TILE_WIDTH - 1) + delta * 0.1f, y) && (!isBlocked(x + (TILE_WIDTH - 1) + delta * 0.1f, y + (TILE_HEIGHT - 1)))) {
             pacman.update(delta);
             x += delta * 0.1f;
             }
@@ -144,8 +149,8 @@ public class VistaLabirinto extends BasicGame{
     }
 
     private boolean isBlocked(float x, float y) {
-        int xBlock = (int)x / 32; //normalizzazione
-        int yBlock = (int)y / 32;
+        int xBlock = (int)x / TILE_WIDTH; //normalizzazione
+        int yBlock = (int)y / TILE_HEIGHT;
         return blocked[xBlock][yBlock];
     }
     
