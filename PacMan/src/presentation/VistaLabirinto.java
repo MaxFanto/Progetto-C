@@ -12,6 +12,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import static org.newdawn.slick.Input.KEY_UP;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -169,10 +170,13 @@ public class VistaLabirinto extends BasicGame{
     }
 
     private boolean Tasto_Premuto(Input input, int n) {
-        for (int i = 0; i < 222; i++) {
-            if(input.isKeyDown(i) && i != n)
+        int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
+        
+        for (int i = 0; i < UsedKeys.length; i++) {
+            if(input.isKeyDown(UsedKeys[i]) && UsedKeys[i] != n)
                 return true;
         }
+       
         return false;
     }
     
