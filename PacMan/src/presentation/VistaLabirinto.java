@@ -99,42 +99,56 @@ public class VistaLabirinto extends BasicGame{
         }            
 
     }
-    
+    int memoria;
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
         
         Input input = container.getInput();
-        if (input.isKeyDown(Input.KEY_UP))
+              
+        
+        if (input.isKeyDown(Input.KEY_UP) || memoria == 1)
         {
             pacman = up;
+            memoria = 1;
+            input = container.getInput();
+            if(Tasto_Premuto(input, Input.KEY_UP)) 
+                memoria = 0;
             if ((!isBlocked(x, y - delta * 0.1f)) && (!isBlocked(x + (TILE_WIDTH - 1), y - delta * 0.1f))){
                 pacman.update(delta);
                 y -= delta * 0.1f;
                 }
             
         }
-        else if (input.isKeyDown(Input.KEY_DOWN))
+        else if (input.isKeyDown(Input.KEY_DOWN) || memoria == 2)
         {
             pacman = down;
-            
+            memoria = 2;
+            if(Tasto_Premuto(input, Input.KEY_DOWN)) 
+                memoria = 0;
             if (!isBlocked(x, y + (TILE_HEIGHT - 1) + delta * 0.1f) && (!isBlocked(x + (TILE_WIDTH - 1), y + 31 + delta * 0.1f)))
             {
                 pacman.update(delta);
                 y += delta * 0.1f;
             }
         }
-        else if (input.isKeyDown(Input.KEY_LEFT))
+        else if (input.isKeyDown(Input.KEY_LEFT) || memoria == 3)
         {
             pacman = left;
+            memoria = 3;
+            if(Tasto_Premuto(input, Input.KEY_LEFT)) 
+                memoria = 0;
             if (!isBlocked(x - delta * 0.1f, y) && (!isBlocked(x - delta * 0.1f, y + (TILE_HEIGHT - 1)))) {
             pacman.update(delta);
             x -= delta * 0.1f;
             }
         }
-        else if (input.isKeyDown(Input.KEY_RIGHT))
+        else if (input.isKeyDown(Input.KEY_RIGHT) || memoria == 4)
         {
             pacman = right;
+            memoria = 4;
+            if(Tasto_Premuto(input, Input.KEY_RIGHT)) 
+                memoria = 0;
             if (!isBlocked(x + (TILE_WIDTH - 1) + delta * 0.1f, y) && (!isBlocked(x + (TILE_WIDTH - 1) + delta * 0.1f, y + (TILE_HEIGHT - 1)))) {
             pacman.update(delta);
             x += delta * 0.1f;
@@ -152,6 +166,14 @@ public class VistaLabirinto extends BasicGame{
         int xBlock = (int)x / TILE_WIDTH; //normalizzazione
         int yBlock = (int)y / TILE_HEIGHT;
         return blocked[xBlock][yBlock];
+    }
+
+    private boolean Tasto_Premuto(Input input, int n) {
+        for (int i = 0; i < 222; i++) {
+            if(input.isKeyDown(i) && i != n)
+                return true;
+        }
+        return false;
     }
     
 }
