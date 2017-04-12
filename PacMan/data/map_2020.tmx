@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="grass" tilewidth="32" tileheight="32" tilecount="16" columns="4">
-  <image source="grass.png" width="128" height="128"/>
- </tileset>
- <tileset firstgid="17" name="rocks" tilewidth="32" tileheight="32" tilecount="16" columns="4">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="rocks3232" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="rocks.png" width="128" height="128"/>
   <tile id="0">
    <properties>
@@ -86,9 +83,12 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Livello tile 1" width="10" height="10">
+ <tileset firstgid="17" name="grass3232" tilewidth="32" tileheight="32" tilecount="16" columns="4">
+  <image source="grass.png" width="128" height="128"/>
+ </tileset>
+ <layer name="Livello tile 1" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA3XQOQrAMAxEUWd39s1FihS6/ynzAzIEoRQPPGCGsVMIQbDjwInk5AsFSlSoP1k0v/duNGjRIWoWFbXrPfcYMGJy8q2dMxas2Jws2tkadm/eZ99m9+Z9ts/b5/1d3iefffJz1+YHSI2tEZABAAA=
+   H4sIAAAAAAAAA82UsQrAIAxEM2RwsK1T/v9Ta6FCkJiE9qAdDhHjy+mJTERb1951dDVHkqjluw4hVryo79jjeS9gf9XxN88z/tD3J4oX5SjGfB7Z4bVFf4vzBS+Tj8d7I80rhr/V2aP1i1fBPK/2CS/77rM8K9+/8Ao436ryRWj0QP73J3QcyutABgAA
   </data>
  </layer>
 </map>
