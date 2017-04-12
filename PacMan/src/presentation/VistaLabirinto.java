@@ -43,7 +43,7 @@ public class VistaLabirinto extends BasicGame{
         try
         {
             AppGameContainer app = new AppGameContainer(new VistaLabirinto());
-            app.setDisplayMode(500, 400, false);
+            app.setDisplayMode(640, 640, false);
             app.setTargetFrameRate(60);
             app.start();
             
@@ -59,14 +59,21 @@ public class VistaLabirinto extends BasicGame{
     {
         int layer = 1;
         
-        grassMap = new TiledMap("data/map_1010.tmx");
+        grassMap = new TiledMap("data/map_2020.tmx");
         TILE_HEIGHT = grassMap.getTileHeight();
         TILE_WIDTH = grassMap.getTileWidth();
         System.out.println(TILE_HEIGHT + "" + TILE_WIDTH);
-        Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
-        Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
-        Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
-        Image [] movementRight = {new Image("data/pacman0.png"), new Image("data/pacman0.png")};
+        Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        Image [] movementRight = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        
+        for (int i = 0; i < 2; i++) {
+            movementUp[i].rotate(270);
+            movementDown[i].rotate(90);
+            movementLeft[i].rotate(180);
+        }
+        
         int [] duration = {300, 300};
         
         
@@ -104,7 +111,7 @@ public class VistaLabirinto extends BasicGame{
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
-        
+        delta = 20;
         Input input = container.getInput();
               
         
@@ -121,7 +128,7 @@ public class VistaLabirinto extends BasicGame{
                 }
             
         }
-        else if (input.isKeyDown(Input.KEY_DOWN) || memoria == 2)
+        if (input.isKeyDown(Input.KEY_DOWN) || memoria == 2)
         {
             pacman = down;
             memoria = 2;
@@ -133,9 +140,10 @@ public class VistaLabirinto extends BasicGame{
                 y += delta * 0.1f;
             }
         }
-        else if (input.isKeyDown(Input.KEY_LEFT) || memoria == 3)
+        if (input.isKeyDown(Input.KEY_LEFT) || memoria == 3)
         {
             pacman = left;
+            int memoriaPrecendente = memoria;
             memoria = 3;
             if(Tasto_Premuto(input, Input.KEY_LEFT)) 
                 memoria = 0;
@@ -143,8 +151,16 @@ public class VistaLabirinto extends BasicGame{
             pacman.update(delta);
             x -= delta * 0.1f;
             }
+//            else{
+//                //(ControlloProssimaSvolta())
+//                switch(memoriaPrecendente){
+//                    case 2: 
+//                        y += delta * 0.1f;
+//                        x -= delta * 0.1f;
+//                }
+//            }
         }
-        else if (input.isKeyDown(Input.KEY_RIGHT) || memoria == 4)
+        if (input.isKeyDown(Input.KEY_RIGHT) || memoria == 4)
         {
             pacman = right;
             memoria = 4;
