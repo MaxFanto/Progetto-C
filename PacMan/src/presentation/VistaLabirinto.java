@@ -107,10 +107,11 @@ public class VistaLabirinto extends BasicGame {
             input = container.getInput();
             if(AltroTastoPremuto(input, Input.KEY_UP)) 
                 memoria = 0;
-            if ((!hasProperty(x, y - delta * 0.1f, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta * 0.1f, blocked))){
+            if ((!hasProperty(x, y - delta * 0.1f, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta * 0.1f, blocked)))
+            {
                 pacman.update(delta);
                 y -= delta * 0.1f;
-                }
+            }
             if((hasProperty(x, y - (delta * 0.1f) + (TILE_HEIGHT - 1), tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta * 0.1f, tunnel))) {
                 y = TILE_HEIGHT * (grassMap.getHeight() - 1);
             }
@@ -138,11 +139,14 @@ public class VistaLabirinto extends BasicGame {
             memoria = 3;
             if(AltroTastoPremuto(input, Input.KEY_LEFT)) 
                 memoria = 0;
-            if (!hasProperty(x - delta * 0.1f, y, blocked) && (!hasProperty(x - delta * 0.1f, y + (TILE_HEIGHT - 1), blocked))) {
+            if (!hasProperty(x - delta * 0.1f, y, blocked) && (!hasProperty(x - delta * 0.1f, y + (TILE_HEIGHT - 1), blocked))) 
+            {
                 pacman.update(delta);
-                x -= delta * 0.1f;
+                x -= delta * 0.1f;    
             }
-
+            if (hasProperty(x - delta * 0.1f + (TILE_WIDTH -1), y, tunnel) && (hasProperty(x - delta * 0.1f, y + (TILE_HEIGHT - 1), tunnel))) 
+                x = TILE_WIDTH * (grassMap.getWidth() - 1);
+                
         }
         if (input.isKeyDown(Input.KEY_RIGHT) || memoria == 4)
         {
@@ -151,9 +155,12 @@ public class VistaLabirinto extends BasicGame {
             if(AltroTastoPremuto(input, Input.KEY_RIGHT)) 
                 memoria = 0;
             if (!hasProperty(x + (TILE_WIDTH - 1) + delta * 0.1f, y, blocked) && (!hasProperty(x + (TILE_WIDTH - 1) + delta * 0.1f, y + (TILE_HEIGHT - 1), blocked))) {
-            pacman.update(10);
-            x += delta * 0.1f;
+                pacman.update(10);
+                x += delta * 0.1f;
             }
+            if (hasProperty(x  + delta * 0.1f, y, tunnel) && (hasProperty(x + (TILE_WIDTH - 1) + delta * 0.1f, y + (TILE_HEIGHT - 1), tunnel))) 
+                x = 0;   
+
         }
     }
  
