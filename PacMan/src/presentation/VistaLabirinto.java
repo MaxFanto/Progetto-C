@@ -19,7 +19,7 @@ import org.newdawn.slick.tiled.TiledMap;
  *
  * @author lorenzo
  */
-public class VistaLabirinto extends BasicGame{
+public class VistaLabirinto extends BasicGame {
     
     private int TILE_WIDTH, TILE_HEIGHT;
     
@@ -56,7 +56,6 @@ public class VistaLabirinto extends BasicGame{
     @Override
     public void init(GameContainer container) throws SlickException
     {
-        int layer = 1;
         
         grassMap = new TiledMap("data/map_2020.tmx");
         TILE_HEIGHT = grassMap.getTileHeight();
@@ -77,10 +76,10 @@ public class VistaLabirinto extends BasicGame{
         
         
         /*
-* false variable means do not auto update the animation.
-* By setting it to false animation will update only when
-* the user presses a key.
-*/
+        * false variable means do not auto update the animation.
+        * By setting it to false animation will update only when
+        * the user presses a key.
+        */
         up = new Animation(movementUp, duration, false);
         down = new Animation(movementDown, duration, false);
         left = new Animation(movementLeft, duration, false);
@@ -93,6 +92,7 @@ public class VistaLabirinto extends BasicGame{
     }
     
     int memoria;
+    
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
@@ -111,9 +111,9 @@ public class VistaLabirinto extends BasicGame{
                 pacman.update(delta);
                 y -= delta * 0.1f;
                 }
-//            if((hasProperty(x, y - delta * 0.1f, tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta * 0.1f, tunnel))) {
-//                y = 32; 
-//            }
+            if((hasProperty(x, y - (delta * 0.1f) + (TILE_HEIGHT - 1), tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta * 0.1f, tunnel))) {
+                y = TILE_HEIGHT * (grassMap.getHeight() - 1);
+            }
         }
         
         if (input.isKeyDown(Input.KEY_DOWN) || memoria == 2)
@@ -122,10 +122,13 @@ public class VistaLabirinto extends BasicGame{
             memoria = 2;
             if(AltroTastoPremuto(input, Input.KEY_DOWN)) 
                 memoria = 0;
-            if (!hasProperty(x, y + (TILE_HEIGHT - 1) + delta * 0.1f, blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + 31 + delta * 0.1f, blocked)))
+            if (!hasProperty(x, y + (TILE_HEIGHT - 1) + delta * 0.1f, blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1) + delta * 0.1f, blocked)))
             {
                 pacman.update(delta);
                 y += delta * 0.1f;
+            }
+            if((hasProperty(x, y + delta * 0.1f, tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1) + delta * 0.1f, tunnel))) {
+                y = 0;
             }
         }
         
