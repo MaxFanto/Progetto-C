@@ -86,9 +86,17 @@
  <tileset firstgid="17" name="grass3232" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="grass.png" width="128" height="128"/>
  </tileset>
+ <tileset firstgid="33" name="buco" tilewidth="32" tileheight="32" tilecount="16" columns="4">
+  <image source="../../../../Scaricati/slick2dfolder/testdata/tiles.png" width="128" height="128"/>
+  <tile id="4">
+   <properties>
+    <property name="tunnel" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="Livello tile 1" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA82UsQrAIAxEM2RwsK1T/v9Ta6FCkJiE9qAdDhHjy+mJTERb1951dDVHkqjluw4hVryo79jjeS9gf9XxN88z/tD3J4oX5SjGfB7Z4bVFf4vzBS+Tj8d7I80rhr/V2aP1i1fBPK/2CS/77rM8K9+/8Ao436ryRWj0QP73J3QcyutABgAA
+   H4sIAAAAAAAAA82UsQrAIAxEHTI4pK2Tf+D//2LjIIQQo7QH7XCIJL47DUgppUN0ii5RCdQ2eklUQSLFW/mOM7PsvZbB+TjIZ/c7+dDv1xTPenn57N6uFPCK418nnC94O/OJeG+kednJN7v7qt55DOZFvU94Dczz5vsXXgbPl9V8ERoeyP/+Bo/z8wlABgAA
   </data>
  </layer>
 </map>
