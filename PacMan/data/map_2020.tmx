@@ -96,7 +96,7 @@
  </tileset>
  <layer name="Livello tile 1" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA82UsQrAIAxEHTI4pK2Tf+D//2LjIIQQo7QH7XCIJL47DUgppUN0ii5RCdQ2eklUQSLFW/mOM7PsvZbB+TjIZ/c7+dDv1xTPenn57N6uFPCK418nnC94O/OJeG+kednJN7v7qt55DOZFvU94Dczz5vsXXgbPl9V8ERoeyP/+Bo/z8wlABgAA
+   H4sIAAAAAAAAA82UsQrAIAxEHTJIsdXJP/D/f7FxEEKIUdqDdjhEEt+dBqQQwsm6WJlVHLWNXmJVkEjwVr7jzCx7r0VwvuTk0/udfOONUfmayKe9rHx6r1dyeMXwrxPOF7yd+Xi8N5K8aOSb3X1V77wE5nm9T3gHmGfN9y+8CJ5vEvNFaHgg//sbbbK0EkAGAAA=
   </data>
  </layer>
 </map>
