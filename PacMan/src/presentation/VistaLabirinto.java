@@ -12,7 +12,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import static org.newdawn.slick.Input.KEY_UP;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -24,7 +23,7 @@ public class VistaLabirinto extends BasicGame{
     
     private int TILE_WIDTH, TILE_HEIGHT;
     
-    boolean[][] blocked;
+    boolean[][] blocked, tunnel;
     
     public TiledMap grassMap;
     
@@ -89,24 +88,10 @@ public class VistaLabirinto extends BasicGame{
         
         pacman = right;
         
-        blocked = new boolean[grassMap.getWidth()][grassMap.getHeight()];
-        
-        for (int i = 0; i < grassMap.getWidth(); i++) {
-            for (int j = 0; j < grassMap.getHeight(); j++) {
-                
-                int tileID = grassMap.getTileId(i, j, grassMap.getLayerIndex("Livello tile 1"));
-                
-                String value = grassMap.getTileProperty(tileID, "blocked", "false");
-                if(value.equals("true")) {
-
-                    blocked[i][j] = true;
-                    
-                }
-            }
-            
-        }            
-
+        blocked = generaMappaProprietà("blocked");
+        tunnel = generaMappaProprietà("tunnel");
     }
+    
     int memoria;
     @Override
     public void update(GameContainer container, int delta) throws SlickException
@@ -120,54 +105,50 @@ public class VistaLabirinto extends BasicGame{
             pacman = up;
             memoria = 1;
             input = container.getInput();
-            if(Tasto_Premuto(input, Input.KEY_UP)) 
+            if(AltroTastoPremuto(input, Input.KEY_UP)) 
                 memoria = 0;
-            if ((!isBlocked(x, y - delta * 0.1f)) && (!isBlocked(x + (TILE_WIDTH - 1), y - delta * 0.1f))){
+            if ((!hasProperty(x, y - delta * 0.1f, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta * 0.1f, blocked))){
                 pacman.update(delta);
                 y -= delta * 0.1f;
                 }
-            
+//            if((hasProperty(x, y - delta * 0.1f, tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta * 0.1f, tunnel))) {
+//                y = 32; 
+//            }
         }
+        
         if (input.isKeyDown(Input.KEY_DOWN) || memoria == 2)
         {
             pacman = down;
             memoria = 2;
-            if(Tasto_Premuto(input, Input.KEY_DOWN)) 
+            if(AltroTastoPremuto(input, Input.KEY_DOWN)) 
                 memoria = 0;
-            if (!isBlocked(x, y + (TILE_HEIGHT - 1) + delta * 0.1f) && (!isBlocked(x + (TILE_WIDTH - 1), y + 31 + delta * 0.1f)))
+            if (!hasProperty(x, y + (TILE_HEIGHT - 1) + delta * 0.1f, blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + 31 + delta * 0.1f, blocked)))
             {
                 pacman.update(delta);
                 y += delta * 0.1f;
             }
         }
+        
         if (input.isKeyDown(Input.KEY_LEFT) || memoria == 3)
         {
             pacman = left;
-            int memoriaPrecendente = memoria;
             memoria = 3;
-            if(Tasto_Premuto(input, Input.KEY_LEFT)) 
+            if(AltroTastoPremuto(input, Input.KEY_LEFT)) 
                 memoria = 0;
-            if (!isBlocked(x - delta * 0.1f, y) && (!isBlocked(x - delta * 0.1f, y + (TILE_HEIGHT - 1)))) {
-            pacman.update(delta);
-            x -= delta * 0.1f;
+            if (!hasProperty(x - delta * 0.1f, y, blocked) && (!hasProperty(x - delta * 0.1f, y + (TILE_HEIGHT - 1), blocked))) {
+                pacman.update(delta);
+                x -= delta * 0.1f;
             }
-//            else{
-//                //(ControlloProssimaSvolta())
-//                switch(memoriaPrecendente){
-//                    case 2: 
-//                        y += delta * 0.1f;
-//                        x -= delta * 0.1f;
-//                }
-//            }
+
         }
         if (input.isKeyDown(Input.KEY_RIGHT) || memoria == 4)
         {
             pacman = right;
             memoria = 4;
-            if(Tasto_Premuto(input, Input.KEY_RIGHT)) 
+            if(AltroTastoPremuto(input, Input.KEY_RIGHT)) 
                 memoria = 0;
-            if (!isBlocked(x + (TILE_WIDTH - 1) + delta * 0.1f, y) && (!isBlocked(x + (TILE_WIDTH - 1) + delta * 0.1f, y + (TILE_HEIGHT - 1)))) {
-            pacman.update(delta);
+            if (!hasProperty(x + (TILE_WIDTH - 1) + delta * 0.1f, y, blocked) && (!hasProperty(x + (TILE_WIDTH - 1) + delta * 0.1f, y + (TILE_HEIGHT - 1), blocked))) {
+            pacman.update(10);
             x += delta * 0.1f;
             }
         }
@@ -179,13 +160,13 @@ public class VistaLabirinto extends BasicGame{
         pacman.draw((int)x, (int)y);
     }
 
-    private boolean isBlocked(float x, float y) {
-        int xBlock = (int)x / TILE_WIDTH; //normalizzazione
-        int yBlock = (int)y / TILE_HEIGHT;
-        return blocked[xBlock][yBlock];
+    private boolean hasProperty(float x, float y, boolean[][] b) {
+        int xP = (int)x / TILE_WIDTH; //normalizzazione
+        int yP = (int)y / TILE_HEIGHT;
+        return b[xP][yP];
     }
 
-    private boolean Tasto_Premuto(Input input, int n) {
+    private boolean AltroTastoPremuto(Input input, int n) {
         int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
         
         for (int i = 0; i < UsedKeys.length; i++) {
@@ -195,5 +176,22 @@ public class VistaLabirinto extends BasicGame{
        
         return false;
     }
-    
+
+    private boolean[][] generaMappaProprietà(String s) {
+        boolean[][] b = new boolean[grassMap.getWidth()][grassMap.getHeight()];
+        for (int i = 0; i < grassMap.getWidth(); i++) {
+            for (int j = 0; j < grassMap.getHeight(); j++) {
+                
+                int tileID = grassMap.getTileId(i, j, grassMap.getLayerIndex("Livello tile 1"));
+                
+                String value = grassMap.getTileProperty(tileID, s , "false");
+                if(value.equals("true")) {
+
+                    b[i][j] = true;
+                    
+                }
+            }
+        }
+        return b;
+    }
 }
