@@ -11,6 +11,7 @@ import javafx.beans.Observable;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -26,11 +27,11 @@ public class VistaLabirinto extends BasicGame implements Observer {
     
     private int TILE_WIDTH, TILE_HEIGHT;
     
-    boolean[][] blocked, tunnel;
+    boolean[][] blocked, tunnel, eat;
     
     public TiledMap grassMap;
     
-    private Animation pacman, up, down, left, right;
+    private Animation pacman, up, down, left, right, rocket;
     
     private int x = 32, y = 32;
     
@@ -60,7 +61,7 @@ public class VistaLabirinto extends BasicGame implements Observer {
         grassMap = new TiledMap("data/map_2020.tmx");
         TILE_HEIGHT = grassMap.getTileHeight();
         TILE_WIDTH = grassMap.getTileWidth();
-        System.out.println(TILE_HEIGHT + "" + TILE_WIDTH);
+        
         Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
         Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
         Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
@@ -88,6 +89,12 @@ public class VistaLabirinto extends BasicGame implements Observer {
         
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
+        
+        Image[] r = {new Image("data/rocket.png"), new Image("data/rocket.png")};
+        rocket = new Animation(r, duration, false);
+        
+        eat = generaMappaProprietà("eat");
+        
     }
     
     int memoria;
@@ -99,64 +106,65 @@ public class VistaLabirinto extends BasicGame implements Observer {
         
         Input input = container.getInput();
         
-        if (input.isKeyDown(Input.KEY_UP) || memoria == 1)
+        if ((input.isKeyDown(Input.KEY_UP) || memoria == 1) && ((!hasProperty(x, y - delta, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta, blocked))))
         {
             pacman = up;
             memoria = 1;
             input = container.getInput();
-            if (GestioneMappa.AltroTastoPremuto(input, Input.KEY_UP)) 
+            if (AltroTastoPremuto(input, Input.KEY_UP)) 
                 memoria = 0;
-            if ((!hasProperty(x, y - delta, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta, blocked)))
-            {
+//            if ((!hasProperty(x, y - delta, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta, blocked)))
+//            {
                 pacman.update(delta * 10);
                 y -= delta;
-            }
+//            }
             if ((hasProperty(x, y - delta + (TILE_HEIGHT - 1), tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta, tunnel))) {
                 y = TILE_HEIGHT * (grassMap.getHeight() - 1);
             }
         }
         
-        if (input.isKeyDown(Input.KEY_DOWN) || memoria == 2)
+        if ((input.isKeyDown(Input.KEY_DOWN) || memoria == 2) && !hasProperty(x, y + delta + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), blocked)))
         {
             pacman = down;
             memoria = 2;
-            if (GestioneMappa.AltroTastoPremuto(input, Input.KEY_DOWN)) 
+            if (AltroTastoPremuto(input, Input.KEY_DOWN)) 
                 memoria = 0;
-            if (!hasProperty(x, y + delta + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), blocked)))
-            {
+//            if (!hasProperty(x, y + delta + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), blocked)))
+//            {
                 pacman.update(delta * 10);
                 y += delta;
-            }
+//            }
             if ((hasProperty(x, y + delta, tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), tunnel))) {
                 y = 0;
             }
         }
         
-        if (input.isKeyDown(Input.KEY_LEFT) || memoria == 3)
+        if ((input.isKeyDown(Input.KEY_LEFT) || memoria == 3) && !hasProperty(x - delta, y, blocked) && (!hasProperty(x - delta, y + (TILE_HEIGHT - 1), blocked)))
         {
             pacman = left;
             memoria = 3;
-            if (GestioneMappa.AltroTastoPremuto(input, Input.KEY_LEFT)) 
+            if (AltroTastoPremuto(input, Input.KEY_LEFT)) 
                 memoria = 0;
-            if (!hasProperty(x - delta, y, blocked) && (!hasProperty(x - delta, y + (TILE_HEIGHT - 1), blocked))) 
-            {
+//            if (!hasProperty(x - delta, y, blocked) && (!hasProperty(x - delta, y + (TILE_HEIGHT - 1), blocked))) 
+//            {
                 pacman.update(delta * 10);
                 x -= delta;    
-            }
+//            }
             if (hasProperty(x - delta + (TILE_WIDTH - 1), y, tunnel) && (hasProperty(x - delta, y + (TILE_HEIGHT - 1), tunnel))) 
                 x = TILE_WIDTH * (grassMap.getWidth() - 1);
                 
         }
-        if (input.isKeyDown(Input.KEY_RIGHT) || memoria == 4)
+        if ((input.isKeyDown(Input.KEY_RIGHT) || memoria == 4) && !hasProperty(x + delta + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)))
         {
             pacman = right;
             memoria = 4;
-            if (GestioneMappa.AltroTastoPremuto(input, Input.KEY_RIGHT)) 
+            if (AltroTastoPremuto(input, Input.KEY_RIGHT)) 
                 memoria = 0;
-            if (!hasProperty(x + delta + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked))) {
+//            if (!hasProperty(x + delta + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)))
+//            {
                 pacman.update(delta * 10);
                 x += delta;
-            }
+//            }
             if (hasProperty(x + delta, y, tunnel) && (hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), tunnel))) 
                 x = 0;
         }
@@ -166,12 +174,39 @@ public class VistaLabirinto extends BasicGame implements Observer {
     {
         grassMap.render(0, 0);
         pacman.draw(x, y);
+        for (int i = 0; i < grassMap.getWidth(); i++) {
+            for (int j = 0; j < grassMap.getHeight(); j++) {
+                if (eat[i][j] == true)
+                    rocket.draw(i*32, j*32);
+                if (x == i*32 && y == j*32)
+                    eat[i][j] = false;
+            }
+        }
     }
 
     private boolean hasProperty(int x, int y, boolean[][] b) {
         int xP = x / TILE_WIDTH; //normalizzazione
         int yP = y / TILE_HEIGHT;
         return b[xP][yP];
+    }
+    
+    public boolean AltroTastoPremuto(Input input, int n) {
+        int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
+
+//        for (int i = 0; i < UsedKeys.length; i++) {
+//            if(input.isKeyDown(UsedKeys[i]) && UsedKeys[i] != n && !hasProperty(x, y, blocked) && !hasProperty(x, y, blocked))
+//                return true;
+//        }
+
+        if ((input.isKeyDown(Input.KEY_DOWN)) && (!hasProperty(x, y + 2 + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + 2 + (TILE_HEIGHT - 1), blocked))) && Input.KEY_DOWN != n)
+            return true;
+        if ((input.isKeyDown(Input.KEY_UP)) && (!hasProperty(x, y - 2, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - 2, blocked)) && Input.KEY_UP != n)
+            return true;
+        if ((input.isKeyDown(Input.KEY_LEFT)) && !hasProperty(x - 2, y, blocked) && (!hasProperty(x - 2, y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_LEFT != n)
+            return true;
+        if((input.isKeyDown(Input.KEY_RIGHT)) && !hasProperty(x + 2 + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + 2 + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_RIGHT != n)
+            return true;
+        return false;
     }
 
     private boolean[][] generaMappaProprietà(String s) {
@@ -183,7 +218,6 @@ public class VistaLabirinto extends BasicGame implements Observer {
                 
                 String value = grassMap.getTileProperty(tileID, s , "false");
                 if(value.equals("true")) {
-
                     b[i][j] = true;
                 }
             }
