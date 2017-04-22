@@ -30,7 +30,7 @@ public class VistaLabirinto extends BasicGame implements Observer {
     
     private Animation pacman, up, down, left, right, pill;
     
-//    private final int speedDown = 1, speedMedium = 2, speedHigh = 4;
+//    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
     
     private int x = 288, y = 512;
     

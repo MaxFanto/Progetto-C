@@ -5,11 +5,14 @@
  */
 package logicModel;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author cl427927
  */
-public class PacMan extends Giocatore{
+public class PacMan extends Giocatore {
     private int vite;
     private double xPos, yPos;
     private boolean power;
@@ -17,11 +20,12 @@ public class PacMan extends Giocatore{
     /*
     TODO: definire le posizioni iniziali di PacMan
     */
-    private final double X_MAIN_POS = 0.5;
-    private final double Y_MAIN_POS = 0.5;
+    private final double X_MAIN_POS = 32;
+    private final double Y_MAIN_POS = 32;
     private final int MAIN_VITE = 5;
 
-    public PacMan() {
+    public PacMan() throws SlickException {
+//        super(new Image[]{new Image("data/pacman0.png"), new Image("data/pacman1.png")});
         xPos = X_MAIN_POS;
         yPos = Y_MAIN_POS;
         vite = MAIN_VITE;

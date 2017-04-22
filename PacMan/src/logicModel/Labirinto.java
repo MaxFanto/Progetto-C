@@ -6,6 +6,7 @@
 package logicModel;
 
 import altro.Frutto;
+import altro.Tile;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,8 +16,10 @@ import java.util.Random;
  */
 public class Labirinto {
     private int larghezza, altezza, numTiles;
+    private Tile[][] tiles;
     
     ArrayList<Double[]> powerPills;
+    
     private final Double[] POWER_PILL_1 = new Double[]{0.3,0.7};
     private final Double[] POWER_PILL_2 = new Double[]{0.3,0.7};
     private final Double[] POWER_PILL_3 = new Double[]{0.3,0.7};

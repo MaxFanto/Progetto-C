@@ -5,11 +5,27 @@
  */
 package logicModel;
 
+import java.util.Observable;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author cl427927
  */
-public abstract class Giocatore {
+public abstract class Giocatore extends Observable {
     private String nome;
     private int punteggio;
+    
+    private int velocita;
+    private Image[] moveUp,moveDown,moveLeft,moveRight;
+    
+    
+    
+//    public Giocatore(Image[] moveUp) throws SlickException{
+//        Image [] movementUp = moveUp;
+//        Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+//        Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+//        Image [] movementRight = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+//    }
 }

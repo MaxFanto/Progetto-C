@@ -15,7 +15,7 @@ public class Partita {
     Labirinto labirinto;
 
     public Partita() {
-        pacMan = new PacMan();
+//        pacMan = new PacMan();
         akabei = new Akabei(0, 0);
         aosuke = new Aosuke(0, 0);
         labirinto = new Labirinto(0,0,0);
