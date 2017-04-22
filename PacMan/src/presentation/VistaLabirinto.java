@@ -6,12 +6,9 @@
 package presentation;
 
 import java.util.Observer;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -29,11 +26,13 @@ public class VistaLabirinto extends BasicGame implements Observer {
     
     boolean[][] blocked, tunnel, eat;
     
-    public TiledMap grassMap;
+    public TiledMap mazeMap;
     
-    private Animation pacman, up, down, left, right, rocket;
+    private Animation pacman, up, down, left, right, pill;
     
-    private int x = 32, y = 32;
+//    private final int speedDown = 1, speedMedium = 2, speedHigh = 4;
+    
+    private int x = 288, y = 512;
     
     public VistaLabirinto() throws SlickException
     {
@@ -45,7 +44,7 @@ public class VistaLabirinto extends BasicGame implements Observer {
         try
         {
             AppGameContainer app = new AppGameContainer(new VistaLabirinto());
-            app.setDisplayMode(640, 640, false);
+            app.setDisplayMode(608, 704, false);
             app.setTargetFrameRate(60);
             app.start();
         }
@@ -58,9 +57,9 @@ public class VistaLabirinto extends BasicGame implements Observer {
     @Override
     public void init(GameContainer container) throws SlickException
     {
-        grassMap = new TiledMap("data/map_2020.tmx");
-        TILE_HEIGHT = grassMap.getTileHeight();
-        TILE_WIDTH = grassMap.getTileWidth();
+        mazeMap = new TiledMap("data/Maze_nero.tmx");
+        TILE_HEIGHT = mazeMap.getTileHeight();
+        TILE_WIDTH = mazeMap.getTileWidth();
         
         Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
         Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
@@ -89,11 +88,10 @@ public class VistaLabirinto extends BasicGame implements Observer {
         
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
-        
-        Image[] r = {new Image("data/rocket.png"), new Image("data/rocket.png")};
-        rocket = new Animation(r, duration, false);
-        
         eat = generaMappaProprietà("eat");
+        
+        Image[] p = {new Image("data/pill_nero.png"), new Image("data/pill_nero.png")};
+        pill = new Animation(p, duration, false);
         
     }
     
@@ -118,9 +116,8 @@ public class VistaLabirinto extends BasicGame implements Observer {
                 pacman.update(delta * 10);
                 y -= delta;
 //            }
-            if ((hasProperty(x, y - delta + (TILE_HEIGHT - 1), tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta, tunnel))) {
-                y = TILE_HEIGHT * (grassMap.getHeight() - 1);
-            }
+            if ((hasProperty(x, y - delta + (TILE_HEIGHT - 1), tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta, tunnel)))
+                y = TILE_HEIGHT * (mazeMap.getHeight() - 1);
         }
         
         if ((input.isKeyDown(Input.KEY_DOWN) || memoria == 2) && !hasProperty(x, y + delta + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), blocked)))
@@ -134,9 +131,8 @@ public class VistaLabirinto extends BasicGame implements Observer {
                 pacman.update(delta * 10);
                 y += delta;
 //            }
-            if ((hasProperty(x, y + delta, tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), tunnel))) {
+            if ((hasProperty(x, y + delta, tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), tunnel)))
                 y = 0;
-            }
         }
         
         if ((input.isKeyDown(Input.KEY_LEFT) || memoria == 3) && !hasProperty(x - delta, y, blocked) && (!hasProperty(x - delta, y + (TILE_HEIGHT - 1), blocked)))
@@ -151,8 +147,7 @@ public class VistaLabirinto extends BasicGame implements Observer {
                 x -= delta;    
 //            }
             if (hasProperty(x - delta + (TILE_WIDTH - 1), y, tunnel) && (hasProperty(x - delta, y + (TILE_HEIGHT - 1), tunnel))) 
-                x = TILE_WIDTH * (grassMap.getWidth() - 1);
-                
+                x = TILE_WIDTH * (mazeMap.getWidth() - 1);
         }
         if ((input.isKeyDown(Input.KEY_RIGHT) || memoria == 4) && !hasProperty(x + delta + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)))
         {
@@ -172,12 +167,12 @@ public class VistaLabirinto extends BasicGame implements Observer {
  
     public void render(GameContainer container, Graphics g) throws SlickException
     {
-        grassMap.render(0, 0);
+        mazeMap.render(0, 0);
         pacman.draw(x, y);
-        for (int i = 0; i < grassMap.getWidth(); i++) {
-            for (int j = 0; j < grassMap.getHeight(); j++) {
+        for (int i = 0; i < mazeMap.getWidth(); i++) {
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
                 if (eat[i][j] == true)
-                    rocket.draw(i*32, j*32);
+                    pill.draw(i*32, j*32);
                 if (x == i*32 && y == j*32)
                     eat[i][j] = false;
             }
@@ -210,13 +205,13 @@ public class VistaLabirinto extends BasicGame implements Observer {
     }
 
     private boolean[][] generaMappaProprietà(String s) {
-        boolean[][] b = new boolean[grassMap.getWidth()][grassMap.getHeight()];
-        for (int i = 0; i < grassMap.getWidth(); i++) {
-            for (int j = 0; j < grassMap.getHeight(); j++) {
+        boolean[][] b = new boolean[mazeMap.getWidth()][mazeMap.getHeight()];
+        for (int i = 0; i < mazeMap.getWidth(); i++) {
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
                 
-                int tileID = grassMap.getTileId(i, j, grassMap.getLayerIndex("Livello tile 1"));
+                int tileID = mazeMap.getTileId(i, j, mazeMap.getLayerIndex("Livello tile 1"));
                 
-                String value = grassMap.getTileProperty(tileID, s , "false");
+                String value = mazeMap.getTileProperty(tileID, s , "false");
                 if(value.equals("true")) {
                     b[i][j] = true;
                 }
