@@ -14,6 +14,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
@@ -33,6 +34,9 @@ public class VistaLabirinto extends BasicGame implements Observer {
 //    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
     
     private int x = 288, y = 512;
+    
+//    private Music music;
+    private Sound begin, eat_pill;
     
     public VistaLabirinto() throws SlickException
     {
@@ -93,15 +97,19 @@ public class VistaLabirinto extends BasicGame implements Observer {
         Image[] p = {new Image("data/pill_nero.png"), new Image("data/pill_nero.png")};
         pill = new Animation(p, duration, false);
         
+        begin = new Sound("data/Pacman sound/pacman_begin.wav");
+        begin.play();
+        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
     }
     
     int memoria;
+    int delta1;
     
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
         delta = 2;
-        
+        delta1 = delta;
         Input input = container.getInput();
         
         if ((input.isKeyDown(Input.KEY_UP) || memoria == 1) && ((!hasProperty(x, y - delta, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta, blocked))))
@@ -165,15 +173,17 @@ public class VistaLabirinto extends BasicGame implements Observer {
         }
     }
  
+    @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
         mazeMap.render(0, 0);
         pacman.draw(x, y);
+        
         for (int i = 0; i < mazeMap.getWidth(); i++) {
             for (int j = 0; j < mazeMap.getHeight(); j++) {
                 if (eat[i][j] == true)
                     pill.draw(i*32, j*32);
-                if (x == i*32 && y == j*32)
+                if (x + 15 == i*32 + 15 && y + 15 == j*32 + 15)
                     eat[i][j] = false;
             }
         }
@@ -193,13 +203,13 @@ public class VistaLabirinto extends BasicGame implements Observer {
 //                return true;
 //        }
 
-        if ((input.isKeyDown(Input.KEY_DOWN)) && (!hasProperty(x, y + 2 + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + 2 + (TILE_HEIGHT - 1), blocked))) && Input.KEY_DOWN != n)
+        if ((input.isKeyDown(Input.KEY_DOWN)) && (!hasProperty(x, y + delta1 + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta1 + (TILE_HEIGHT - 1), blocked))) && Input.KEY_DOWN != n)
             return true;
-        if ((input.isKeyDown(Input.KEY_UP)) && (!hasProperty(x, y - 2, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - 2, blocked)) && Input.KEY_UP != n)
+        if ((input.isKeyDown(Input.KEY_UP)) && (!hasProperty(x, y - delta1, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta1, blocked)) && Input.KEY_UP != n)
             return true;
-        if ((input.isKeyDown(Input.KEY_LEFT)) && !hasProperty(x - 2, y, blocked) && (!hasProperty(x - 2, y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_LEFT != n)
+        if ((input.isKeyDown(Input.KEY_LEFT)) && !hasProperty(x - delta1, y, blocked) && (!hasProperty(x - delta1, y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_LEFT != n)
             return true;
-        if((input.isKeyDown(Input.KEY_RIGHT)) && !hasProperty(x + 2 + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + 2 + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_RIGHT != n)
+        if((input.isKeyDown(Input.KEY_RIGHT)) && !hasProperty(x + delta1 + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta1 + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_RIGHT != n)
             return true;
         return false;
     }
