@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package presentation;
 
 import java.util.Observer;
@@ -14,29 +9,23 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
-/**
- *
- * @author lorenzo
- */
 public class VistaLabirinto extends BasicGame implements Observer {
     
     private int TILE_WIDTH, TILE_HEIGHT;
+    int mem_button;
     
     boolean[][] blocked, tunnel, eat;
     
     public TiledMap mazeMap;
     
-    private Animation pacman, up, down, left, right, pill;
-    
-//    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
+    private Animation pacman, up, down, left, right, pill, pill_debug;
     
     private int x = 288, y = 512;
+    private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
+    private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
     
-//    private Music music;
-    private Sound begin, eat_pill;
     
     public VistaLabirinto() throws SlickException
     {
@@ -61,10 +50,13 @@ public class VistaLabirinto extends BasicGame implements Observer {
     @Override
     public void init(GameContainer container) throws SlickException
     {
+        
+        
         mazeMap = new TiledMap("data/Maze_nero.tmx");
         TILE_HEIGHT = mazeMap.getTileHeight();
         TILE_WIDTH = mazeMap.getTileWidth();
         
+                
         Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
         Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
         Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
@@ -78,11 +70,6 @@ public class VistaLabirinto extends BasicGame implements Observer {
         
         int [] duration = {200, 200};
         
-        /*
-        * false variable means do not auto update the animation.
-        * By setting it to false animation will update only when
-        * the user presses a key.
-        */
         up = new Animation(movementUp, duration, false);
         down = new Animation(movementDown, duration, false);
         left = new Animation(movementLeft, duration, false);
@@ -96,100 +83,107 @@ public class VistaLabirinto extends BasicGame implements Observer {
         
         Image[] p = {new Image("data/pill_nero.png"), new Image("data/pill_nero.png")};
         pill = new Animation(p, duration, false);
-        
-        begin = new Sound("data/Pacman sound/pacman_begin.wav");
-        begin.play();
-        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
+               
     }
     
-    int memoria;
-    int delta1;
     
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
-        delta = 2;
-        delta1 = delta;
+        int spostamento = 2;
         Input input = container.getInput();
         
-        if ((input.isKeyDown(Input.KEY_UP) || memoria == 1) && ((!hasProperty(x, y - delta, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta, blocked))))
-        {
-            pacman = up;
-            memoria = 1;
-            input = container.getInput();
-            if (AltroTastoPremuto(input, Input.KEY_UP)) 
-                memoria = 0;
-//            if ((!hasProperty(x, y - delta, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta, blocked)))
-//            {
-                pacman.update(delta * 10);
-                y -= delta;
-//            }
-            if ((hasProperty(x, y - delta + (TILE_HEIGHT - 1), tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y - delta, tunnel)))
-                y = TILE_HEIGHT * (mazeMap.getHeight() - 1);
+        System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
+        
+        XpmanUPsx = x; YpmanUPsx = y;
+        XpmanUPdx = x + TILE_WIDTH - 1; YpmanUPdx = y;
+        XpmanDOWNsx = x; YpmanDOWNsx = y + TILE_HEIGHT - 1;
+        XpmanDOWNdx = x + TILE_WIDTH - 1; YpmanDOWNdx = y + TILE_HEIGHT - 1;
+
+        if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!hasProperty(XpmanUPsx, YpmanUPsx - spostamento, blocked)) &&
+           (!hasProperty(XpmanUPdx, YpmanUPdx - spostamento, blocked)))){
+                
+                pacman = up;
+                mem_button = 1;
+                input = container.getInput();
+                
+                if (AltroTastoPremuto(input, Input.KEY_UP)){
+                   mem_button = 0;
+                }else{
+                    pacman.update(spostamento * 10);
+                    y -= spostamento;
+                }
         }
         
-        if ((input.isKeyDown(Input.KEY_DOWN) || memoria == 2) && !hasProperty(x, y + delta + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), blocked)))
-        {
-            pacman = down;
-            memoria = 2;
-            if (AltroTastoPremuto(input, Input.KEY_DOWN)) 
-                memoria = 0;
-//            if (!hasProperty(x, y + delta + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), blocked)))
-//            {
-                pacman.update(delta * 10);
-                y += delta;
-//            }
-            if ((hasProperty(x, y + delta, tunnel)) && (hasProperty(x + (TILE_WIDTH - 1), y + delta + (TILE_HEIGHT - 1), tunnel)))
-                y = 0;
+        if ((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && !hasProperty(XpmanDOWNsx, YpmanDOWNsx + spostamento, blocked) && 
+           (!hasProperty(XpmanDOWNdx, YpmanDOWNdx + spostamento, blocked))){
+                pacman = down;
+                mem_button = 2;
+                
+                if (AltroTastoPremuto(input, Input.KEY_DOWN)){
+                   mem_button = 0;
+                }else{
+                    pacman.update(spostamento * 10);
+                    y += spostamento;
+                }                               
         }
         
-        if ((input.isKeyDown(Input.KEY_LEFT) || memoria == 3) && !hasProperty(x - delta, y, blocked) && (!hasProperty(x - delta, y + (TILE_HEIGHT - 1), blocked)))
-        {
-            pacman = left;
-            memoria = 3;
-            if (AltroTastoPremuto(input, Input.KEY_LEFT)) 
-                memoria = 0;
-//            if (!hasProperty(x - delta, y, blocked) && (!hasProperty(x - delta, y + (TILE_HEIGHT - 1), blocked))) 
-//            {
-                pacman.update(delta * 10);
-                x -= delta;    
-//            }
-            if (hasProperty(x - delta + (TILE_WIDTH - 1), y, tunnel) && (hasProperty(x - delta, y + (TILE_HEIGHT - 1), tunnel))) 
-                x = TILE_WIDTH * (mazeMap.getWidth() - 1);
+        if ((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && !hasProperty(XpmanUPsx - spostamento, YpmanUPsx, blocked) && 
+           (!hasProperty(XpmanDOWNsx - spostamento, YpmanDOWNsx , blocked))){
+                pacman = left;
+                mem_button = 3;
+            
+                if (AltroTastoPremuto(input, Input.KEY_LEFT)){
+                   mem_button = 0;
+                }else{
+                    pacman.update(spostamento * 10);
+                    x -= spostamento;
+                }
+                
+                if (hasProperty(x - delta + (TILE_WIDTH - 1), y, tunnel) && (hasProperty(x - delta, y + (TILE_HEIGHT - 1), tunnel))) 
+                    x = TILE_WIDTH * (mazeMap.getWidth() - 1);            
         }
-        if ((input.isKeyDown(Input.KEY_RIGHT) || memoria == 4) && !hasProperty(x + delta + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)))
-        {
-            pacman = right;
-            memoria = 4;
-            if (AltroTastoPremuto(input, Input.KEY_RIGHT)) 
-                memoria = 0;
-//            if (!hasProperty(x + delta + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)))
-//            {
-                pacman.update(delta * 10);
-                x += delta;
-//            }
-            if (hasProperty(x + delta, y, tunnel) && (hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), tunnel))) 
-                x = 0;
+        
+        if ((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !hasProperty(XpmanUPdx + spostamento, YpmanUPdx, blocked) &&
+           (!hasProperty(XpmanDOWNdx + spostamento, YpmanDOWNdx, blocked))){
+                pacman = right;
+                mem_button = 4;
+                
+                if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
+                   mem_button = 0;
+                }else{
+                    pacman.update(spostamento * 10);
+                    x += spostamento;
+                }
+                
+                if (hasProperty(x + delta, y, tunnel) && (hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), tunnel))) 
+                    x = 0;
         }
     }
  
-    @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
         mazeMap.render(0, 0);
         pacman.draw(x, y);
         
-        for (int i = 0; i < mazeMap.getWidth(); i++) {
+        g.drawLine(x, y, x + 31, y);
+        g.drawLine(x + 31, y, x + 31, y + 31);
+        g.drawLine(x, y + 31, x + 31, y + 31);
+        g.drawLine(x, y, x, y + 31);
+        
+        for (int i = 0; i < mazeMap.getWidth(); i++) { 
             for (int j = 0; j < mazeMap.getHeight(); j++) {
                 if (eat[i][j] == true)
                     pill.draw(i*32, j*32);
-                if (x + 15 == i*32 + 15 && y + 15 == j*32 + 15)
-                    eat[i][j] = false;
+                if ((x  == i*32 && y == j*32) || (x +31 == i*32 +31 && y == j*32) || (x  == i*32 && y +31 == j*32+31) ||
+                   (x + 31 == i*32+31 && y + 31 == j*32+31))
+                        eat[i][j] = false;
             }
         }
     }
 
-    private boolean hasProperty(int x, int y, boolean[][] b) {
+    
+    private boolean hasProperty(int x, int y, boolean[][] b) {  //ritorna vero o falso, a seconda che la propriotà ci sia o meno
         int xP = x / TILE_WIDTH; //normalizzazione
         int yP = y / TILE_HEIGHT;
         return b[xP][yP];
@@ -198,20 +192,23 @@ public class VistaLabirinto extends BasicGame implements Observer {
     public boolean AltroTastoPremuto(Input input, int n) {
         int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
 
-//        for (int i = 0; i < UsedKeys.length; i++) {
-//            if(input.isKeyDown(UsedKeys[i]) && UsedKeys[i] != n && !hasProperty(x, y, blocked) && !hasProperty(x, y, blocked))
-//                return true;
-//        }
-
-        if ((input.isKeyDown(Input.KEY_DOWN)) && (!hasProperty(x, y + delta1 + (TILE_HEIGHT - 1), blocked) && (!hasProperty(x + (TILE_WIDTH - 1), y + delta1 + (TILE_HEIGHT - 1), blocked))) && Input.KEY_DOWN != n)
-            return true;
-        if ((input.isKeyDown(Input.KEY_UP)) && (!hasProperty(x, y - delta1, blocked)) && (!hasProperty(x + (TILE_WIDTH - 1), y - delta1, blocked)) && Input.KEY_UP != n)
-            return true;
-        if ((input.isKeyDown(Input.KEY_LEFT)) && !hasProperty(x - delta1, y, blocked) && (!hasProperty(x - delta1, y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_LEFT != n)
-            return true;
-        if((input.isKeyDown(Input.KEY_RIGHT)) && !hasProperty(x + delta1 + (TILE_WIDTH - 1), y, blocked) && (!hasProperty(x + delta1 + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), blocked)) && Input.KEY_RIGHT != n)
-            return true;
-        return false;
+        if ((input.isKeyDown(Input.KEY_DOWN)) && (!hasProperty(XpmanDOWNsx, YpmanDOWNsx + 1, blocked) &&
+            (!hasProperty(XpmanDOWNdx, YpmanDOWNdx + 1, blocked))) && Input.KEY_DOWN != n)
+                return true;
+                
+        else if ((input.isKeyDown(Input.KEY_UP)) && (!hasProperty(XpmanUPsx, YpmanUPsx - 1, blocked)) && 
+            (!hasProperty(XpmanUPdx, YpmanUPdx - 1, blocked)) && Input.KEY_UP != n)
+                return true;
+        
+        else if ((input.isKeyDown(Input.KEY_LEFT)) && !hasProperty(XpmanUPsx - 1, YpmanUPsx, blocked) &&
+           (!hasProperty(XpmanDOWNsx - 1, YpmanDOWNsx, blocked)) && Input.KEY_LEFT != n)
+                return true;
+        
+        else if((input.isKeyDown(Input.KEY_RIGHT)) && !hasProperty(XpmanUPdx + 1, YpmanUPdx, blocked) && 
+          (!hasProperty(XpmanDOWNdx + 1, YpmanDOWNdx, blocked)) && Input.KEY_RIGHT != n)
+                return true;
+        else
+            return false;
     }
 
     private boolean[][] generaMappaProprietà(String s) {
@@ -229,9 +226,8 @@ public class VistaLabirinto extends BasicGame implements Observer {
         }
         return b;
     }
-
     @Override
     public void update(java.util.Observable o, Object arg) {
-        //input = partita.getInput
+        
     }
 }
