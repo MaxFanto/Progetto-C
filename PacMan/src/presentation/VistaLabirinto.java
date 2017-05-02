@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class VistaLabirinto extends BasicGame implements Observer {
@@ -22,9 +23,14 @@ public class VistaLabirinto extends BasicGame implements Observer {
     
     private Animation pacman, up, down, left, right, pill, pill_debug;
     
+//    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
+    
     private int x = 288, y = 512;
     private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
     private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
+    
+    //    private Music music;
+    private Sound begin, eat_pill;
     
     
     public VistaLabirinto() throws SlickException
@@ -83,7 +89,10 @@ public class VistaLabirinto extends BasicGame implements Observer {
         
         Image[] p = {new Image("data/pill_nero.png"), new Image("data/pill_nero.png")};
         pill = new Animation(p, duration, false);
-               
+        
+        begin = new Sound("data/Pacman sound/pacman_begin.wav");
+        begin.play();
+        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
     }
     
     
@@ -161,6 +170,7 @@ public class VistaLabirinto extends BasicGame implements Observer {
         }
     }
  
+    @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
         mazeMap.render(0, 0);
