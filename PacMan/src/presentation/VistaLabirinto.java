@@ -1,6 +1,8 @@
 package presentation;
 
 import java.util.Observer;
+import logicModel.LabObserver;
+import logicModel.Labirinto;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -12,14 +14,16 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class VistaLabirinto extends BasicGame implements Observer {
+public class VistaLabirinto extends BasicGame implements LabObserver {
     
     private int TILE_WIDTH, TILE_HEIGHT;
     int mem_button;
+    public int [] duration;
     
     boolean[][] blocked, tunnel, eat;
     
-    public TiledMap mazeMap;
+    private TiledMap mazeMap;
+    private Input input;
     
     private Animation pacman, up, down, left, right, pill, pill_debug;
     
@@ -37,7 +41,20 @@ public class VistaLabirinto extends BasicGame implements Observer {
     {
         super("Pac-man game");
     }
- 
+
+    public Input getInput() {
+        return input;
+    }
+
+    public int getTILE_WIDTH() {
+        return TILE_WIDTH;
+    }
+
+    public int getTILE_HEIGHT() {
+        return TILE_HEIGHT;
+    }
+    
+    
     public static void main(String[] arguments) throws SlickException
     {                                        
         try
@@ -62,26 +79,8 @@ public class VistaLabirinto extends BasicGame implements Observer {
         TILE_HEIGHT = mazeMap.getTileHeight();
         TILE_WIDTH = mazeMap.getTileWidth();
         
-                
-        Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        Image [] movementRight = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        
-        for (int i = 0; i < 2; i++) {
-            movementUp[i].rotate(270);
-            movementDown[i].rotate(90);
-            movementLeft[i].rotate(180);
-        }
-        
-        int [] duration = {200, 200};
-        
-        up = new Animation(movementUp, duration, false);
-        down = new Animation(movementDown, duration, false);
-        left = new Animation(movementLeft, duration, false);
-        right = new Animation(movementRight, duration, false);
-        
-        pacman = right;
+        duration = new int[]{200, 200};        
+        inizializzaPacman();
         
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
@@ -96,11 +95,14 @@ public class VistaLabirinto extends BasicGame implements Observer {
     }
     
     
+    
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
         int spostamento = 2;
-        Input input = container.getInput();
+        input = container.getInput();
+        
+        Labirinto.AcquisisciInput(input);
         
         System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
         
@@ -108,6 +110,9 @@ public class VistaLabirinto extends BasicGame implements Observer {
         XpmanUPdx = x + TILE_WIDTH - 1; YpmanUPdx = y;
         XpmanDOWNsx = x; YpmanDOWNsx = y + TILE_HEIGHT - 1;
         XpmanDOWNdx = x + TILE_WIDTH - 1; YpmanDOWNdx = y + TILE_HEIGHT - 1;
+        
+        
+        
 
         if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!hasProperty(XpmanUPsx, YpmanUPsx - spostamento, blocked)) &&
            (!hasProperty(XpmanUPdx, YpmanUPdx - spostamento, blocked)))){
@@ -221,7 +226,7 @@ public class VistaLabirinto extends BasicGame implements Observer {
             return false;
     }
 
-    private boolean[][] generaMappaProprietà(String s) {
+    public boolean[][] generaMappaProprietà(String s) {
         boolean[][] b = new boolean[mazeMap.getWidth()][mazeMap.getHeight()];
         for (int i = 0; i < mazeMap.getWidth(); i++) {
             for (int j = 0; j < mazeMap.getHeight(); j++) {
@@ -236,8 +241,29 @@ public class VistaLabirinto extends BasicGame implements Observer {
         }
         return b;
     }
+
+    private void inizializzaPacman() throws SlickException {
+        Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        Image [] movementRight = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
+        
+        for (int i = 0; i < 2; i++) {
+            movementUp[i].rotate(270);
+            movementDown[i].rotate(90);
+            movementLeft[i].rotate(180);
+        }
+        
+        up = new Animation(movementUp, duration, false);
+        down = new Animation(movementDown, duration, false);
+        left = new Animation(movementLeft, duration, false);
+        right = new Animation(movementRight, duration, false);
+        
+        pacman = right;
+    }
+
     @Override
-    public void update(java.util.Observable o, Object arg) {
+    public void update(Labirinto labirinto) {
         
     }
 }
