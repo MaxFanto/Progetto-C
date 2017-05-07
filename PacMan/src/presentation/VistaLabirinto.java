@@ -22,7 +22,7 @@ public class VistaLabirinto extends BasicGame{
     
     boolean[][] blocked, tunnel, eat;
     
-    private TiledMap mazeMap;
+    private static TiledMap mazeMap;
     private Input input;
     
     
@@ -42,30 +42,22 @@ public class VistaLabirinto extends BasicGame{
     
 
     
-    public VistaLabirinto() throws SlickException
+    public VistaLabirinto(TiledMap mazeMap) throws SlickException
     {
         super("Pac-man game");
         factory = AnimationsFactory.getInstance();
+        this.mazeMap = mazeMap;
     }
 
     public Input getInput() {
         return input;
     }
-
-    public int getTILE_WIDTH() {
-        return TILE_WIDTH;
-    }
-
-    public int getTILE_HEIGHT() {
-        return TILE_HEIGHT;
-    }
-    
     
     public static void main(String[] arguments) throws SlickException
     {                                        
         try
         {
-            AppGameContainer app = new AppGameContainer(new VistaLabirinto());
+            AppGameContainer app = new AppGameContainer(new VistaLabirinto(mazeMap));
             app.setDisplayMode(608, 704, false);
             app.setTargetFrameRate(60);
             app.start();
@@ -79,22 +71,10 @@ public class VistaLabirinto extends BasicGame{
     @Override
     public void init(GameContainer container) throws SlickException
     {
-        
-        
-        mazeMap = new TiledMap("data/Maze_nero.tmx");
-        TILE_HEIGHT = mazeMap.getTileHeight();
-        TILE_WIDTH = mazeMap.getTileWidth();
-        
-
         pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
         
-        pill = (PillAnimation) factory.getPillAnimation();
-        
-        blocked = generaMappaProprietà("blocked");
-        tunnel = generaMappaProprietà("tunnel");
-        eat = generaMappaProprietà("eat");
-        
+        pill = (PillAnimation) factory.getPillAnimation();       
         
         begin = new Sound("data/Pacman sound/pacman_begin.wav");
         begin.play();
@@ -106,80 +86,11 @@ public class VistaLabirinto extends BasicGame{
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
-        int spostamento = 2;
         input = container.getInput();
         
-        //Labirinto.AcquisisciInput(input);
-        
-        System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
-        
-        XpmanUPsx = x; YpmanUPsx = y;
-        XpmanUPdx = x + TILE_WIDTH - 1; YpmanUPdx = y;
-        XpmanDOWNsx = x; YpmanDOWNsx = y + TILE_HEIGHT - 1;
-        XpmanDOWNdx = x + TILE_WIDTH - 1; YpmanDOWNdx = y + TILE_HEIGHT - 1;
+        Labirinto.AcquisisciInput(input);
         
         
-        
-
-        if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!hasProperty(XpmanUPsx, YpmanUPsx - spostamento, blocked)) &&
-           (!hasProperty(XpmanUPdx, YpmanUPdx - spostamento, blocked)))){
-                
-                pacman = (PacManAnimation) pacman.rotate(270);
-                mem_button = 1;
-                input = container.getInput();
-                
-                if (AltroTastoPremuto(input, Input.KEY_UP)){
-                   mem_button = 0;
-                }else{
-                    pacman.update(spostamento * 10);
-                    y -= spostamento;
-                }
-        }
-        
-        if ((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && !hasProperty(XpmanDOWNsx, YpmanDOWNsx + spostamento, blocked) && 
-           (!hasProperty(XpmanDOWNdx, YpmanDOWNdx + spostamento, blocked))){
-                pacman = (PacManAnimation) pacman.rotate(90);
-                mem_button = 2;
-                
-                if (AltroTastoPremuto(input, Input.KEY_DOWN)){
-                   mem_button = 0;
-                }else{
-                    pacman.update(spostamento * 10);
-                    y += spostamento;
-                }                               
-        }
-        
-        if ((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && !hasProperty(XpmanUPsx - spostamento, YpmanUPsx, blocked) && 
-           (!hasProperty(XpmanDOWNsx - spostamento, YpmanDOWNsx , blocked))){
-                pacman = (PacManAnimation) pacman.rotate(180);
-                mem_button = 3;
-            
-                if (AltroTastoPremuto(input, Input.KEY_LEFT)){
-                   mem_button = 0;
-                }else{
-                    pacman.update(spostamento * 10);
-                    x -= spostamento;
-                }
-                
-                if (hasProperty(x - delta + (TILE_WIDTH - 1), y, tunnel) && (hasProperty(x - delta, y + (TILE_HEIGHT - 1), tunnel))) 
-                    x = TILE_WIDTH * (mazeMap.getWidth() - 1);            
-        }
-        
-        if ((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !hasProperty(XpmanUPdx + spostamento, YpmanUPdx, blocked) &&
-           (!hasProperty(XpmanDOWNdx + spostamento, YpmanDOWNdx, blocked))){
-                pacman = (PacManAnimation) pacman.rotate(0);
-                mem_button = 4;
-                
-                if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
-                   mem_button = 0;
-                }else{
-                    pacman.update(spostamento * 10);
-                    x += spostamento;
-                }
-                
-                if (hasProperty(x + delta, y, tunnel) && (hasProperty(x + delta + (TILE_WIDTH - 1), y + (TILE_HEIGHT - 1), tunnel))) 
-                    x = 0;
-        }
     }
  
     @Override
@@ -202,50 +113,5 @@ public class VistaLabirinto extends BasicGame{
                         eat[i][j] = false;
             }
         }
-    }
-
-    
-    private boolean hasProperty(int x, int y, boolean[][] b) {  //ritorna vero o falso, a seconda che la propriotà ci sia o meno
-        int xP = x / TILE_WIDTH; //normalizzazione
-        int yP = y / TILE_HEIGHT;
-        return b[xP][yP];
-    }
-    
-    public boolean AltroTastoPremuto(Input input, int n) {
-        int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
-
-        if ((input.isKeyDown(Input.KEY_DOWN)) && (!hasProperty(XpmanDOWNsx, YpmanDOWNsx + 1, blocked) &&
-            (!hasProperty(XpmanDOWNdx, YpmanDOWNdx + 1, blocked))) && Input.KEY_DOWN != n)
-                return true;
-                
-        else if ((input.isKeyDown(Input.KEY_UP)) && (!hasProperty(XpmanUPsx, YpmanUPsx - 1, blocked)) && 
-            (!hasProperty(XpmanUPdx, YpmanUPdx - 1, blocked)) && Input.KEY_UP != n)
-                return true;
-        
-        else if ((input.isKeyDown(Input.KEY_LEFT)) && !hasProperty(XpmanUPsx - 1, YpmanUPsx, blocked) &&
-           (!hasProperty(XpmanDOWNsx - 1, YpmanDOWNsx, blocked)) && Input.KEY_LEFT != n)
-                return true;
-        
-        else if((input.isKeyDown(Input.KEY_RIGHT)) && !hasProperty(XpmanUPdx + 1, YpmanUPdx, blocked) && 
-          (!hasProperty(XpmanDOWNdx + 1, YpmanDOWNdx, blocked)) && Input.KEY_RIGHT != n)
-                return true;
-        else
-            return false;
-    }
-
-    public boolean[][] generaMappaProprietà(String s) {
-        boolean[][] b = new boolean[mazeMap.getWidth()][mazeMap.getHeight()];
-        for (int i = 0; i < mazeMap.getWidth(); i++) {
-            for (int j = 0; j < mazeMap.getHeight(); j++) {
-                
-                int tileID = mazeMap.getTileId(i, j, mazeMap.getLayerIndex("Livello tile 1"));
-                
-                String value = mazeMap.getTileProperty(tileID, s , "false");
-                if(value.equals("true")) {
-                    b[i][j] = true;
-                }
-            }
-        }
-        return b;
     }
 }
