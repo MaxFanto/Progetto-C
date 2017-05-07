@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class VistaLabirinto extends BasicGame implements LabObserver {
+public class VistaLabirinto extends BasicGame{
     
     private int TILE_WIDTH, TILE_HEIGHT;
     int mem_button;
@@ -25,7 +25,10 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
     private TiledMap mazeMap;
     private Input input;
     
-    private Animation pacman, up, down, left, right, pill, pill_debug;
+    
+    private AnimationsFactory factory;
+    private PacManAnimation pacman;
+    private PillAnimation pill;
     
 //    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
     
@@ -37,9 +40,12 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
     private Sound begin, eat_pill;
     
     
+
+    
     public VistaLabirinto() throws SlickException
     {
         super("Pac-man game");
+        factory = AnimationsFactory.getInstance();
     }
 
     public Input getInput() {
@@ -79,15 +85,16 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
         TILE_HEIGHT = mazeMap.getTileHeight();
         TILE_WIDTH = mazeMap.getTileWidth();
         
-        duration = new int[]{200, 200};        
-        inizializzaPacman();
+
+        pacman = (PacManAnimation) factory.getPacmanAnimation();
+        pacman = (PacManAnimation) pacman.rotate(0);
+        
+        pill = (PillAnimation) factory.getPillAnimation();
         
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
         eat = generaMappaProprietà("eat");
         
-        Image[] p = {new Image("data/pill_nero.png"), new Image("data/pill_nero.png")};
-        pill = new Animation(p, duration, false);
         
         begin = new Sound("data/Pacman sound/pacman_begin.wav");
         begin.play();
@@ -102,7 +109,7 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
         int spostamento = 2;
         input = container.getInput();
         
-        Labirinto.AcquisisciInput(input);
+        //Labirinto.AcquisisciInput(input);
         
         System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
         
@@ -117,7 +124,7 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
         if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!hasProperty(XpmanUPsx, YpmanUPsx - spostamento, blocked)) &&
            (!hasProperty(XpmanUPdx, YpmanUPdx - spostamento, blocked)))){
                 
-                pacman = up;
+                pacman = (PacManAnimation) pacman.rotate(270);
                 mem_button = 1;
                 input = container.getInput();
                 
@@ -131,7 +138,7 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
         
         if ((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && !hasProperty(XpmanDOWNsx, YpmanDOWNsx + spostamento, blocked) && 
            (!hasProperty(XpmanDOWNdx, YpmanDOWNdx + spostamento, blocked))){
-                pacman = down;
+                pacman = (PacManAnimation) pacman.rotate(90);
                 mem_button = 2;
                 
                 if (AltroTastoPremuto(input, Input.KEY_DOWN)){
@@ -144,7 +151,7 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
         
         if ((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && !hasProperty(XpmanUPsx - spostamento, YpmanUPsx, blocked) && 
            (!hasProperty(XpmanDOWNsx - spostamento, YpmanDOWNsx , blocked))){
-                pacman = left;
+                pacman = (PacManAnimation) pacman.rotate(180);
                 mem_button = 3;
             
                 if (AltroTastoPremuto(input, Input.KEY_LEFT)){
@@ -160,7 +167,7 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
         
         if ((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !hasProperty(XpmanUPdx + spostamento, YpmanUPdx, blocked) &&
            (!hasProperty(XpmanDOWNdx + spostamento, YpmanDOWNdx, blocked))){
-                pacman = right;
+                pacman = (PacManAnimation) pacman.rotate(0);
                 mem_button = 4;
                 
                 if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
@@ -240,30 +247,5 @@ public class VistaLabirinto extends BasicGame implements LabObserver {
             }
         }
         return b;
-    }
-
-    private void inizializzaPacman() throws SlickException {
-        Image [] movementUp = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        Image [] movementDown = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        Image [] movementLeft = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        Image [] movementRight = {new Image("data/pacman0.png"), new Image("data/pacman1.png")};
-        
-        for (int i = 0; i < 2; i++) {
-            movementUp[i].rotate(270);
-            movementDown[i].rotate(90);
-            movementLeft[i].rotate(180);
-        }
-        
-        up = new Animation(movementUp, duration, false);
-        down = new Animation(movementDown, duration, false);
-        left = new Animation(movementLeft, duration, false);
-        right = new Animation(movementRight, duration, false);
-        
-        pacman = right;
-    }
-
-    @Override
-    public void update(Labirinto labirinto) {
-        
     }
 }
