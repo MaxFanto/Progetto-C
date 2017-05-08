@@ -5,6 +5,8 @@
  */
 package logicModel;
 
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author cl427927
@@ -14,11 +16,8 @@ public class Partita {
     Fantasma akabei, aosuke;
     Labirinto labirinto;
 
-    public Partita() {
-//        pacMan = new PacMan();
-        akabei = new Akabei(0, 0);
-        aosuke = new Aosuke(0, 0);
-        //labirinto = new Labirinto(0,0,0);
+    public Partita() throws SlickException {
+        //labirinto = new Labirinto();
     }
     
     

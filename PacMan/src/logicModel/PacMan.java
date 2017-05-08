@@ -46,12 +46,12 @@ public class PacMan extends Giocatore {
     public void setPower(boolean power) {this.power = power;}
     
     
-    public void movimento(int x, int y){
-        if(x != 0)
-            setXPos(x);
-        if(y != 0)
-            setYPos(y);
-    }
+//    public void movimento(int x, int y){
+//        if(x != 0)
+//            setXPos(x);
+//        if(y != 0)
+//            setYPos(y);
+//    }
     
     
         

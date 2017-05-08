@@ -8,7 +8,9 @@ package logicModel;
 import altro.Frutto;
 import altro.Tile;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Random;
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -18,7 +20,7 @@ import presentation.VistaLabirinto;
  *
  * @author lorenzo
  */
-public class Labirinto {
+public class Labirinto extends Observable{
     
     private TiledMap mazeMap;
         
@@ -27,30 +29,29 @@ public class Labirinto {
     private final Double[] POWER_PILL_3 = new Double[]{0.3,0.7};
     private final Double[] POWER_PILL_4 = new Double[]{0.3,0.7};
     
-    private int larghezza, altezza, numTiles, mem_button, tile_width, tile_height, x, y;
+    private int  mem_button;
     private Tile[][] tiles;
     
     private ArrayList<Double[]> powerPills;
     
-    private VistaLabirinto vistaLabirinto;
-    private static Input input;
+    private VistaLabirinto vistaLabirinto;//observer
+    
+    
+    private Input input;
     private PacMan pacman;
     
     private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
     private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
 
-    public Labirinto(int larghezza, int altezza, int numTiles) throws SlickException {
-        this.larghezza = larghezza;
-        this.altezza = altezza;
-        this.numTiles = numTiles;
-        mazeMap = new TiledMap("data/Maze_nero.tmx");
-        
-        this.vistaLabirinto = new VistaLabirinto(mazeMap);
+    public Labirinto(VistaLabirinto vistaLabirinto) throws SlickException {
+
+        this.vistaLabirinto = vistaLabirinto;
+        mazeMap = vistaLabirinto.getMazeMap();
         inizializzazioneTiles();
         pacman = new PacMan();
-        
-        generaPowerPills();
 
+        //generaPowerPills();
+        
     }
     private void inizializzazioneTiles(){
         boolean[][] blocked = generaMappaProprietà("blocked");
@@ -69,18 +70,15 @@ public class Labirinto {
         powerPills.add(POWER_PILL_3);
         powerPills.add(POWER_PILL_4);
     }
-    
-    public static void AcquisisciInput(Input input){
-        Labirinto.input = input;
-    }
-    
-    
+
     
     private void movimento(){
         
+        this.input = vistaLabirinto.getInput();
+        
         int spostamento = 20;
-        x = pacman.getxPos();
-        y = pacman.getyPos();
+        int x = pacman.getxPos();
+        int y = pacman.getyPos();
         
         int tHeight = tiles[0][0].getTILE_HEIGHT();
         int tWidth = tiles[0][0].getTILE_WIDTH();
@@ -98,7 +96,7 @@ public class Labirinto {
                 //pacman = up; da mettere nel render
                 mem_button = 1; 
                 
-                if (AltroTastoPremuto(Labirinto.input, Input.KEY_UP)){
+                if (AltroTastoPremuto(input, Input.KEY_UP)){
                    mem_button = 0;
                 }else{
                     //pacman.update(spostamento * 10); va nel render
@@ -152,7 +150,7 @@ public class Labirinto {
         }
     }
     
-        public boolean AltroTastoPremuto(Input input, int n) {
+    public boolean AltroTastoPremuto(Input input, int n) {
         int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
 
         if ((input.isKeyDown(Input.KEY_DOWN)) && (!tiles[XpmanDOWNsx][YpmanDOWNsx + 1].isBlocked()) &&
@@ -175,7 +173,11 @@ public class Labirinto {
     }
         
     public boolean[][] generaMappaProprietà(String s) {
-        boolean[][] b = new boolean[mazeMap.getWidth()][mazeMap.getHeight()];
+        
+        int altezza = mazeMap.getHeight();
+        int larghezza = mazeMap.getWidth();
+        
+        boolean[][] b = new boolean[larghezza][altezza];
         for (int i = 0; i < mazeMap.getWidth(); i++) {
             for (int j = 0; j < mazeMap.getHeight(); j++) {
                 
@@ -212,4 +214,18 @@ public class Labirinto {
         }
         return null;
     }
+    
+//    private void startGame(){
+//                try
+//        {
+//            AppGameContainer app = new AppGameContainer(vistaLabirinto);
+//            app.setDisplayMode(608, 704, false);
+//            app.setTargetFrameRate(60);
+//            app.start();
+//        }
+//        catch (SlickException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
 }

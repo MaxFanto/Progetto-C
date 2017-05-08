@@ -1,5 +1,6 @@
 package presentation;
 
+import java.util.Observable;
 import java.util.Observer;
 import logicModel.LabObserver;
 import logicModel.Labirinto;
@@ -23,7 +24,9 @@ public class VistaLabirinto extends BasicGame{
     boolean[][] blocked, tunnel, eat;
     
     private static TiledMap mazeMap;
-    private Input input;
+    
+    
+    private Input input;//prendiamo info da qui
     
     
     private AnimationsFactory factory;
@@ -42,35 +45,37 @@ public class VistaLabirinto extends BasicGame{
     
 
     
-    public VistaLabirinto(TiledMap mazeMap) throws SlickException
+    public VistaLabirinto() throws SlickException
     {
         super("Pac-man game");
         factory = AnimationsFactory.getInstance();
-        this.mazeMap = mazeMap;
+        
     }
 
-    public Input getInput() {
-        return input;
+    public Input getInput() {return input;}
+    public TiledMap getMazeMap() {
+        return mazeMap;
     }
     
     public static void main(String[] arguments) throws SlickException
     {                                        
-        try
-        {
-            AppGameContainer app = new AppGameContainer(new VistaLabirinto(mazeMap));
-            app.setDisplayMode(608, 704, false);
-            app.setTargetFrameRate(60);
-            app.start();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            AppGameContainer app = new AppGameContainer(new VistaLabirinto(mazeMap));
+//            app.setDisplayMode(608, 704, false);
+//            app.setTargetFrameRate(60);
+//            app.start();
+//        }
+//        catch (SlickException e)
+//        {
+//            e.printStackTrace();
+//        }
     }
  
     @Override
     public void init(GameContainer container) throws SlickException
     {
+        mazeMap = new TiledMap("data/Maze_nero.tmx");
         pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
         
@@ -87,10 +92,6 @@ public class VistaLabirinto extends BasicGame{
     public void update(GameContainer container, int delta) throws SlickException
     {
         input = container.getInput();
-        
-        Labirinto.AcquisisciInput(input);
-        
-        
     }
  
     @Override
@@ -114,4 +115,6 @@ public class VistaLabirinto extends BasicGame{
             }
         }
     }  
+
+
 }
