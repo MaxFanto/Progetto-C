@@ -54,9 +54,9 @@ public class Labirinto extends Observable{
         
     }
     private void inizializzazioneTiles(){
-        boolean[][] blocked = generaMappaProprietà("blocked");
-        boolean[][] tunnel = generaMappaProprietà("tunnel");
-        boolean[][] eat = generaMappaProprietà("eat");
+        boolean[][] blocked = vistaLabirinto.getBlocked();
+        boolean[][] tunnel = vistaLabirinto.getTunnel();
+        boolean[][] eat = vistaLabirinto.getEat();
         
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {

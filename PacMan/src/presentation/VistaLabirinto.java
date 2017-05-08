@@ -49,33 +49,38 @@ public class VistaLabirinto extends BasicGame{
     {
         super("Pac-man game");
         factory = AnimationsFactory.getInstance();
-        
     }
 
     public Input getInput() {return input;}
-    public TiledMap getMazeMap() {
-        return mazeMap;
-    }
+    public TiledMap getMazeMap() {return mazeMap;}
+    public boolean[][] getBlocked() {return blocked;}
+    public boolean[][] getTunnel() {return tunnel;}
+    public boolean[][] getEat() {return eat;}
+    
     
     public static void main(String[] arguments) throws SlickException
     {                                        
-//        try
-//        {
-//            AppGameContainer app = new AppGameContainer(new VistaLabirinto(mazeMap));
-//            app.setDisplayMode(608, 704, false);
-//            app.setTargetFrameRate(60);
-//            app.start();
-//        }
-//        catch (SlickException e)
-//        {
-//            e.printStackTrace();
-//        }
+        try
+        {
+            AppGameContainer app = new AppGameContainer(new VistaLabirinto());
+            app.setDisplayMode(608, 704, false);
+            app.setTargetFrameRate(60);
+            app.start();
+        }
+        catch (SlickException e)
+        {
+            e.printStackTrace();
+        }
     }
  
     @Override
     public void init(GameContainer container) throws SlickException
     {
         mazeMap = new TiledMap("data/Maze_nero.tmx");
+        blocked = generaMappaProprietà("blocked");
+        tunnel = generaMappaProprietà("tunnel");
+        eat = generaMappaProprietà("eat");
+        
         pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
         
@@ -115,6 +120,26 @@ public class VistaLabirinto extends BasicGame{
             }
         }
     }  
-
+    
+    
+    private boolean[][] generaMappaProprietà(String s) {
+        
+        int altezza = mazeMap.getHeight();
+        int larghezza = mazeMap.getWidth();
+        
+        boolean[][] b = new boolean[larghezza][altezza];
+        for (int i = 0; i < mazeMap.getWidth(); i++) {
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
+                
+                int tileID = mazeMap.getTileId(i, j, mazeMap.getLayerIndex("Livello tile 1"));
+                
+                String value = mazeMap.getTileProperty(tileID, s , "false");
+                if(value.equals("true")) {
+                    b[i][j] = true;
+                }
+            }
+        }
+        return b;
+    }
 
 }

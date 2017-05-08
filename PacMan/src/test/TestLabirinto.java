@@ -1,3 +1,4 @@
+package test;
 
 import logicModel.Labirinto;
 import logicModel.Partita;
@@ -16,7 +17,7 @@ import presentation.VistaLabirinto;
  *
  * @author cl427927
  */
-public class TestPartita {
+public class TestLabirinto {
     public static void main(String[] args) throws SlickException {
         Labirinto labirinto;
 

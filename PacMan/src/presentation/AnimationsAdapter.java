@@ -9,6 +9,6 @@ package presentation;
  *
  * @author mattia
  */
-public interface AnimationsAdapter {
+public interface AnimationsAdapter{
     
 }
