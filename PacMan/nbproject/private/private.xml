@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/mattia/NetBeansProjects/Progetto-C/PacMan/src/logicModel/Partita.java</file>
-            <file>file:/home/mattia/NetBeansProjects/Progetto-C/PacMan/src/presentation/AnimationsAdapter.java</file>
-            <file>file:/home/mattia/NetBeansProjects/Progetto-C/PacMan/src/presentation/GhostAnimation.java</file>
-            <file>file:/home/mattia/NetBeansProjects/Progetto-C/PacMan/src/presentation/AnimationsFactory.java</file>
-            <file>file:/home/mattia/NetBeansProjects/Progetto-C/PacMan/src/presentation/VistaLabirinto.java</file>
-            <file>file:/home/mattia/NetBeansProjects/Progetto-C/PacMan/src/presentation/PacManAnimation.java</file>
-            <file>file:/home/mattia/NetBeansProjects/Progetto-C/PacMan/src/logicModel/Labirinto.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/presentation/VistaLabirinto.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/presentation/PacManAnimation.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/logicModel/Giocatore.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/logicModel/Labirinto.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/logicModel/Partita.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/altro/Tile.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/logicModel/PacMan.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/presentation/AnimationsFactory.java</file>
+            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/presentation/AnimationsAdapter.java</file>
         </group>
     </open-files>
 </project-private>

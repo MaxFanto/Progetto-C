@@ -113,5 +113,5 @@ public class VistaLabirinto extends BasicGame{
                         eat[i][j] = false;
             }
         }
-    }
+    }  
 }

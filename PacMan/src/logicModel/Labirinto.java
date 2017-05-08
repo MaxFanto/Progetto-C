@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
 import presentation.VistaLabirinto;
 
 /**
@@ -18,13 +19,15 @@ import presentation.VistaLabirinto;
  * @author lorenzo
  */
 public class Labirinto {
+    
+    private TiledMap mazeMap;
         
     private final Double[] POWER_PILL_1 = new Double[]{0.3,0.7};
     private final Double[] POWER_PILL_2 = new Double[]{0.3,0.7};
     private final Double[] POWER_PILL_3 = new Double[]{0.3,0.7};
     private final Double[] POWER_PILL_4 = new Double[]{0.3,0.7};
     
-    private int larghezza, altezza, numTiles, mem_button;
+    private int larghezza, altezza, numTiles, mem_button, tile_width, tile_height, x, y;
     private Tile[][] tiles;
     
     private ArrayList<Double[]> powerPills;
@@ -36,12 +39,13 @@ public class Labirinto {
     private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
     private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
 
-    public Labirinto(int larghezza, int altezza, int numTiles, VistaLabirinto vistaLabirinto) throws SlickException {
+    public Labirinto(int larghezza, int altezza, int numTiles) throws SlickException {
         this.larghezza = larghezza;
         this.altezza = altezza;
         this.numTiles = numTiles;
+        mazeMap = new TiledMap("data/Maze_nero.tmx");
         
-        this.vistaLabirinto = vistaLabirinto;
+        this.vistaLabirinto = new VistaLabirinto(mazeMap);
         inizializzazioneTiles();
         pacman = new PacMan();
         
@@ -49,13 +53,13 @@ public class Labirinto {
 
     }
     private void inizializzazioneTiles(){
-        boolean[][] blocked = vistaLabirinto.generaMappaProprietà("blocked");
-        boolean[][] tunnel = vistaLabirinto.generaMappaProprietà("tunnel");
-        boolean[][] eat = vistaLabirinto.generaMappaProprietà("eat");
+        boolean[][] blocked = generaMappaProprietà("blocked");
+        boolean[][] tunnel = generaMappaProprietà("tunnel");
+        boolean[][] eat = generaMappaProprietà("eat");
         
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                tiles[i][j] = new Tile(vistaLabirinto.getTILE_WIDTH(),vistaLabirinto.getTILE_HEIGHT(),blocked[i][j],tunnel[i][j],eat[i][j]);
+                tiles[i][j] = new Tile(mazeMap.getTileWidth(), mazeMap.getTileHeight(), blocked[i][j], tunnel[i][j], eat[i][j]);
             }
         }
     }
@@ -75,8 +79,8 @@ public class Labirinto {
     private void movimento(){
         
         int spostamento = 20;
-        int x = pacman.getxPos();
-        int y = pacman.getyPos();
+        x = pacman.getxPos();
+        y = pacman.getyPos();
         
         int tHeight = tiles[0][0].getTILE_HEIGHT();
         int tWidth = tiles[0][0].getTILE_WIDTH();
@@ -133,13 +137,13 @@ public class Labirinto {
         
         if (((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !tiles[(XpmanUPdx + spostamento)/tWidth][YpmanUPdx/tHeight].isBlocked()) &&
            (!tiles[(XpmanDOWNdx + spostamento)/tWidth][YpmanDOWNdx/tHeight].isBlocked())){
-                pacman = right;
+                //pacman = right;
                 mem_button = 4;
                 
                 if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
                    mem_button = 0;
                 }else{
-                    pacman.update(spostamento * 10);
+                    //pacman.update(spostamento * 10);
                     x += spostamento;
                 }
                 
@@ -168,6 +172,22 @@ public class Labirinto {
                 return true;
         else
             return false;
+    }
+        
+    public boolean[][] generaMappaProprietà(String s) {
+        boolean[][] b = new boolean[mazeMap.getWidth()][mazeMap.getHeight()];
+        for (int i = 0; i < mazeMap.getWidth(); i++) {
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
+                
+                int tileID = mazeMap.getTileId(i, j, mazeMap.getLayerIndex("Livello tile 1"));
+                
+                String value = mazeMap.getTileProperty(tileID, s , "false");
+                if(value.equals("true")) {
+                    b[i][j] = true;
+                }
+            }
+        }
+        return b;
     }
     
     public Frutto generaFrutto(){

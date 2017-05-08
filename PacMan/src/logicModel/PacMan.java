@@ -20,8 +20,8 @@ public class PacMan extends Giocatore {
     /*
     TODO: definire le posizioni iniziali di PacMan
     */
-    private final int X_MAIN_POS = 32;
-    private final int Y_MAIN_POS = 32;
+    private final int X_MAIN_POS = 288;
+    private final int Y_MAIN_POS = 512;
     private final int MAIN_VITE = 5;
     
 
@@ -52,9 +52,7 @@ public class PacMan extends Giocatore {
         if(y != 0)
             setYPos(y);
     }
-    private void setXPos(int x){xPos += x;}
-    private void setYPos(int y){yPos += y;}
     
     
-    
+        
 }
