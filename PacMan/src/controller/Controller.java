@@ -9,6 +9,7 @@ import model.Labirinto;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
 import view.VistaLabirinto;
 
 /**
@@ -20,13 +21,13 @@ public class Controller {
     private Labirinto labirinto;
     private Input input;
 
-    public void setInput(Input input) {
+    public int[] setInput(Input input) {
         this.input = input;
-        sendInput();
+        return sendInput();
     }
 
-    public void initLabirinto(VistaLabirinto vistaLabirinto) throws SlickException{
-        labirinto = new Labirinto(vistaLabirinto);
+    public void initLabirinto(TiledMap mazeMap) throws SlickException{
+        labirinto = new Labirinto(mazeMap);
     }
     
     public void startGame(){
@@ -44,7 +45,9 @@ public class Controller {
         }
     }
     
-    private void sendInput(){
-        labirinto.movimento(input);
+    private int[] sendInput(){
+        int[] a = new int[2];
+        a = labirinto.movimento(input);
+        return a;
     }
 }

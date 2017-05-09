@@ -29,39 +29,43 @@ public class Labirinto extends Observable{
     private final Double[] POWER_PILL_3 = new Double[]{0.3,0.7};
     private final Double[] POWER_PILL_4 = new Double[]{0.3,0.7};
     
-    private int  mem_button;
+    private int  mem_button, x, y;
     private Tile[][] tiles;
     
     private ArrayList<Double[]> powerPills;
     
-    private VistaLabirinto vistaLabirinto;//observer
+    private int tile_width, tile_height;
    
     private PacMan pacman;
     
     private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
     private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
 
-    public Labirinto(VistaLabirinto vistaLabirinto) throws SlickException {
+    public Labirinto(TiledMap mazeMap) throws SlickException {
 
-        this.vistaLabirinto = vistaLabirinto;
-        mazeMap = vistaLabirinto.getMazeMap();
+        this.mazeMap = mazeMap;
         inizializzazioneTiles();
         pacman = new PacMan();
+        tile_width = mazeMap.getTileWidth();
+        tile_height = mazeMap.getTileHeight();
+        x = pacman.getxPos();
+        y = pacman.getyPos();
+        
 
         //generaPowerPills();
         
     }
   
     private void inizializzazioneTiles(){
-        boolean[][] blocked = vistaLabirinto.getBlocked();
-        boolean[][] tunnel = vistaLabirinto.getTunnel();
-        boolean[][] eat = vistaLabirinto.getEat();
+        boolean[][] blocked = generaMappaProprietà("blocked");
+        boolean[][] tunnel = generaMappaProprietà("tunnel");
+        boolean[][] eat = generaMappaProprietà("eat");
         tiles = new Tile[mazeMap.getWidth()][mazeMap.getHeight()];
         
         
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                tiles[i][j] = new Tile(mazeMap.getTileWidth(), mazeMap.getTileHeight(), blocked[i][j], tunnel[i][j], eat[i][j]);
+        for (int i = 0; i < mazeMap.getWidth(); i++) {
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
+                tiles[i][j] = new Tile(tile_width, tile_height, blocked[i][j], tunnel[i][j], eat[i][j]);
             }
         }
     }
@@ -73,24 +77,19 @@ public class Labirinto extends Observable{
     }
 
     
-    public void movimento(Input input){
+    public int[] movimento(Input input){
         
-        int spostamento = 20;
-        int x = pacman.getxPos();
-        int y = pacman.getyPos();
-        
-        int tHeight = tiles[0][0].getTILE_HEIGHT();
-        int tWidth = tiles[0][0].getTILE_WIDTH();
+        int spostamento = 2;
         
         System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
         
         XpmanUPsx = x; YpmanUPsx = y;
-        XpmanUPdx = x + tWidth - 1; YpmanUPdx = y;
-        XpmanDOWNsx = x; YpmanDOWNsx = y + tHeight - 1;
-        XpmanDOWNdx = x + tWidth - 1; YpmanDOWNdx = y + tHeight - 1;
+        XpmanUPdx = x + tile_width - 1; YpmanUPdx = y;
+        XpmanDOWNsx = x; YpmanDOWNsx = y + tile_height - 1;
+        XpmanDOWNdx = x + tile_width - 1; YpmanDOWNdx = y + tile_height - 1;
 
-        if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!tiles[XpmanUPsx/tWidth][(YpmanUPsx - spostamento)/tHeight].isBlocked())) &&
-           (!tiles[XpmanUPdx/tWidth][(YpmanUPdx - spostamento)/tHeight].isBlocked())){
+        if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!tiles[XpmanUPsx/tile_width][(YpmanUPsx - spostamento)/tile_height].isBlocked())) &&
+           (!tiles[XpmanUPdx/tile_width][(YpmanUPdx - spostamento)/tile_height].isBlocked())){
                 
                 //pacman = up; da mettere nel render
                 mem_button = 1; 
@@ -103,8 +102,8 @@ public class Labirinto extends Observable{
                 }
         }
         
-        if (((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && !tiles[XpmanDOWNsx/tWidth][(YpmanDOWNsx + spostamento)/tHeight].isBlocked()) && 
-           (!tiles[XpmanDOWNdx/tWidth][(YpmanDOWNdx + spostamento)/tHeight].isBlocked())){
+        if (((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && !tiles[XpmanDOWNsx/tile_width][(YpmanDOWNsx + spostamento)/tile_height].isBlocked()) && 
+           (!tiles[XpmanDOWNdx/tile_width][(YpmanDOWNdx + spostamento)/tile_height].isBlocked())){
                 //pacman = down;
                 mem_button = 2;
                 
@@ -116,8 +115,8 @@ public class Labirinto extends Observable{
                 }                               
         }
         
-        if (((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && !tiles[(XpmanUPsx - spostamento)/tWidth][YpmanUPsx/tHeight].isBlocked()) && 
-           (!tiles[(XpmanDOWNsx - spostamento)/tWidth][YpmanDOWNsx/tHeight].isBlocked())){
+        if (((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && !tiles[(XpmanUPsx - spostamento)/tile_width][YpmanUPsx/tile_height].isBlocked()) && 
+           (!tiles[(XpmanDOWNsx - spostamento)/tile_width][YpmanDOWNsx/tile_height].isBlocked())){
                 //pacman = left;
                 mem_button = 3;
             
@@ -128,12 +127,12 @@ public class Labirinto extends Observable{
                     x -= spostamento;
                 }
                 
-                if ((tiles[XpmanUPdx - spostamento][YpmanUPsx].isTunnel()) && (tiles[XpmanUPsx - spostamento][YpmanDOWNdx].isTunnel())) 
-                    x = tWidth * (mazeMap.getWidth() - 1);            
+                if ((tiles[(XpmanUPdx - spostamento)/tile_width][YpmanUPsx/tile_height].isTunnel()) && (tiles[(XpmanUPsx - spostamento)/tile_width][YpmanDOWNdx/tile_height].isTunnel())) 
+                    x = tile_width * (mazeMap.getWidth() - 1);            
         }
         
-        if (((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !tiles[(XpmanUPdx + spostamento)/tWidth][YpmanUPdx/tHeight].isBlocked()) &&
-           (!tiles[(XpmanDOWNdx + spostamento)/tWidth][YpmanDOWNdx/tHeight].isBlocked())){
+        if (((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !tiles[(XpmanUPdx + spostamento)/tile_width][YpmanUPdx/tile_height].isBlocked()) &&
+           (!tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isBlocked())){
                 //pacman = right;
                 mem_button = 4;
                 
@@ -144,28 +143,32 @@ public class Labirinto extends Observable{
                     x += spostamento;
                 }
                 
-                if ((tiles[XpmanUPsx + spostamento][YpmanUPsx].isTunnel()) && (tiles[XpmanDOWNdx + spostamento][YpmanDOWNdx].isTunnel()))
+                if ((tiles[(XpmanUPsx + spostamento)/tile_width][YpmanUPsx/tile_height].isTunnel()) && (tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isTunnel()))
                     x = 0;
         }
+        int[] a = new int[2];
+        a[0] = x;
+        a[1] = y;
+        return a;
     }
     
     public boolean AltroTastoPremuto(Input input, int n) {
         int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
 
-        if ((input.isKeyDown(Input.KEY_DOWN)) && (!tiles[XpmanDOWNsx][YpmanDOWNsx + 1].isBlocked()) &&
-            (!tiles[XpmanDOWNdx][YpmanDOWNdx + 1].isBlocked()) && Input.KEY_DOWN != n)
+        if ((input.isKeyDown(Input.KEY_DOWN)) && (!tiles[XpmanDOWNsx/tile_width][(YpmanDOWNsx + 1)/tile_height].isBlocked()) &&
+            (!tiles[XpmanDOWNdx/tile_width][(YpmanDOWNdx + 1)/tile_height].isBlocked()) && Input.KEY_DOWN != n)
                 return true;
                 
-        else if ((input.isKeyDown(Input.KEY_UP)) && (!tiles[XpmanUPsx][YpmanUPsx - 1].isBlocked()) && 
-            (!tiles[XpmanUPdx][YpmanUPdx - 1].isBlocked()) && Input.KEY_UP != n)
+        else if ((input.isKeyDown(Input.KEY_UP)) && (!tiles[XpmanUPsx/tile_width][(YpmanUPsx - 1)/tile_height].isBlocked()) && 
+            (!tiles[XpmanUPdx/tile_width][(YpmanUPdx - 1)/tile_height].isBlocked()) && Input.KEY_UP != n)
                 return true;
         
-        else if ((input.isKeyDown(Input.KEY_LEFT)) && (!tiles[XpmanUPsx - 1][YpmanUPsx].isBlocked()) &&
-           (!tiles[XpmanDOWNsx - 1][YpmanDOWNsx].isBlocked()) && Input.KEY_LEFT != n)
+        else if ((input.isKeyDown(Input.KEY_LEFT)) && (!tiles[(XpmanUPsx - 1)/tile_width][YpmanUPsx/tile_height].isBlocked()) &&
+           (!tiles[(XpmanDOWNsx - 1)/tile_width][YpmanDOWNsx/tile_height].isBlocked()) && Input.KEY_LEFT != n)
                 return true;
         
-        else if((input.isKeyDown(Input.KEY_RIGHT)) && (!tiles[XpmanUPdx + 1][YpmanUPdx].isBlocked()) && 
-          (!tiles[XpmanDOWNdx + 1][YpmanDOWNdx].isBlocked()) && Input.KEY_RIGHT != n)
+        else if((input.isKeyDown(Input.KEY_RIGHT)) && (!tiles[(XpmanUPdx + 1)/tile_width][YpmanUPdx/tile_height].isBlocked()) && 
+          (!tiles[(XpmanDOWNdx + 1)/tile_width][YpmanDOWNdx/tile_height].isBlocked()) && Input.KEY_RIGHT != n)
                 return true;
         else
             return false;
@@ -213,18 +216,4 @@ public class Labirinto extends Observable{
         }
         return null;
     }
-    
-//    private void startGame(){
-//                try
-//        {
-//            AppGameContainer app = new AppGameContainer(vistaLabirinto);
-//            app.setDisplayMode(608, 704, false);
-//            app.setTargetFrameRate(60);
-//            app.start();
-//        }
-//        catch (SlickException e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
 }

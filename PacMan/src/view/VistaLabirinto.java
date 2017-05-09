@@ -94,7 +94,7 @@ public class VistaLabirinto extends BasicGame{
         begin.play();
         eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
         
-        controller.initLabirinto(this);
+        controller.initLabirinto(mazeMap);
     }
     
     
@@ -102,7 +102,12 @@ public class VistaLabirinto extends BasicGame{
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
-        controller.setInput(container.getInput());
+        int[] a = new int[2]; 
+        input = container.getInput();
+        
+        a = controller.setInput(input);
+        x = a[0];
+        y = a[1];
     }
     
  
@@ -147,6 +152,14 @@ public class VistaLabirinto extends BasicGame{
             }
         }
         return b;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
 }
