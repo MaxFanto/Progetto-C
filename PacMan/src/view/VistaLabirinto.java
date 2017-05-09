@@ -61,22 +61,6 @@ public class VistaLabirinto extends BasicGame{
     public boolean[][] getTunnel() {return tunnel;}
     public boolean[][] getEat() {return eat;}
     
-    
-    public static void main(String[] arguments) throws SlickException
-    {                                        
-//        try
-//        {
-//            AppGameContainer app = new AppGameContainer(new VistaLabirinto());
-//            app.setDisplayMode(608, 704, false);
-//            app.setTargetFrameRate(60);
-//            app.start();
-//        }
-//        catch (SlickException e)
-//        {
-//            e.printStackTrace();
-//        }
-    }
- 
     @Override
     public void init(GameContainer container) throws SlickException
     {
@@ -105,9 +89,13 @@ public class VistaLabirinto extends BasicGame{
         int[] a = new int[2]; 
         input = container.getInput();
         
+        if()
+        
         a = controller.setInput(input);
         x = a[0];
         y = a[1];
+        pacman.update(20);
+        
     }
     
  
