@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logicModel;
+package model;
 
 import altro.Frutto;
 import altro.Tile;
@@ -14,7 +14,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import presentation.VistaLabirinto;
+import view.VistaLabirinto;
 
 /**
  *
@@ -35,9 +35,7 @@ public class Labirinto extends Observable{
     private ArrayList<Double[]> powerPills;
     
     private VistaLabirinto vistaLabirinto;//observer
-    
-    
-    private Input input;
+   
     private PacMan pacman;
     
     private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
@@ -53,10 +51,13 @@ public class Labirinto extends Observable{
         //generaPowerPills();
         
     }
+  
     private void inizializzazioneTiles(){
         boolean[][] blocked = vistaLabirinto.getBlocked();
         boolean[][] tunnel = vistaLabirinto.getTunnel();
         boolean[][] eat = vistaLabirinto.getEat();
+        tiles = new Tile[mazeMap.getWidth()][mazeMap.getHeight()];
+        
         
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -72,9 +73,7 @@ public class Labirinto extends Observable{
     }
 
     
-    private void movimento(){
-        
-        this.input = vistaLabirinto.getInput();
+    public void movimento(Input input){
         
         int spostamento = 20;
         int x = pacman.getxPos();

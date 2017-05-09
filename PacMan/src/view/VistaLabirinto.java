@@ -1,9 +1,12 @@
-package presentation;
+package view;
 
+import controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
-import logicModel.LabObserver;
-import logicModel.Labirinto;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.LabObserver;
+import model.Labirinto;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -23,7 +26,7 @@ public class VistaLabirinto extends BasicGame{
     
     boolean[][] blocked, tunnel, eat;
     
-    private static TiledMap mazeMap;
+    private TiledMap mazeMap;
     
     
     private Input input;//prendiamo info da qui
@@ -42,13 +45,14 @@ public class VistaLabirinto extends BasicGame{
     //    private Music music;
     private Sound begin, eat_pill;
     
-    
+    private Controller controller;
 
     
-    public VistaLabirinto() throws SlickException
+    public VistaLabirinto(Controller controller) throws SlickException
     {
         super("Pac-man game");
         factory = AnimationsFactory.getInstance();
+        this.controller = controller;
     }
 
     public Input getInput() {return input;}
@@ -60,17 +64,17 @@ public class VistaLabirinto extends BasicGame{
     
     public static void main(String[] arguments) throws SlickException
     {                                        
-        try
-        {
-            AppGameContainer app = new AppGameContainer(new VistaLabirinto());
-            app.setDisplayMode(608, 704, false);
-            app.setTargetFrameRate(60);
-            app.start();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            AppGameContainer app = new AppGameContainer(new VistaLabirinto());
+//            app.setDisplayMode(608, 704, false);
+//            app.setTargetFrameRate(60);
+//            app.start();
+//        }
+//        catch (SlickException e)
+//        {
+//            e.printStackTrace();
+//        }
     }
  
     @Override
@@ -89,6 +93,8 @@ public class VistaLabirinto extends BasicGame{
         begin = new Sound("data/Pacman sound/pacman_begin.wav");
         begin.play();
         eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
+        
+        controller.initLabirinto(this);
     }
     
     
@@ -96,8 +102,9 @@ public class VistaLabirinto extends BasicGame{
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
-        input = container.getInput();
+        controller.setInput(container.getInput());
     }
+    
  
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException

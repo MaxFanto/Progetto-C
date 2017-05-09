@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logicModel;
+package model;
 
 import java.util.Observable;
 import org.newdawn.slick.Image;
@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author cl427927
  */
-public abstract class Giocatore extends Observable {
+public abstract class Giocatore{
     private String nome;
     private int punteggio;
     

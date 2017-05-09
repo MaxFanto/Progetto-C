@@ -1,11 +1,13 @@
 package test;
 
-import logicModel.Labirinto;
-import logicModel.Partita;
+import controller.Controller;
+import model.Labirinto;
+import model.Partita;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Game;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import presentation.VistaLabirinto;
+import view.VistaLabirinto;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,21 +20,9 @@ import presentation.VistaLabirinto;
  * @author cl427927
  */
 public class TestLabirinto {
-    public static void main(String[] args) throws SlickException {
-        Labirinto labirinto;
+    public static void main(String[] args) throws SlickException, InterruptedException {
 
-        try
-        {
-            VistaLabirinto vl = new VistaLabirinto();
-            AppGameContainer app = new AppGameContainer(vl);
-            app.setDisplayMode(608, 704, false);
-            app.setTargetFrameRate(60);
-            app.start();
-            //VistaLabirinto vistalabirinto = new VistaLabirinto();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-        }
+        Controller controller = new Controller();
+        controller.startGame();
     }
 }
