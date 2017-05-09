@@ -80,17 +80,13 @@ public class VistaLabirinto extends BasicGame{
         
         controller.initLabirinto(mazeMap);
     }
-    
-    
-    
+    int xp = x, yp = y;
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
         int[] a = new int[2]; 
         input = container.getInput();
-        
-        if()
-        
+        aggiornaOrientamento(x,y,xp,yp);
         a = controller.setInput(input);
         x = a[0];
         y = a[1];
@@ -148,6 +144,20 @@ public class VistaLabirinto extends BasicGame{
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    private void aggiornaOrientamento(int x, int y, int xp1, int yp1) {
+        if(x < xp)
+            pacman = (PacManAnimation) pacman.rotate(180);
+        if(x > xp)
+            pacman = (PacManAnimation) pacman.rotate(0);
+        if(y > yp)
+            pacman = (PacManAnimation) pacman.rotate(90);
+        if(y < yp)
+            pacman = (PacManAnimation) pacman.rotate(270);
+        
+        xp = x;
+        yp = y;
     }
 
 }
