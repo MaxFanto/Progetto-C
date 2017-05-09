@@ -89,9 +89,7 @@ public class VistaLabirinto extends BasicGame{
         aggiornaOrientamento(x,y,xp,yp);
         a = controller.setInput(input);
         x = a[0];
-        y = a[1];
-        pacman.update(20);
-        
+        y = a[1];        
     }
     
  
@@ -147,15 +145,22 @@ public class VistaLabirinto extends BasicGame{
     }
 
     private void aggiornaOrientamento(int x, int y, int xp1, int yp1) {
-        if(x < xp)
+        if(x < xp){
             pacman = (PacManAnimation) pacman.rotate(180);
-        if(x > xp)
+            pacman.update(20);
+        }
+        if(x > xp){
             pacman = (PacManAnimation) pacman.rotate(0);
-        if(y > yp)
+            pacman.update(20);
+        }
+        if(y > yp){
             pacman = (PacManAnimation) pacman.rotate(90);
-        if(y < yp)
+            pacman.update(20);
+        }
+        if(y < yp){
             pacman = (PacManAnimation) pacman.rotate(270);
-        
+            pacman.update(20);
+        }
         xp = x;
         yp = y;
     }
