@@ -10,10 +10,10 @@ package logicModel;
  * @author cl427927
  */
 public abstract class Fantasma extends Giocatore{
-    private double xPos, yPos;
+    protected int xPos, yPos;
     private boolean blu;
 
-    public Fantasma(double xPos, double yPos) {
+    public Fantasma(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
     }
@@ -21,9 +21,9 @@ public abstract class Fantasma extends Giocatore{
     //getter
     public boolean isBlu() {return blu;}
 
-    public double getxPos() {return xPos;}
+    public int getxPos() {return xPos;}
 
-    public double getyPos() {return yPos;}
+    public int getyPos() {return yPos;}
     
     //setter
     public void setBlu(boolean blu) {this.blu = blu;}
@@ -32,6 +32,6 @@ public abstract class Fantasma extends Giocatore{
         //fa qualcosa       
     }
     
-    public abstract void movimento(double xPacMan, double yPacMan);
+    public abstract void movimento(int xPacMan, int yPacMan);
     
 }
