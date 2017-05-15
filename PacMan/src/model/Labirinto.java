@@ -14,6 +14,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import view.VistaLabirinto;
 /**
  *
  * @author lorenzo
@@ -39,10 +40,11 @@ public class Labirinto extends Observable{
     private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
     private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
 
-    public Labirinto(TiledMap mazeMap) throws SlickException {
+    public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
         this.mazeMap = mazeMap;
         inizializzazioneTiles();
+        this.addObserver(vistaLabirinto);
         pacman = new PacMan();
         tile_width = mazeMap.getTileWidth();
         tile_height = mazeMap.getTileHeight();
@@ -75,7 +77,7 @@ public class Labirinto extends Observable{
     }
 
     
-    public int[] movimento(Input input){
+    public void movimento(Input input){
         
         int spostamento = 2;
         
@@ -87,41 +89,34 @@ public class Labirinto extends Observable{
         XpmanDOWNdx = x + tile_width - 1; YpmanDOWNdx = y + tile_height - 1;
 
         if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!tiles[XpmanUPsx/tile_width][(YpmanUPsx - spostamento)/tile_height].isBlocked())) &&
-           (!tiles[XpmanUPdx/tile_width][(YpmanUPdx - spostamento)/tile_height].isBlocked())){
-                
-                //pacman = up; da mettere nel render
+           (!tiles[XpmanUPdx/tile_width][(YpmanUPdx - spostamento)/tile_height].isBlocked())){                
                 mem_button = 1; 
                 
                 if (AltroTastoPremuto(input, Input.KEY_UP)){
                    mem_button = 0;
                 }else{
-                    //pacman.update(spostamento * 10); va nel render
                     y -= spostamento;
                 }
         }
         
         if (((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && !tiles[XpmanDOWNsx/tile_width][(YpmanDOWNsx + spostamento)/tile_height].isBlocked()) && 
            (!tiles[XpmanDOWNdx/tile_width][(YpmanDOWNdx + spostamento)/tile_height].isBlocked())){
-                //pacman = down;
                 mem_button = 2;
                 
                 if (AltroTastoPremuto(input, Input.KEY_DOWN)){
                    mem_button = 0;
                 }else{
-                    //pacman.update(spostamento * 10);
                     y += spostamento;
                 }                               
         }
         
         if (((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && !tiles[(XpmanUPsx - spostamento)/tile_width][YpmanUPsx/tile_height].isBlocked()) && 
            (!tiles[(XpmanDOWNsx - spostamento)/tile_width][YpmanDOWNsx/tile_height].isBlocked())){
-                //pacman = left;
                 mem_button = 3;
             
                 if (AltroTastoPremuto(input, Input.KEY_LEFT)){
                    mem_button = 0;
                 }else{
-                    //pacman.update(spostamento * 10);
                     x -= spostamento;
                 }
                 
@@ -131,23 +126,19 @@ public class Labirinto extends Observable{
         
         if (((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !tiles[(XpmanUPdx + spostamento)/tile_width][YpmanUPdx/tile_height].isBlocked()) &&
            (!tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isBlocked())){
-                //pacman = right;
                 mem_button = 4;
                 
                 if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
                    mem_button = 0;
                 }else{
-                    //pacman.update(spostamento * 10);
                     x += spostamento;
                 }
                 
                 if ((tiles[(XpmanUPsx + spostamento)/tile_width][YpmanUPsx/tile_height].isTunnel()) && (tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isTunnel()))
                     x = 0;
         }
-        int[] a = new int[2];
-        a[0] = x;
-        a[1] = y;
-        return a;
+        setChanged();
+        notifyObservers();
     }
     
     public boolean AltroTastoPremuto(Input input, int n) {
@@ -214,4 +205,13 @@ public class Labirinto extends Observable{
         }
         return null;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+   
 }
