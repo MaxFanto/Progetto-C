@@ -5,10 +5,12 @@
  */
 package model;
 
+import org.newdawn.slick.GameContainer;
+
 /**
  *
  * @author Lollodan
  */
 public interface LabObserver {
-    public void update (Labirinto labirinto);
+    public void update (GameContainer container, int delta);
 }

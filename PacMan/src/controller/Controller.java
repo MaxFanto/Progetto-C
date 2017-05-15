@@ -21,13 +21,13 @@ public class Controller {
     private Labirinto labirinto;
     private Input input;
 
-    public int[] setInput(Input input) {
+    public void setInput(Input input) {
         this.input = input;
-        return sendInput();
+        sendInput();
     }
 
-    public void initLabirinto(TiledMap mazeMap) throws SlickException{
-        labirinto = new Labirinto(mazeMap);
+    public void initLabirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException{
+        labirinto = new Labirinto(mazeMap,vistaLabirinto);
     }
     
     public void startGame(){
@@ -45,9 +45,7 @@ public class Controller {
         }
     }
     
-    private int[] sendInput(){
-        int[] a = new int[2];
-        a = labirinto.movimento(input);
-        return a;
+    private void sendInput(){
+        labirinto.movimento(input);
     }
 }

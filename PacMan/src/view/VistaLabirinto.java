@@ -18,7 +18,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class VistaLabirinto extends BasicGame{
+public class VistaLabirinto extends BasicGame implements Observer{
     
     private int TILE_WIDTH, TILE_HEIGHT;
     int mem_button;
@@ -74,22 +74,19 @@ public class VistaLabirinto extends BasicGame{
         
         pill = (PillAnimation) factory.getPillAnimation();       
         
-        begin = new Sound("data/Pacman sound/pacman_begin.wav");
-        begin.play();
-        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
+//        begin = new Sound("data/Pacman sound/pacman_begin.wav");
+//        begin.play();
+//        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
         
-        controller.initLabirinto(mazeMap);
+        controller.initLabirinto(mazeMap,this);
     }
     int xp = x, yp = y;
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
-        int[] a = new int[2]; 
         input = container.getInput();
-        aggiornaOrientamento(x,y,xp,yp);
-        a = controller.setInput(input);
-        x = a[0];
-        y = a[1];        
+        aggiornaOrientamento();
+        controller.setInput(input);       
     }
     
  
@@ -144,7 +141,7 @@ public class VistaLabirinto extends BasicGame{
         this.y = y;
     }
 
-    private void aggiornaOrientamento(int x, int y, int xp1, int yp1) {
+    private void aggiornaOrientamento() {
         if(x < xp){
             pacman = (PacManAnimation) pacman.rotate(180);
             pacman.update(20);
@@ -163,6 +160,12 @@ public class VistaLabirinto extends BasicGame{
         }
         xp = x;
         yp = y;
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        x = ((Labirinto)o).getX();
+        y = ((Labirinto)o).getY();
     }
 
 }
