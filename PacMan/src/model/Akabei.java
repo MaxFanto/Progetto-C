@@ -3,20 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logicModel;
+package model;
 
 /**
  *
  * @author cl427927
+ * 
  */
-public class Aosuke extends Fantasma{
-
-    public Aosuke(double xPos, double yPos) {
+public class Akabei extends Fantasma{
+    /*
+        RED
+    */
+    public Akabei(double xPos, double yPos) {
         super(xPos, yPos);
     }
-
+    
     @Override
     public void movimento(double xPacMan, double yPacMan) {
+        double myXPos = super.getxPos();
+        double myYPos = super.getyPos();
+        
         
     }
     

@@ -1,4 +1,4 @@
-package presentation;
+package view;
 
 import java.util.Observer;
 import org.newdawn.slick.Animation;
