@@ -11,12 +11,39 @@ package altro;
  */
 public class Tile {
     private final int TILE_WIDTH, TILE_HEIGHT;
-    private boolean blocked;
+    private boolean blocked, tunnel, eat;
     
-    public Tile(int width, int height, boolean blocked){
+    public Tile(int width, int height, boolean blocked, boolean tunnel, boolean eat){
         TILE_HEIGHT= height;
         TILE_WIDTH = width;
         this.blocked = blocked;
+        this.tunnel = tunnel;
+        this.eat = eat;
     }
+
+    public int getTILE_WIDTH() {
+        return TILE_WIDTH;
+    }
+
+    public int getTILE_HEIGHT() {
+        return TILE_HEIGHT;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public boolean isTunnel() {
+        return tunnel;
+    }
+
+    public boolean isEat() {
+        return eat;
+    }
+    
+    
+    
+    
+    
     
 }

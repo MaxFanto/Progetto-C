@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author cl427927
  */
-public abstract class Giocatore extends Observable {
+public abstract class Giocatore{
     private String nome;
     private int punteggio;
     
