@@ -12,12 +12,12 @@ package logicModel;
  */
 public class Blinky_ghost extends Fantasma{
 
-    public Blinky_ghost(int xPos, int yPos) {
+    public Blinky_ghost(int xPos, int yPos){
         super(xPos, yPos);
     }
 
     @Override
-    public void movimento(int xPacMan, int yPacMan) {
+    public void movimento(int xPacMan, int yPacMan){
     
     }
     
