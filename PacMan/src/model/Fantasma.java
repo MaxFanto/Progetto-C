@@ -10,7 +10,7 @@ package model;
  * @author cl427927
  */
 public abstract class Fantasma extends Giocatore{
-    private double xPos, yPos;
+    double xPos, yPos;
     private boolean blu;
 
     public Fantasma(double xPos, double yPos) {
@@ -32,6 +32,6 @@ public abstract class Fantasma extends Giocatore{
         //fa qualcosa       
     }
     
-    public abstract void movimento(double xPacMan, double yPacMan);
+    public abstract void movimento(int xPacMan, int yPacMan);
     
 }
