@@ -5,6 +5,7 @@
  */
 package view;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -24,15 +25,8 @@ public class AnimationsFactory {
         return instance;
     }
     
-    public AnimationsAdapter getPacmanAnimation() throws SlickException{
-        return new PacManAnimation();
+    public Animation getAnimation() throws SlickException{
+        return new Animation();
     }   
-    
-    public AnimationsAdapter getGhostAnimation(){
-        return new GhostAnimation();
-    }
-    
-    public AnimationsAdapter getPillAnimation() throws SlickException{
-        return new PillAnimation();
-    }
+
 }

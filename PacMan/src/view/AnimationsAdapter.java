@@ -5,10 +5,14 @@
  */
 package view;
 
+import org.newdawn.slick.Animation;
+
 /**
  *
  * @author mattia
  */
 public interface AnimationsAdapter{
     
+    //rotazione animazione
+    public Animation rotate(int value);
 }

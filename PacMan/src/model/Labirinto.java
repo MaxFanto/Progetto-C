@@ -23,15 +23,15 @@ public class Labirinto extends Observable{
     
     private TiledMap mazeMap;
         
-    private final Double[] POWER_PILL_1 = new Double[]{0.3,0.7};
-    private final Double[] POWER_PILL_2 = new Double[]{0.3,0.7};
-    private final Double[] POWER_PILL_3 = new Double[]{0.3,0.7};
-    private final Double[] POWER_PILL_4 = new Double[]{0.3,0.7};
+    private final int[] POWER_PILL_1 = new int[]{3,7};
+    private final int[] POWER_PILL_2 = new int[]{3,7};
+    private final int[] POWER_PILL_3 = new int[]{3,7};
+    private final int[] POWER_PILL_4 = new int[]{3,7};
     
     private int  mem_button, x, y;
     private Tile[][] tiles;
     
-    private ArrayList<Double[]> powerPills;
+    private ArrayList<int[]> powerPills;
     
     private int tile_width, tile_height;
    

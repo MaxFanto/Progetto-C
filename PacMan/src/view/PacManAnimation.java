@@ -15,9 +15,13 @@ import org.newdawn.slick.SlickException;
  */
 public class PacManAnimation extends Animation implements AnimationsAdapter{
 
+    private final String PATH_IMAGE_0 = "data/pacman0.png";
+    private final String PATH_IMAGE_1 = "data/pacman1.png";
+    private final int DURATION = 200;
+    
     public PacManAnimation() throws SlickException{
-        super(new Image[]{new Image("data/pacman0.png"),new Image("data/pacman1.png")},new int[] {200,200},false);
-        
+        super.addFrame(new Image(PATH_IMAGE_0), DURATION);
+        super.addFrame(new Image(PATH_IMAGE_1), DURATION);
     }
     
     public Animation rotate(int value){
