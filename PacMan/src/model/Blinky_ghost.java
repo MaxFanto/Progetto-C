@@ -12,8 +12,8 @@ package model;
  */
 public class Blinky_ghost extends Fantasma{
 
-    public Blinky_ghost(int xPos, int yPos){
-        super(xPos, yPos);
+    public Blinky_ghost(){
+        
     }
 
     @Override

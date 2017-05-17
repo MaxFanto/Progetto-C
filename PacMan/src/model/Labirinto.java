@@ -36,6 +36,7 @@ public class Labirinto extends Observable{
     private int tile_width, tile_height;
    
     private PacMan pacman;
+    private PinkyGhost pinky;
     
     private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
     private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
@@ -46,10 +47,12 @@ public class Labirinto extends Observable{
         inizializzazioneTiles();
         this.addObserver(vistaLabirinto);
         pacman = new PacMan();
+        pinky = new PinkyGhost();
         tile_width = mazeMap.getTileWidth();
         tile_height = mazeMap.getTileHeight();
         x = pacman.getxPos();
         y = pacman.getyPos();
+        
         
 
         //generaPowerPills();

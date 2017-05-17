@@ -14,8 +14,8 @@ package model;
  */
 public class Inky_ghost extends Fantasma {
 
-    public Inky_ghost(int xPos, int yPos) {
-        super(xPos, yPos);
+    public Inky_ghost() {
+        
     }
 
     @Override

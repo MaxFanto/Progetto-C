@@ -14,8 +14,8 @@ public class Clyde_ghost extends Fantasma {
     Direzioni dir = null;
     int counter;
     
-    public Clyde_ghost(int xPos, int yPos) {
-        super(xPos, yPos);
+    public Clyde_ghost() {
+        
     }
 
     @Override

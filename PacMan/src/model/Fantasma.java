@@ -13,9 +13,7 @@ public abstract class Fantasma extends Giocatore{
     int xPos, yPos;
     private boolean blu;
 
-    public Fantasma(int xPos, int yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Fantasma() {
     }
     
     //getter

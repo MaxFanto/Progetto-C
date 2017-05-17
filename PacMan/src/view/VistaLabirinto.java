@@ -90,10 +90,10 @@ public class VistaLabirinto extends BasicGame implements Observer{
         mazeMap.render(0, 0);
         pacman.draw(x, y);
         
-        g.drawLine(x, y, x + 31, y);
-        g.drawLine(x + 31, y, x + 31, y + 31);
-        g.drawLine(x, y + 31, x + 31, y + 31);
-        g.drawLine(x, y, x, y + 31);
+//        g.drawLine(x, y, x + 31, y);
+//        g.drawLine(x + 31, y, x + 31, y + 31);
+//        g.drawLine(x, y + 31, x + 31, y + 31);
+//        g.drawLine(x, y, x, y + 31);
         
         for (int i = 0; i < mazeMap.getWidth(); i++) { 
             for (int j = 0; j < mazeMap.getHeight(); j++) {

@@ -16,11 +16,15 @@ public class PinkyGhost extends Fantasma {
     private Tile[][] tiles;
     private int tileWidth = 32, tileHeight = 32;
     
+    private final int X_MAIN_POS = 32;  // 256, 320
+    private final int Y_MAIN_POS = 32;
+    
     private int XghostUPsx, XghostUPdx, XghostDOWNsx, XghostDOWNdx;     
     private int YghostUPsx, YghostUPdx, YghostDOWNsx, YghostDOWNdx;
 
-    public PinkyGhost(int xPos, int yPos) {
-        super(xPos, yPos);
+    public PinkyGhost() {
+        xPos = X_MAIN_POS;
+        yPos = Y_MAIN_POS;
     }
 
     @Override
