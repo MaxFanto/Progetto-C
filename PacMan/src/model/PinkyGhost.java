@@ -21,23 +21,27 @@ public class PinkyGhost extends Fantasma {
     
     private int XghostUPsx, XghostUPdx, XghostDOWNsx, XghostDOWNdx;     
     private int YghostUPsx, YghostUPdx, YghostDOWNsx, YghostDOWNdx;
+//
+//    public PinkyGhost() {
+//        xPos = X_MAIN_POS;
+//        yPos = Y_MAIN_POS;
+//    }
+//
+//    @Override
+//    public void movimento(int xPacMan, int yPacMan) {
+//        XghostUPsx = xPos; YghostUPsx = yPos;
+//        XghostUPdx = xPos + tileWidth - 1; YghostUPdx = yPos;
+//        XghostDOWNsx = xPos; YghostDOWNsx = yPos + tileHeight - 1;
+//        XghostDOWNdx = xPos + tileWidth - 1; YghostDOWNdx = yPos + tileHeight - 1;
+//        
+//        if (((!tiles[XghostUPsx/tileWidth][(YghostUPsx - 2)/tileHeight].isBlocked())) &&
+//           (!tiles[XghostUPdx/tileWidth][(YghostUPdx - 2)/tileHeight].isBlocked())) {
+//            xPos += 2;
+//        }
+//    }
 
-    public PinkyGhost() {
-        xPos = X_MAIN_POS;
-        yPos = Y_MAIN_POS;
-    }
-
-    @Override
-    public void movimento(int xPacMan, int yPacMan) {
-        XghostUPsx = xPos; YghostUPsx = yPos;
-        XghostUPdx = xPos + tileWidth - 1; YghostUPdx = yPos;
-        XghostDOWNsx = xPos; YghostDOWNsx = yPos + tileHeight - 1;
-        XghostDOWNdx = xPos + tileWidth - 1; YghostDOWNdx = yPos + tileHeight - 1;
-        
-        if (((!tiles[XghostUPsx/tileWidth][(YghostUPsx - 2)/tileHeight].isBlocked())) &&
-           (!tiles[XghostUPdx/tileWidth][(YghostUPdx - 2)/tileHeight].isBlocked())) {
-            xPos += 2;
-        }
+    public PinkyGhost(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+        super(tile_width, tile_heigth, mapWidth, tiles);
     }
     
 }

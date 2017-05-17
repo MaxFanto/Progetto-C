@@ -28,7 +28,7 @@ public class Labirinto extends Observable{
     private final int[] POWER_PILL_3 = new int[]{3,7};
     private final int[] POWER_PILL_4 = new int[]{3,7};
     
-    private int  mem_button, x, y;
+    private int  mem_button;
     private Tile[][] tiles;
     
     private ArrayList<int[]> powerPills;
@@ -36,24 +36,19 @@ public class Labirinto extends Observable{
     private int tile_width, tile_height;
    
     private PacMan pacman;
-    private PinkyGhost pinky;
-    
-    private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
-    private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
+    private Akabei akabei;
 
     public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
         this.mazeMap = mazeMap;
         inizializzazioneTiles();
         this.addObserver(vistaLabirinto);
-        pacman = new PacMan();
-        pinky = new PinkyGhost();
         tile_width = mazeMap.getTileWidth();
         tile_height = mazeMap.getTileHeight();
-        x = pacman.getxPos();
-        y = pacman.getyPos();
         
+        pacman = new PacMan(tile_width, tile_height, mazeMap.getWidth(), tiles);
         
+        akabei = new Akabei(tile_width, tile_height, mazeMap.getWidth(), tiles);
 
         //generaPowerPills();
         
@@ -80,90 +75,12 @@ public class Labirinto extends Observable{
     }
 
     
-    public void movimento(Input input){
-        
-        int spostamento = 2;
-        
-        System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
-        
-        XpmanUPsx = x; YpmanUPsx = y;
-        XpmanUPdx = x + tile_width - 1; YpmanUPdx = y;
-        XpmanDOWNsx = x; YpmanDOWNsx = y + tile_height - 1;
-        XpmanDOWNdx = x + tile_width - 1; YpmanDOWNdx = y + tile_height - 1;
-
-        if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && ((!tiles[XpmanUPsx/tile_width][(YpmanUPsx - spostamento)/tile_height].isBlocked())) &&
-           (!tiles[XpmanUPdx/tile_width][(YpmanUPdx - spostamento)/tile_height].isBlocked())){                
-                mem_button = 1; 
-                
-                if (AltroTastoPremuto(input, Input.KEY_UP)){
-                   mem_button = 0;
-                }else{
-                    y -= spostamento;
-                }
-        }
-        
-        if (((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && !tiles[XpmanDOWNsx/tile_width][(YpmanDOWNsx + spostamento)/tile_height].isBlocked()) && 
-           (!tiles[XpmanDOWNdx/tile_width][(YpmanDOWNdx + spostamento)/tile_height].isBlocked())){
-                mem_button = 2;
-                
-                if (AltroTastoPremuto(input, Input.KEY_DOWN)){
-                   mem_button = 0;
-                }else{
-                    y += spostamento;
-                }                               
-        }
-        
-        if (((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && !tiles[(XpmanUPsx - spostamento)/tile_width][YpmanUPsx/tile_height].isBlocked()) && 
-           (!tiles[(XpmanDOWNsx - spostamento)/tile_width][YpmanDOWNsx/tile_height].isBlocked())){
-                mem_button = 3;
-            
-                if (AltroTastoPremuto(input, Input.KEY_LEFT)){
-                   mem_button = 0;
-                }else{
-                    x -= spostamento;
-                }
-                
-                if ((tiles[(XpmanUPdx - spostamento)/tile_width][YpmanUPsx/tile_height].isTunnel()) && (tiles[(XpmanUPsx - spostamento)/tile_width][YpmanDOWNdx/tile_height].isTunnel())) 
-                    x = tile_width * (mazeMap.getWidth() - 1);            
-        }
-        
-        if (((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && !tiles[(XpmanUPdx + spostamento)/tile_width][YpmanUPdx/tile_height].isBlocked()) &&
-           (!tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isBlocked())){
-                mem_button = 4;
-                
-                if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
-                   mem_button = 0;
-                }else{
-                    x += spostamento;
-                }
-                
-                if ((tiles[(XpmanUPsx + spostamento)/tile_width][YpmanUPsx/tile_height].isTunnel()) && (tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isTunnel()))
-                    x = 0;
-        }
+    public void movimentoGiocatori(Input input){
+        pacman.movimento(input);
+        akabei.movimento(akabei.choose_direction());
+       
         setChanged();
         notifyObservers();
-    }
-    
-    public boolean AltroTastoPremuto(Input input, int n) {
-        int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
-
-        if ((input.isKeyDown(Input.KEY_DOWN)) && (!tiles[XpmanDOWNsx/tile_width][(YpmanDOWNsx + 1)/tile_height].isBlocked()) &&
-            (!tiles[XpmanDOWNdx/tile_width][(YpmanDOWNdx + 1)/tile_height].isBlocked()) && Input.KEY_DOWN != n)
-                return true;
-                
-        else if ((input.isKeyDown(Input.KEY_UP)) && (!tiles[XpmanUPsx/tile_width][(YpmanUPsx - 1)/tile_height].isBlocked()) && 
-            (!tiles[XpmanUPdx/tile_width][(YpmanUPdx - 1)/tile_height].isBlocked()) && Input.KEY_UP != n)
-                return true;
-        
-        else if ((input.isKeyDown(Input.KEY_LEFT)) && (!tiles[(XpmanUPsx - 1)/tile_width][YpmanUPsx/tile_height].isBlocked()) &&
-           (!tiles[(XpmanDOWNsx - 1)/tile_width][YpmanDOWNsx/tile_height].isBlocked()) && Input.KEY_LEFT != n)
-                return true;
-        
-        else if((input.isKeyDown(Input.KEY_RIGHT)) && (!tiles[(XpmanUPdx + 1)/tile_width][YpmanUPdx/tile_height].isBlocked()) && 
-          (!tiles[(XpmanDOWNdx + 1)/tile_width][YpmanDOWNdx/tile_height].isBlocked()) && Input.KEY_RIGHT != n)
-                return true;
-        else
-            return false;
     }
         
     public boolean[][] generaMappaProprietà(String s) {
@@ -209,12 +126,13 @@ public class Labirinto extends Observable{
         return null;
     }
 
-    public int getX() {
-        return x;
+    public PacMan getPacman() {
+        return pacman;
     }
 
-    public int getY() {
-        return y;
+    public Akabei getAkabei() {
+        return akabei;
     }
-   
+    
+    
 }

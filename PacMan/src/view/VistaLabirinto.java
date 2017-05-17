@@ -25,18 +25,20 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private AnimationsFactory factory;
     private PacManAnimation pacman;
-    private GhostAnimation pinky;
+    private GhostAnimation pinky, akabei;
     private PillAnimation pill;
     
 //    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
     
     private int x = 288, y = 512;
+    private int z = 288, k = 512;
+    private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
+    private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
     
     //    private Music music;
     private Sound begin, eat_pill;
     
     private Controller controller;
-
     
     public VistaLabirinto(Controller controller) throws SlickException
     {
@@ -61,6 +63,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
+        akabei = (GhostAnimation) factory.getGhostAnimation("red");
+         
         
         pinky = (GhostAnimation) factory.getGhostAnimation("pinky");
         
@@ -89,6 +93,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     {
         mazeMap.render(0, 0);
         pacman.draw(x, y);
+        akabei.draw(z , k);
         
 //        g.drawLine(x, y, x + 31, y);
 //        g.drawLine(x + 31, y, x + 31, y + 31);
@@ -159,9 +164,10 @@ public class VistaLabirinto extends BasicGame implements Observer{
 
     @Override
     public void update(Observable o, Object o1) {
-        x = ((Labirinto)o).getX();
-        y = ((Labirinto)o).getY();
-        
+        x = ((Labirinto)o).getPacman().getxPos();
+        y = ((Labirinto)o).getPacman().getyPos();
+        k = ((Labirinto)o).getAkabei().getyPos();
+        z = ((Labirinto)o).getAkabei().getxPos();
         
     }
     

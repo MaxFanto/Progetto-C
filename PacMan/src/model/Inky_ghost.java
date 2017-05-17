@@ -8,19 +8,18 @@ nella parte in basso a sinistra dello schermo.
 
 package model;
 
+import altro.Tile;
+
 /**
  *
  * @author matteo
  */
 public class Inky_ghost extends Fantasma {
 
-    public Inky_ghost() {
-        
+    public Inky_ghost(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+        super(tile_width, tile_heigth, mapWidth, tiles);
     }
 
-    @Override
-    public void movimento(int xPacMan, int yPacMan) {
-    
-    }
+
     
 }

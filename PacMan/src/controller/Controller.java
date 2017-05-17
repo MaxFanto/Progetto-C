@@ -46,6 +46,6 @@ public class Controller {
     }
     
     private void sendInput(){
-        labirinto.movimento(input);
+        labirinto.movimentoGiocatori(input);
     }
 }
