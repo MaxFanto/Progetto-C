@@ -25,14 +25,14 @@ public abstract class Giocatore extends Observable{
     public int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
     public int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
     public int spostamento = 2;
-
+    
     public Giocatore(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         this.tile_width = tile_width;
         this.tile_height = tile_heigth;
         this.mapWidth = mapWidth;
         this.tiles = tiles;
-
     }    
+        
     public boolean controlloBlockedSu(){
     return !tiles[XpmanUPsx/tile_width][(YpmanUPsx - spostamento)/tile_height].isBlocked() &&
            !tiles[XpmanUPdx/tile_width][(YpmanUPdx - spostamento)/tile_height].isBlocked();
