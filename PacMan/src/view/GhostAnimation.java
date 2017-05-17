@@ -17,7 +17,7 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
 
     private final String[] RED_PATH_IMAGE = {"path/","path/"};
     private final String[] BLU_PATH_IMAGE = {"path/","path/"};
-    private final String[] PINK_PATH_IMAGE = {"path/","path/"};
+    private final String[] PINK_PATH_IMAGE = {"data/pinky_up1.png","data/pinky_up2.png"};
     private final String[] GREEN_PATH_IMAGE = {"path/","path/"};
     private final int DURATION = 200;
 
@@ -36,8 +36,8 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
                 super.addFrame(new Image(GREEN_PATH_IMAGE[1]), DURATION);
                 break;
             case "pinky":
-                super.addFrame(new Image(GREEN_PATH_IMAGE[0]), DURATION);
-                super.addFrame(new Image(GREEN_PATH_IMAGE[1]), DURATION);
+                super.addFrame(new Image(PINK_PATH_IMAGE[0]), DURATION);
+                super.addFrame(new Image(PINK_PATH_IMAGE[1]), DURATION);
                 break;
         }
     }

@@ -28,11 +28,13 @@ public class AnimationsFactory {
     public AnimationsAdapter getPacmanAnimation() throws SlickException{
         return new PacManAnimation();
     }
+    
     public AnimationsAdapter getGhostAnimation(String type) throws SlickException{
         return new GhostAnimation(type);
-    }  
+    }
+    
     public AnimationsAdapter getPillAnimation() throws SlickException{
         return new PillAnimation();
-    }  
+    }
 
 }
