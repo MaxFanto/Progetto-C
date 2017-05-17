@@ -20,7 +20,6 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class VistaLabirinto extends BasicGame implements Observer{
     
-    private int TILE_WIDTH, TILE_HEIGHT;
     int mem_button;
     public int [] duration;
     
@@ -28,19 +27,16 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private TiledMap mazeMap;
     
-    
     private Input input;//prendiamo info da qui
-    
     
     private AnimationsFactory factory;
     private PacManAnimation pacman;
+    private GhostAnimation pinky;
     private PillAnimation pill;
     
 //    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
     
     private int x = 288, y = 512;
-    private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
-    private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
     
     //    private Music music;
     private Sound begin, eat_pill;
@@ -69,10 +65,12 @@ public class VistaLabirinto extends BasicGame implements Observer{
         tunnel = generaMappaProprietà("tunnel");
         eat = generaMappaProprietà("eat");
         
-        pacman = (PacManAnimation) factory.getAnimation();
+        pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
         
-        pill = (PillAnimation) factory.getAnimation();       
+        pinky = (GhostAnimation) factory.getGhostAnimation("pinky");
+        
+        pill = (PillAnimation) factory.getPillAnimation();       
         
 //        begin = new Sound("data/Pacman sound/pacman_begin.wav");
 //        begin.play();
@@ -80,7 +78,9 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         controller.initLabirinto(mazeMap,this);
     }
+    
     int xp = x, yp = y;
+    
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
@@ -110,6 +110,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
                         eat[i][j] = false;
             }
         }
+        
+        pinky.draw(32, 32);
     }  
     
     

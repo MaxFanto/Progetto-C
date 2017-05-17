@@ -10,10 +10,10 @@ package model;
  * @author cl427927
  */
 public abstract class Fantasma extends Giocatore{
-    double xPos, yPos;
+    int xPos, yPos;
     private boolean blu;
 
-    public Fantasma(double xPos, double yPos) {
+    public Fantasma(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
     }

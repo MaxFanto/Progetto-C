@@ -25,8 +25,16 @@ public class AnimationsFactory {
         return instance;
     }
     
-    public Animation getAnimation() throws SlickException{
-        return new Animation();
-    }   
+    public AnimationsAdapter getPacmanAnimation() throws SlickException{
+        return new PacManAnimation();
+    }
+    
+    public AnimationsAdapter getGhostAnimation(String type) throws SlickException{
+        return new GhostAnimation(type);
+    }
+    
+    public AnimationsAdapter getPillAnimation() throws SlickException{
+        return new PillAnimation();
+    }
 
 }
