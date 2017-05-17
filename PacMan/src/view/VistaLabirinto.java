@@ -140,28 +140,31 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private void aggiornaOrientamento() {
         if(x < xp){
             pacman = (PacManAnimation) pacman.rotate(180);
-            pacman.update(20);
         }
         if(x > xp){
             pacman = (PacManAnimation) pacman.rotate(0);
-            pacman.update(20);
+
         }
         if(y > yp){
             pacman = (PacManAnimation) pacman.rotate(90);
-            pacman.update(20);
         }
         if(y < yp){
             pacman = (PacManAnimation) pacman.rotate(270);
-            pacman.update(20);
         }
         xp = x;
         yp = y;
+        
+        
     }
 
     @Override
     public void update(Observable o, Object o1) {
         x = ((Labirinto)o).getX();
         y = ((Labirinto)o).getY();
+        
+        
     }
+    
+    
 
 }
