@@ -69,10 +69,10 @@ public class VistaLabirinto extends BasicGame implements Observer{
         tunnel = generaMappaProprietà("tunnel");
         eat = generaMappaProprietà("eat");
         
-        pacman = (PacManAnimation) factory.getAnimation();
+        pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
         
-        pill = (PillAnimation) factory.getAnimation();       
+        pill = (PillAnimation) factory.getPillAnimation();       
         
 //        begin = new Sound("data/Pacman sound/pacman_begin.wav");
 //        begin.play();
