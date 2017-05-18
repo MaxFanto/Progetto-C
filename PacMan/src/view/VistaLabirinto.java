@@ -166,8 +166,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     public void update(Observable o, Object o1) {
         x = ((Labirinto)o).getPacman().getxPos();
         y = ((Labirinto)o).getPacman().getyPos();
-        k = ((Labirinto)o).getAkabei().getyPos();
-        z = ((Labirinto)o).getAkabei().getxPos();
+        k = ((Labirinto)o).getGuzuta().getyPos();
+        z = ((Labirinto)o).getGuzuta().getxPos();
         
     }
     

@@ -27,6 +27,7 @@ public abstract class Fantasma extends Giocatore{
         
         int spostamento = 2;
         
+       
 //        System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
         
         XpmanUPsx = x; YpmanUPsx = y;
@@ -34,22 +35,22 @@ public abstract class Fantasma extends Giocatore{
         XpmanDOWNsx = x; YpmanDOWNsx = y + tile_height - 1;
         XpmanDOWNdx = x + tile_width - 1; YpmanDOWNdx = y + tile_height - 1;
 
-        if ((direzione == 0) && controlloBlockedSu()){                
-                    y -= spostamento;
-                }
+        if ((direzione == 0)){   
+                y -= spostamento;                
+        }
         
-        if ((direzione == 1) && controlloBlockedGiu()){
+        if ((direzione == 1)){
                     y += spostamento;
                 }                               
        
-        if ((direzione == 2)&& controlloBlockedSx()){
+        if ((direzione == 2)){
                     x -= spostamento;
                 
                 if (controlloTunnelSx()) 
                     x = tile_width * (mapWidth - 1);            
         }
         
-        if ((direzione == 3) && controlloBlockedDx()){
+        if ((direzione == 3)){
                     x += spostamento;
         
                 if (controlloTunnelDx())

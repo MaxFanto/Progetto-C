@@ -14,9 +14,9 @@ import altro.Tile;
  *
  * @author matteo
  */
-public class Inky_ghost extends Fantasma {
+public class Aosuke extends Fantasma {
 
-    public Inky_ghost(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+    public Aosuke(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
     }
 

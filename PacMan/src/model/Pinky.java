@@ -11,7 +11,7 @@ import altro.Tile;
  *
  * @author matteo
  */
-public class PinkyGhost extends Fantasma {
+public class Pinky extends Fantasma {
     
     private Tile[][] tiles;
     private int tileWidth = 32, tileHeight = 32;
@@ -40,7 +40,7 @@ public class PinkyGhost extends Fantasma {
 //        }
 //    }
 
-    public PinkyGhost(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+    public Pinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
     }
     

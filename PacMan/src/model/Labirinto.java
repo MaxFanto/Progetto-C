@@ -36,7 +36,7 @@ public class Labirinto extends Observable{
     private int tile_width, tile_height;
    
     private PacMan pacman;
-    private Akabei akabei;
+    private Guzuta guzuta;
 
     public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
@@ -48,7 +48,7 @@ public class Labirinto extends Observable{
         
         pacman = new PacMan(tile_width, tile_height, mazeMap.getWidth(), tiles);
         
-        akabei = new Akabei(tile_width, tile_height, mazeMap.getWidth(), tiles);
+        guzuta = new Guzuta(tile_width, tile_height, mazeMap.getWidth(), tiles);
 
         //generaPowerPills();
         
@@ -77,7 +77,7 @@ public class Labirinto extends Observable{
     
     public void movimentoGiocatori(Input input){
         pacman.movimento(input);
-        akabei.movimento(akabei.choose_direction());
+        guzuta.movimento(guzuta.choose_direction());
        
         setChanged();
         notifyObservers();
@@ -130,8 +130,8 @@ public class Labirinto extends Observable{
         return pacman;
     }
 
-    public Akabei getAkabei() {
-        return akabei;
+    public Guzuta getGuzuta() {
+        return guzuta;
     }
     
     
