@@ -21,19 +21,15 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private TiledMap mazeMap;
     
-    private Input input;//prendiamo info da qui
+    private Input input;
     
     private AnimationsFactory factory;
     private PacManAnimation pacman;
     private GhostAnimation pinky, akabei;
     private PillAnimation pill;
-    
-//    private final int speedLow = 1, speedMedium = 2, speedHigh = 4;
-    
+   
     private int x = 288, y = 512;
     private int z = 288, k = 512;
-    private int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
-    private int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
     
     //    private Music music;
     private Sound begin, eat_pill;

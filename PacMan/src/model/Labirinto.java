@@ -5,12 +5,12 @@
  */
 package model;
 
+import model.Fantasmi.Guzuta;
 import altro.Frutto;
 import altro.Tile;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -28,7 +28,6 @@ public class Labirinto extends Observable{
     private final int[] POWER_PILL_3 = new int[]{3,7};
     private final int[] POWER_PILL_4 = new int[]{3,7};
     
-    private int  mem_button;
     private Tile[][] tiles;
     
     private ArrayList<int[]> powerPills;

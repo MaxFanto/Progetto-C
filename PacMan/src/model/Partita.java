@@ -5,6 +5,7 @@
  */
 package model;
 
+import model.Fantasmi.Fantasma;
 import org.newdawn.slick.SlickException;
 
 /**

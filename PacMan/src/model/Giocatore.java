@@ -7,9 +7,6 @@ package model;
 
 import altro.Tile;
 import java.util.Observable;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 
 /**
  *

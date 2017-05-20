@@ -6,7 +6,7 @@ così da chiudergli la strada. Se Blinky (rosso) viene mangiato, si rifugia
 nella parte in basso a sinistra dello schermo.
 */
 
-package model;
+package model.Fantasmi;
 
 import altro.Tile;
 
