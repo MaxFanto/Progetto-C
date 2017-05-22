@@ -27,35 +27,36 @@ public class Guzuta extends Fantasma {
         setCorners();
         int a = 0;
         int b = 3;
-        int c = ((b-a) + 1);
         
-        boolean validDirection = false;
+        
+        boolean validDirection = true;
         Random rand = new Random();
         int randNumber;
         
         if(counter == 64){
             do{
+                int c = ((b-a)+1);
                 randNumber = rand.nextInt(c)+a;
 
                 switch(randNumber){
                     case 0:
-                        if((validDirection=controlloBlockedSu()) == false)
+                        if((validDirection=controlloBlockedSu()) == true)
                             a = 2;
                         break;
                     case 1:
-                        if((validDirection=controlloBlockedGiu()) == false)
+                        if((validDirection=controlloBlockedGiu()) == true)
                             a = 2;
                         break;
                     case 2:
-                        if((validDirection=controlloBlockedSx()) == false)
+                        if((validDirection=controlloBlockedSx()) == true)
                             b = 1;
                         break;
                     case 3:
-                        if((validDirection=controlloBlockedDx()) == false)
+                        if((validDirection=controlloBlockedDx()) == true)
                             b = 1;
                         break;
                 }
-            }while(validDirection == false);
+            }while(validDirection == true);
             currentDirection = randNumber;
             counter = 0;
         } else{
