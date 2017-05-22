@@ -28,13 +28,8 @@ public abstract class Fantasma extends Giocatore{
         
         int spostamento = 2;
         
-       
-//        System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
         
-        XpmanUPsx = x; YpmanUPsx = y;
-        XpmanUPdx = x + tile_width - 1; YpmanUPdx = y;
-        XpmanDOWNsx = x; YpmanDOWNsx = y + tile_height - 1;
-        XpmanDOWNdx = x + tile_width - 1; YpmanDOWNdx = y + tile_height - 1;
+        //setCorners();
 
         if ((direzione == 0)){   
                 y -= spostamento;                

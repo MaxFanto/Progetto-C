@@ -15,12 +15,12 @@ import java.util.Observable;
 public abstract class Giocatore extends Observable{
     private String nome;
     private int punteggio;
-    public int x, y;
+    protected int x, y;
     public int mem_button, tile_width, tile_height, mapWidth;
     public Tile[][] tiles;
     private int velocita;
-    public int XpmanUPsx, XpmanUPdx, XpmanDOWNsx, XpmanDOWNdx;     
-    public int YpmanUPsx, YpmanUPdx, YpmanDOWNsx, YpmanDOWNdx;
+    public int xUpSx, xUpDx, xDownSx, xDownDx;     
+    public int yUpSx, yUpDx, yDownSx, yDownDx;
     public int spostamento = 2;
     
     public Giocatore(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
@@ -28,35 +28,43 @@ public abstract class Giocatore extends Observable{
         this.tile_height = tile_heigth;
         this.mapWidth = mapWidth;
         this.tiles = tiles;
-    }    
+    }
+
+    protected void setCorners(){
+        xUpSx = x; yUpSx = y;
+        xUpDx = x + tile_width - 1; yUpDx = y;
+        xDownSx = x; yDownSx = y + tile_height - 1;
+        xDownDx = x + tile_width - 1; yDownDx = y + tile_height - 1;
+    }
+    
         
     public boolean controlloBlockedSu(){
-    return !tiles[XpmanUPsx/tile_width][(YpmanUPsx - spostamento)/tile_height].isBlocked() &&
-           !tiles[XpmanUPdx/tile_width][(YpmanUPdx - spostamento)/tile_height].isBlocked();
+    return !tiles[xUpSx/tile_width][(yUpSx - spostamento)/tile_height].isBlocked() &&
+           !tiles[xUpDx/tile_width][(yUpDx - spostamento)/tile_height].isBlocked();
     }
     
     public boolean controlloBlockedGiu(){
-    return !tiles[XpmanDOWNsx/tile_width][(YpmanDOWNsx + spostamento)/tile_height].isBlocked() && 
-           !tiles[XpmanDOWNdx/tile_width][(YpmanDOWNdx + spostamento)/tile_height].isBlocked();
+    return !tiles[xDownSx/tile_width][(yDownSx + spostamento)/tile_height].isBlocked() && 
+           !tiles[xDownDx/tile_width][(yDownDx + spostamento)/tile_height].isBlocked();
     }
     
     public boolean controlloBlockedSx() {
-    return !tiles[(XpmanUPsx - spostamento)/tile_width][YpmanUPsx/tile_height].isBlocked() && 
-           !tiles[(XpmanDOWNsx - spostamento)/tile_width][YpmanDOWNsx/tile_height].isBlocked();
+    return !tiles[(xUpSx - spostamento)/tile_width][yUpSx/tile_height].isBlocked() && 
+           !tiles[(xDownSx - spostamento)/tile_width][yDownSx/tile_height].isBlocked();
     }
     
     public boolean controlloBlockedDx() {
-        return !tiles[(XpmanUPdx + spostamento)/tile_width][YpmanUPdx/tile_height].isBlocked() &&
-               !tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isBlocked();
+        return !tiles[(xUpDx + spostamento)/tile_width][yUpDx/tile_height].isBlocked() &&
+               !tiles[(xDownDx + spostamento)/tile_width][yDownDx/tile_height].isBlocked();
     }
     
     public boolean controlloTunnelSx(){
-        return tiles[(XpmanUPdx - spostamento)/tile_width][YpmanUPsx/tile_height].isTunnel() && 
-               tiles[(XpmanUPsx - spostamento)/tile_width][YpmanDOWNdx/tile_height].isTunnel();
+        return tiles[(xUpDx - spostamento)/tile_width][yUpSx/tile_height].isTunnel() && 
+               tiles[(xUpSx - spostamento)/tile_width][yDownDx/tile_height].isTunnel();
     }
     
     public boolean controlloTunnelDx(){
-        return tiles[(XpmanUPsx + spostamento)/tile_width][YpmanUPsx/tile_height].isTunnel() &&
-               tiles[(XpmanDOWNdx + spostamento)/tile_width][YpmanDOWNdx/tile_height].isTunnel();
+        return tiles[(xUpSx + spostamento)/tile_width][yUpSx/tile_height].isTunnel() &&
+               tiles[(xDownDx + spostamento)/tile_width][yDownDx/tile_height].isTunnel();
     }
 }

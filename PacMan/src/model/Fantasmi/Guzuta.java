@@ -24,6 +24,7 @@ public class Guzuta extends Fantasma {
 
     public int choose_direction() {
 
+        setCorners();
         int a = 0;
         int b = 3;
         int c = ((b-a) + 1);
@@ -31,13 +32,11 @@ public class Guzuta extends Fantasma {
         boolean validDirection = false;
         Random rand = new Random();
         int randNumber;
+        
         if(counter == 64){
             do{
                 randNumber = rand.nextInt(c)+a;
-                System.out.println("SU"+controlloBlockedSu());
-                System.out.println("GIU"+controlloBlockedGiu());
-                System.out.println("DX"+controlloBlockedDx());
-                System.out.println("SX"+controlloBlockedSx());
+
                 switch(randNumber){
                     case 0:
                         if((validDirection=controlloBlockedSu()) == false)

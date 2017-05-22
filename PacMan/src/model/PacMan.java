@@ -32,12 +32,7 @@ public class PacMan extends Giocatore {
     }
     
 public void movimento(Input input){        
-//        System.out.println("coordinata x:   " + x + "    coordinata y:   " + y);
-        
-        XpmanUPsx = x; YpmanUPsx = y;
-        XpmanUPdx = x + tile_width - 1; YpmanUPdx = y;
-        XpmanDOWNsx = x; YpmanDOWNsx = y + tile_height - 1;
-        XpmanDOWNdx = x + tile_width - 1; YpmanDOWNdx = y + tile_height - 1;
+        setCorners();
 
         if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && controlloBlockedSu()){                
                 mem_button = 1; 
