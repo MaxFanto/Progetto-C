@@ -29,11 +29,11 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private AnimationsFactory factory;
     private PacManAnimation pacman;
-    private GhostAnimation pinky, guzuta;
+    private GhostAnimation pinky, clyde, blinky, inky;
     private PillAnimation pill;
    
     private int x = 288, y = 512;
-    private int z = 288, k = 512;
+    private int z, k;
     
     //    private Music music;
     private Sound begin, eat_pill;
@@ -63,11 +63,11 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
-        guzuta = (GhostAnimation) factory.getGhostAnimation("green");
-         
         
+        clyde = (GhostAnimation) factory.getGhostAnimation("clyde");
+        inky = (GhostAnimation) factory.getGhostAnimation("inky");       
         pinky = (GhostAnimation) factory.getGhostAnimation("pinky");
-        
+        blinky = (GhostAnimation) factory.getGhostAnimation("blinky");
         pill = (PillAnimation) factory.getPillAnimation("");     
         
 //        begin = new Sound("data/Pacman sound/pacman_begin.wav");
@@ -103,8 +103,10 @@ public class VistaLabirinto extends BasicGame implements Observer{
                         eat[i][j] = false;
             }
         }
-        guzuta.draw(z , k);
-        pinky.draw(32, 32);
+        clyde.draw(z , k);
+        pinky.draw(256, 320);
+        inky.draw(288, 320);
+        blinky.draw(320, 320);
     }  
     
     
@@ -160,8 +162,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     public void update(Observable o, Object o1) {
         x = ((Labirinto)o).getPacman().getxPos();
         y = ((Labirinto)o).getPacman().getyPos();
-        k = ((Labirinto)o).getGuzuta().getyPos();
-        z = ((Labirinto)o).getGuzuta().getxPos();        
+        k = ((Labirinto)o).getClyde().getyPos();
+        z = ((Labirinto)o).getClyde().getxPos();        
     }
     
     

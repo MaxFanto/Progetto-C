@@ -16,8 +16,8 @@ public class Pinky extends Fantasma {
     private Tile[][] tiles;
     private int tileWidth = 32, tileHeight = 32;
     
-    private final int X_MAIN_POS = 32;  // 256, 320
-    private final int Y_MAIN_POS = 32;
+    private int X_MAIN_POS = 256;
+    private int Y_MAIN_POS = 320;
     
     private int XghostUPsx, XghostUPdx, XghostDOWNsx, XghostDOWNdx;     
     private int YghostUPsx, YghostUPdx, YghostDOWNsx, YghostDOWNdx;
@@ -42,6 +42,8 @@ public class Pinky extends Fantasma {
 
     public Pinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
+        x = X_MAIN_POS;
+        y = Y_MAIN_POS;
     }
     
 }

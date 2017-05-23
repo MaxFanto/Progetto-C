@@ -11,17 +11,20 @@ import java.util.Random;
  *
  * @author matteo
  */
-public class Guzuta extends Fantasma {
+public class Clyde extends Fantasma {
 
     private int counter;
     private int currentDirection;
     int randNumber = 3;
     int precedente, c;
-    public Guzuta(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+    private int X_MAIN_POS = 224;
+    private int Y_MAIN_POS = 256;
+    
+    public Clyde(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         currentDirection = choose_direction();
-        //counter = 15;
-        
+        x = X_MAIN_POS;
+        y = Y_MAIN_POS;
     }
 
     public int choose_direction() {

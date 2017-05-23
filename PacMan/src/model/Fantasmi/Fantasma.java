@@ -15,13 +15,10 @@ import org.newdawn.slick.Input;
  */
 public abstract class Fantasma extends Giocatore{
     private boolean blu;
-    private int X_MAIN_POS = 288;
-    private int Y_MAIN_POS = 512;
 
     public Fantasma(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        x = X_MAIN_POS;
-        y = Y_MAIN_POS;
+        
     }
 
     public void movimento(int direzione){

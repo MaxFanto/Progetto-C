@@ -14,10 +14,15 @@ import altro.Tile;
  *
  * @author matteo
  */
-public class Aosuke extends Fantasma {
-
-    public Aosuke(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+public class Inky extends Fantasma {
+    
+    private int X_MAIN_POS = 288;
+    private int Y_MAIN_POS = 320;
+    
+    public Inky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
+        x = X_MAIN_POS;
+        y = Y_MAIN_POS;
     }
 
 

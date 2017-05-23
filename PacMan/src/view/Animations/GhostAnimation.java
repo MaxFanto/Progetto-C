@@ -15,17 +15,17 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
 
     public GhostAnimation(String type) throws SlickException {
         switch(type){
-            case "red":
+            case "blinky":
                 super.addFrame(new Image(path_image[0].concat("blinky_up1.png")), DURATION);
                 super.addFrame(new Image(path_image[1].concat("blinky_up2.png")), DURATION);
-                name_ghost = type;
+                name_ghost = "red";
                 break;
-            case "blu":
+            case "inky":
                 super.addFrame(new Image(path_image[0].concat("inky_up1.png")), DURATION);
                 super.addFrame(new Image(path_image[1].concat("inky_up2.png")), DURATION);
                 name_ghost = "inky";
                 break;
-            case "green":
+            case "clyde":
                 super.addFrame(new Image(path_image[0].concat("clyde_up1.png")), DURATION);
                 super.addFrame(new Image(path_image[1].concat("clyde_up2.png")), DURATION);
                 name_ghost = "clyde";

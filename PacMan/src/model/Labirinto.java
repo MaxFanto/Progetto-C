@@ -5,7 +5,7 @@
  */
 package model;
 
-import model.Fantasmi.Guzuta;
+import model.Fantasmi.Clyde;
 import altro.Frutto;
 import altro.Tile;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class Labirinto extends Observable{
     private int tile_width, tile_height;
    
     private PacMan pacman;
-    private Guzuta guzuta;
+    private Clyde clyde;
 
     public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
@@ -47,7 +47,7 @@ public class Labirinto extends Observable{
         
         pacman = new PacMan(tile_width, tile_height, mazeMap.getWidth(), tiles);
         
-        guzuta = new Guzuta(tile_width, tile_height, mazeMap.getWidth(), tiles);
+        clyde = new Clyde(tile_width, tile_height, mazeMap.getWidth(), tiles);
 
         //generaPowerPills();
         
@@ -77,7 +77,7 @@ public class Labirinto extends Observable{
     
     public void movimentoGiocatori(Input input){
         pacman.movimento(input);
-        guzuta.movimento(guzuta.choose_direction());
+        clyde.movimento(clyde.choose_direction());
        
         setChanged();
         notifyObservers();
@@ -110,8 +110,8 @@ public class Labirinto extends Observable{
         return pacman;
     }
 
-    public Guzuta getGuzuta() {
-        return guzuta;
+    public Clyde getClyde() {
+        return clyde;
     }
     
     

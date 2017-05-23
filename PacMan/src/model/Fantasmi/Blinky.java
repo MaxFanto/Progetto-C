@@ -8,15 +8,18 @@ Blinky è il fantasma più furbo e più pericoloso, segue pacman con
 l'obiettivo di mangiarlo, la sua velocità si incrementa con il passare del tempo
 e verso la fine del livello va sempre più veloce.
 */
-public class Akabei extends Fantasma{
+public class Blinky extends Fantasma{
     private int currentDirection;
     private int counter;
-    
+    private int X_MAIN_POS = 320;
+    private int Y_MAIN_POS = 320;
 
-    public Akabei(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+    public Blinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         currentDirection = choose_direction();
         counter = 64;
+        x = X_MAIN_POS;
+        y = Y_MAIN_POS;
     }
     /*
         RED
