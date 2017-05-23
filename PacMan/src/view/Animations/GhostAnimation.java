@@ -18,7 +18,7 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
     private final String[] RED_PATH_IMAGE = {"data/blinky_up1.png","data/blinky_up2.png"};
     private final String[] BLU_PATH_IMAGE = {"path/","path/"};
     private final String[] PINK_PATH_IMAGE = {"data/pinky_up1.png","data/pinky_up2.png"};
-    private final String[] GREEN_PATH_IMAGE = {"path/","path/"};
+    private final String[] GREEN_PATH_IMAGE = {"data/clyde_up1.png","data/clyde_up2.png"};
     private final int DURATION = 200;
 
     public GhostAnimation(String type) throws SlickException {

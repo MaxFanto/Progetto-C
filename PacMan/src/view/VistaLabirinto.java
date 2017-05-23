@@ -29,7 +29,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private AnimationsFactory factory;
     private PacManAnimation pacman;
-    private GhostAnimation pinky, akabei;
+    private GhostAnimation pinky, guzuta;
     private PillAnimation pill;
    
     private int x = 288, y = 512;
@@ -63,7 +63,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         pacman = (PacManAnimation) factory.getPacmanAnimation();
         pacman = (PacManAnimation) pacman.rotate(0);
-        akabei = (GhostAnimation) factory.getGhostAnimation("red");
+        guzuta = (GhostAnimation) factory.getGhostAnimation("green");
          
         
         pinky = (GhostAnimation) factory.getGhostAnimation("pinky");
@@ -93,7 +93,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     {
         mazeMap.render(0, 0);
         pacman.draw(x, y);
-        akabei.draw(z , k);
+        guzuta.draw(z , k);
         
 //        g.drawLine(x, y, x + 31, y);
 //        g.drawLine(x + 31, y, x + 31, y + 31);
@@ -167,8 +167,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         x = ((Labirinto)o).getPacman().getxPos();
         y = ((Labirinto)o).getPacman().getyPos();
         k = ((Labirinto)o).getGuzuta().getyPos();
-        z = ((Labirinto)o).getGuzuta().getxPos();
-        
+        z = ((Labirinto)o).getGuzuta().getxPos();        
     }
     
     
