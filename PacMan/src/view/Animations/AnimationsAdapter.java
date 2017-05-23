@@ -6,6 +6,7 @@
 package view.Animations;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.SlickException;
 
 /**
  *
@@ -14,5 +15,5 @@ import org.newdawn.slick.Animation;
 public interface AnimationsAdapter{
     final int DURATION = 200; 
     //rotazione animazione
-    public Animation rotate(int value);
+    public Animation rotate(int value) throws SlickException;
 }
