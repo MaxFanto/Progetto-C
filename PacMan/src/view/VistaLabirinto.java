@@ -93,13 +93,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     {
         mazeMap.render(0, 0);
         pacman.draw(x, y);
-        guzuta.draw(z , k);
-        
-//        g.drawLine(x, y, x + 31, y);
-//        g.drawLine(x + 31, y, x + 31, y + 31);
-//        g.drawLine(x, y + 31, x + 31, y + 31);
-//        g.drawLine(x, y, x, y + 31);
-        
+                
         for (int i = 0; i < mazeMap.getWidth(); i++) { 
             for (int j = 0; j < mazeMap.getHeight(); j++) {
                 if (eat[i][j] == true)
@@ -109,7 +103,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
                         eat[i][j] = false;
             }
         }
-        
+        guzuta.draw(z , k);
         pinky.draw(32, 32);
     }  
     
