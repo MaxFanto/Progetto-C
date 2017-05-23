@@ -15,54 +15,57 @@ public class Guzuta extends Fantasma {
 
     private int counter;
     private int currentDirection;
-
+    int randNumber;
+    int precedente, c;
     public Guzuta(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         currentDirection = choose_direction();
-        counter = 64;
+        counter = 32;
     }
 
     public int choose_direction() {
+                        System.out.println(c);
 
         setCorners();
         int a = 0;
         int b = 3;
+        precedente = randNumber;
         
         
-        boolean validDirection = true;
+        boolean validDirection = false;
         Random rand = new Random();
-        int randNumber;
         
-        if(counter == 64){
+        if(counter == 32 ){
             do{
-                int c = ((b-a)+1);
-                randNumber = rand.nextInt(c)+a;
-
+                randNumber = rand.nextInt(3);
                 switch(randNumber){
                     case 0:
-                        if((validDirection=controlloBlockedSu()) == true)
-                            a = 2;
+                        if((validDirection=controlloBlockedSu()) == false)
+                            randNumber = rand.nextInt(2)+2;
                         break;
                     case 1:
-                        if((validDirection=controlloBlockedGiu()) == true)
-                            a = 2;
+                        if((validDirection=controlloBlockedGiu()) == false)
+                            randNumber = rand.nextInt(2)+2;
                         break;
                     case 2:
-                        if((validDirection=controlloBlockedSx()) == true)
-                            b = 1;
+                        if((validDirection=controlloBlockedSx()) == false){
+                            randNumber = rand.nextInt(2);
+                        }
                         break;
                     case 3:
-                        if((validDirection=controlloBlockedDx()) == true)
-                            b = 1;
+                        if((validDirection=controlloBlockedDx()) == false){
+                            randNumber = rand.nextInt(2);
+                        }
                         break;
                 }
-            }while(validDirection == true);
+            }while(validDirection == false);
             currentDirection = randNumber;
             counter = 0;
         } else{
             counter++;
             return randNumber = currentDirection;
         }
+
             return randNumber;
     }
     

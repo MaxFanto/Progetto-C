@@ -31,22 +31,22 @@ public abstract class Fantasma extends Giocatore{
         
         //setCorners();
 
-        if ((direzione == 0)){   
+        if ((direzione == 0) && controlloBlockedSu()){   
                 y -= spostamento;                
         }
         
-        if ((direzione == 1)){
+        if ((direzione == 1) && controlloBlockedGiu()){
                     y += spostamento;
                 }                               
        
-        if ((direzione == 2)){
+        if ((direzione == 2) && controlloBlockedSx()){
                     x -= spostamento;
                 
                 if (controlloTunnelSx()) 
                     x = tile_width * (mapWidth - 1);            
         }
         
-        if ((direzione == 3)){
+        if ((direzione == 3) && controlloBlockedDx()){
                     x += spostamento;
         
                 if (controlloTunnelDx())
