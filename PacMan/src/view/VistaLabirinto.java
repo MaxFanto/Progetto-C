@@ -1,5 +1,9 @@
 package view;
 
+import view.Animations.PacManAnimation;
+import view.Animations.GhostAnimation;
+import view.Animations.AnimationsFactory;
+import view.Animations.PillAnimation;
 import controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
