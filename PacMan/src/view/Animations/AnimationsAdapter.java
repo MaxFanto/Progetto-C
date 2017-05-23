@@ -12,7 +12,7 @@ import org.newdawn.slick.Animation;
  * @author mattia
  */
 public interface AnimationsAdapter{
-    
+    final int DURATION = 200; 
     //rotazione animazione
     public Animation rotate(int value);
 }
