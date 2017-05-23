@@ -20,7 +20,7 @@ public class Guzuta extends Fantasma {
     public Guzuta(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         currentDirection = choose_direction();
-        counter = 32;
+        counter = 15;
         
     }
 
@@ -35,7 +35,7 @@ public class Guzuta extends Fantasma {
         
         boolean validDirection = false;
         Random rand = new Random();
-        if(counter == 32 ){
+        if(counter == 15 ){
             do{
                 switch(randNumber){
                     case 0:
