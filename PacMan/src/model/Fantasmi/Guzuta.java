@@ -15,12 +15,13 @@ public class Guzuta extends Fantasma {
 
     private int counter;
     private int currentDirection;
-    int randNumber;
+    int randNumber = 3;
     int precedente, c;
     public Guzuta(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         currentDirection = choose_direction();
         counter = 32;
+        
     }
 
     public int choose_direction() {
@@ -34,10 +35,8 @@ public class Guzuta extends Fantasma {
         
         boolean validDirection = false;
         Random rand = new Random();
-        
         if(counter == 32 ){
             do{
-                randNumber = rand.nextInt(3);
                 switch(randNumber){
                     case 0:
                         if((validDirection=controlloBlockedSu()) == false)
