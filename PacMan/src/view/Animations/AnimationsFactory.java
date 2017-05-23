@@ -33,8 +33,8 @@ public class AnimationsFactory {
         return new GhostAnimation(type);
     }
     
-    public AnimationsAdapter getPillAnimation() throws SlickException{
-        return new PillAnimation();
+    public AnimationsAdapter getPillAnimation(String type) throws SlickException{
+        return new PillAnimation(type);
     }
 
 }

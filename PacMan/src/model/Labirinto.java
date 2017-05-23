@@ -40,7 +40,7 @@ public class Labirinto extends Observable{
     public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
         this.mazeMap = mazeMap;
-        inizializzazioneTiles();
+        inizializzazioneTiles(vistaLabirinto);
         this.addObserver(vistaLabirinto);
         tile_width = mazeMap.getTileWidth();
         tile_height = mazeMap.getTileHeight();
@@ -53,10 +53,11 @@ public class Labirinto extends Observable{
         
     }
   
-    private void inizializzazioneTiles(){
-        boolean[][] blocked = generaMappaProprietà("blocked");
-        boolean[][] tunnel = generaMappaProprietà("tunnel");
-        boolean[][] eat = generaMappaProprietà("eat");
+    private void inizializzazioneTiles(VistaLabirinto vistaLabirinto){
+        boolean[][] blocked = vistaLabirinto.getBlocked();
+        boolean[][] tunnel = vistaLabirinto.getTunnel();
+        boolean[][] eat = vistaLabirinto.getEat();
+        
         tiles = new Tile[mazeMap.getWidth()][mazeMap.getHeight()];
         
         
@@ -80,26 +81,6 @@ public class Labirinto extends Observable{
        
         setChanged();
         notifyObservers();
-    }
-        
-    public boolean[][] generaMappaProprietà(String s) {
-        
-        int altezza = mazeMap.getHeight();
-        int larghezza = mazeMap.getWidth();
-        
-        boolean[][] b = new boolean[larghezza][altezza];
-        for (int i = 0; i < mazeMap.getWidth(); i++) {
-            for (int j = 0; j < mazeMap.getHeight(); j++) {
-                
-                int tileID = mazeMap.getTileId(i, j, mazeMap.getLayerIndex("Livello tile 1"));
-                
-                String value = mazeMap.getTileProperty(tileID, s , "false");
-                if(value.equals("true")) {
-                    b[i][j] = true;
-                }
-            }
-        }
-        return b;
     }
     
     public Frutto generaFrutto(){

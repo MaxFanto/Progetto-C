@@ -68,7 +68,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         pinky = (GhostAnimation) factory.getGhostAnimation("pinky");
         
-        pill = (PillAnimation) factory.getPillAnimation();       
+        pill = (PillAnimation) factory.getPillAnimation("");     
         
 //        begin = new Sound("data/Pacman sound/pacman_begin.wav");
 //        begin.play();

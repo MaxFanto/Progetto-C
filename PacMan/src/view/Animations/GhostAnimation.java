@@ -42,8 +42,6 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
         }
     }
     
-    
-    
     @Override
     public Animation rotate(int value){
         return null;

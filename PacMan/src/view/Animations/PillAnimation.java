@@ -15,12 +15,15 @@ import org.newdawn.slick.SlickException;
  */
 public class PillAnimation extends Animation implements AnimationsAdapter{
     
-    public PillAnimation() throws SlickException{
-        super(new Image[]{new Image("data/pill_nero.png"),new Image("data/pill_nero.png")},new int[] {200,200},false);
+    private final String IMAGE_PATH = "data/pill_nero.png";
+    
+    public PillAnimation(String type) throws SlickException{
+        this.addFrame(new Image(IMAGE_PATH), DURATION);
     }
 
     @Override
     public Animation rotate(int value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+        //do nothing
     }
 }
