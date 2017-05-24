@@ -20,8 +20,7 @@ public class Clyde extends Fantasma {
     private int X_MAIN_POS = 224;
     private int Y_MAIN_POS = 256;
     Random rand = new Random();
-
-    
+ 
     public Clyde(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         currentDirection = choose_direction();
