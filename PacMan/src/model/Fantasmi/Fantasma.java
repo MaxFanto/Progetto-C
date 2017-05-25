@@ -6,6 +6,7 @@
 package model.Fantasmi;
 
 import altro.Tile;
+import model.Direzioni;
 import model.Giocatore;
 import org.newdawn.slick.Input;
 
@@ -29,15 +30,18 @@ public abstract class Fantasma extends Giocatore{
         //setCorners();
 
         if ((direzione == 0) && controlloBlockedSu()){   
-                y -= spostamento;                
+                y -= spostamento; 
+                direction = Direzioni.UP;
         }
         
         if ((direzione == 1) && controlloBlockedGiu()){
                     y += spostamento;
+                    direction = Direzioni.DOWN;
                 }                               
        
         if ((direzione == 2) && controlloBlockedSx()){
                     x -= spostamento;
+                    direction = Direzioni.LEFT;
                 
                 if (controlloTunnelSx()) 
                     x = tile_width * (mapWidth - 1);            
@@ -45,6 +49,7 @@ public abstract class Fantasma extends Giocatore{
         
         if ((direzione == 3) && controlloBlockedDx()){
                     x += spostamento;
+                    direction = Direzioni.RIGHT;
         
                 if (controlloTunnelDx())
                     x = 0;

@@ -7,6 +7,9 @@ import view.Animations.PillAnimation;
 import controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Giocatore;
 import model.Labirinto;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -15,6 +18,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
+import view.Animations.AnimationsAdapter;
 
 public class VistaLabirinto extends BasicGame implements Observer{
     
@@ -33,7 +37,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private PillAnimation pill;
    
     private int x = 288, y = 512;
-    private int z, k;
+    private int z = 288, k = 512;
     
     //    private Music music;
     private Sound begin, eat_pill;
@@ -77,22 +81,23 @@ public class VistaLabirinto extends BasicGame implements Observer{
         controller.initLabirinto(mazeMap,this);
     }
     
-    int xp = x, yp = y;
     
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
         input = container.getInput();
-        aggiornaOrientamento();
-        controller.setInput(input);       
+        controller.setInput(input);     
     }
     
  
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
+        int x = pacman.getxPos();
+        int y = pacman.getyPos();
+        
         mazeMap.render(0, 0);
-        pacman.draw(x, y);
+        pacman.draw(pacman.getxPos(), pacman.getyPos());
                 
         for (int i = 0; i < mazeMap.getWidth(); i++) { 
             for (int j = 0; j < mazeMap.getHeight(); j++) {
@@ -103,7 +108,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
                         eat[i][j] = false;
             }
         }
-        clyde.draw(z , k);
+        clyde.draw(clyde.getxPos(),clyde.getyPos());
         pinky.draw(256, 320);
         inky.draw(288, 320);
         blinky.draw(320, 320);
@@ -138,34 +143,39 @@ public class VistaLabirinto extends BasicGame implements Observer{
         this.y = y;
     }
 
-    private void aggiornaOrientamento() {
-        if(x < xp){
-            pacman = (PacManAnimation) pacman.rotate(180);
-        }
-        if(x > xp){
-            pacman = (PacManAnimation) pacman.rotate(0);
-
-        }
-        if(y > yp){
-            pacman = (PacManAnimation) pacman.rotate(90);
-        }
-        if(y < yp){
-            pacman = (PacManAnimation) pacman.rotate(270);
-        }
-        xp = x;
-        yp = y;
+    private void aggiornaOrientamento(Giocatore g, AnimationsAdapter animation) throws SlickException {
         
-        
+        switch(g.getDirection()){
+            case UP:
+                animation.rotate(270);
+                break;
+            case DOWN:
+                animation.rotate(90);
+                break;
+            case LEFT:
+                animation.rotate(180);
+                break;
+            case RIGHT:
+                animation.rotate(0);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     public void update(Observable o, Object o1) {
-        x = ((Labirinto)o).getPacman().getxPos();
-        y = ((Labirinto)o).getPacman().getyPos();
-        k = ((Labirinto)o).getClyde().getyPos();
-        z = ((Labirinto)o).getClyde().getxPos();        
-    }
-    
-    
-
+        try {
+            aggiornaOrientamento(((Labirinto)o).getPacman(),pacman);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), clyde);
+        } catch (SlickException ex) {
+            ex.printStackTrace();
+        }
+        
+        clyde.setxPos(((Labirinto)o).getClyde().getxPos());
+        clyde.setyPos(((Labirinto)o).getClyde().getyPos());
+        pacman.setxPos(((Labirinto)o).getPacman().getxPos());
+        pacman.setyPos(((Labirinto)o).getPacman().getyPos());
+        
+    }        
 }

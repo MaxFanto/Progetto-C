@@ -41,6 +41,7 @@ public void movimento(Input input){
                    mem_button = 0;
                 }else{
                     y -= spostamento;
+                    direction = Direzioni.UP;
                 }
         }
         
@@ -51,6 +52,7 @@ public void movimento(Input input){
                    mem_button = 0;
                 }else{
                     y += spostamento;
+                    direction = Direzioni.DOWN;
                 }                               
         }
         
@@ -61,6 +63,7 @@ public void movimento(Input input){
                    mem_button = 0;
                 }else{
                     x -= spostamento;
+                    direction = Direzioni.LEFT;
                 }
                 
                 if (controlloTunnelSx()) 
@@ -74,6 +77,7 @@ public void movimento(Input input){
                    mem_button = 0;
                 }else{
                     x += spostamento;
+                    direction = Direzioni.RIGHT;
                 }
                 
                 if (controlloTunnelDx())

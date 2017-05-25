@@ -18,7 +18,7 @@ public class PillAnimation extends Animation implements AnimationsAdapter{
     private final String IMAGE_PATH = "data/pill_nero.png";
     
     public PillAnimation(String type) throws SlickException{
-        this.addFrame(new Image(IMAGE_PATH), DURATION);
+        this.addFrame(new Image(IMAGE_PATH.concat(type)), DURATION);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Controller {
             VistaLabirinto vl = new VistaLabirinto(this);
             AppGameContainer app = new AppGameContainer(vl);
             app.setDisplayMode(608, 704, false);
-            app.setTargetFrameRate(60);
+            app.setTargetFrameRate(120);
             app.start();
         }
         catch (SlickException e)

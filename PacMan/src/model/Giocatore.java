@@ -18,10 +18,11 @@ public abstract class Giocatore extends Observable{
     protected int x, y;
     public int mem_button, tile_width, tile_height, mapWidth;
     public Tile[][] tiles;
-    private int velocita;
     public int xUpSx, xUpDx, xDownSx, xDownDx;     
     public int yUpSx, yUpDx, yDownSx, yDownDx;
     public int spostamento = 2;
+    
+    protected Direzioni direction = Direzioni.INITIAL;
     
     public Giocatore(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         this.tile_width = tile_width;
@@ -35,6 +36,10 @@ public abstract class Giocatore extends Observable{
         xUpDx = x + tile_width - 1; yUpDx = y;
         xDownSx = x; yDownSx = y + tile_height - 1;
         xDownDx = x + tile_width - 1; yDownDx = y + tile_height - 1;
+    }
+
+    public Direzioni getDirection() {
+        return direction;
     }
     
         
