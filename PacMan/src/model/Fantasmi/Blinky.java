@@ -1,7 +1,6 @@
 package model.Fantasmi;
 import altro.Tile;
 import java.util.Random;
-import model.Fantasmi.Fantasma;
 
 /*
 Blinky è il fantasma più furbo e più pericoloso, segue pacman con
@@ -11,59 +10,55 @@ e verso la fine del livello va sempre più veloce.
 public class Blinky extends Fantasma{
     private int currentDirection;
     private int counter;
+    int randNumber = 3;
     private int X_MAIN_POS = 320;
     private int Y_MAIN_POS = 320;
+    Random rand = new Random();
 
     public Blinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        currentDirection = choose_direction();
-        counter = 64;
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
+        currentDirection = choose_direction();
+    }
+    
+    public int choose_direction() {
+        setCorners();                
+        direction();
+        return randNumber;
+    }
+    
+    /**
+     * Algoritmo che fa muovere il fantasma --> inizialmente RANDOM; 
+     */
+    
+    private void direction() {
+
+        switch(randNumber){
+            case 0:
+                if((controlloBlockedSu()) == false)
+                    randNumber = rand.nextInt(2)+2;
+                break;
+            case 1:
+                if((controlloBlockedGiu()) == false)
+                    randNumber = rand.nextInt(2)+2;
+                break;
+            case 2:
+                if((controlloBlockedSx()) == false){
+                    randNumber = rand.nextInt(2);
+                }
+                break;
+            case 3:
+                if((controlloBlockedDx()) == false){
+                    randNumber = rand.nextInt(2);
+                }
+                break;
+        }
     }
     /*
         RED
     */
     
-    //Algoritmo di calcolo percorso
-    public int choose_direction() {
-
-        int a = 0;
-        int b = 3;
-        int c = ((b-a) + 1);
-        
-        boolean validDirection = false;
-        Random rand = new Random();
-        int randNumber;
-        if(counter == 64){
-            do{
-                randNumber = rand.nextInt(c)+a;
-                switch(randNumber){
-                    case 0:
-                        if((validDirection=controlloBlockedSu()) == false)
-                            a = 2;
-                        break;
-                    case 1:
-                        if((validDirection=controlloBlockedGiu()) == false)
-                            a = 2;
-                        break;
-                    case 2:
-                        if((validDirection=controlloBlockedSx()) == false)
-                            b = 1;
-                        break;
-                    case 3:
-                        if((validDirection=controlloBlockedDx()) == false)
-                            b = 1;
-                        break;
-                }
-            }while(validDirection);
-            currentDirection = randNumber;
-            counter = 0;
-        } else{
-            counter++;
-            return randNumber = currentDirection;
-        }
-            return randNumber;
-    }
+    
 }
 

@@ -6,44 +6,60 @@ casuale.
 package model.Fantasmi;
 
 import altro.Tile;
+import java.util.Random;
 
 /**
  *
  * @author matteo
  */
 public class Pinky extends Fantasma {
-    
-    private Tile[][] tiles;
-    private int tileWidth = 32, tileHeight = 32;
-    
+    private int currentDirection;
+    private int counter;
+    int randNumber = 3;
     private int X_MAIN_POS = 256;
     private int Y_MAIN_POS = 320;
+    Random rand = new Random(); 
     
-    private int XghostUPsx, XghostUPdx, XghostDOWNsx, XghostDOWNdx;     
-    private int YghostUPsx, YghostUPdx, YghostDOWNsx, YghostDOWNdx;
-//
-//    public PinkyGhost() {
-//        xPos = X_MAIN_POS;
-//        yPos = Y_MAIN_POS;
-//    }
-//
-//    @Override
-//    public void movimento(int xPacMan, int yPacMan) {
-//        XghostUPsx = xPos; YghostUPsx = yPos;
-//        XghostUPdx = xPos + tileWidth - 1; YghostUPdx = yPos;
-//        XghostDOWNsx = xPos; YghostDOWNsx = yPos + tileHeight - 1;
-//        XghostDOWNdx = xPos + tileWidth - 1; YghostDOWNdx = yPos + tileHeight - 1;
-//        
-//        if (((!tiles[XghostUPsx/tileWidth][(YghostUPsx - 2)/tileHeight].isBlocked())) &&
-//           (!tiles[XghostUPdx/tileWidth][(YghostUPdx - 2)/tileHeight].isBlocked())) {
-//            xPos += 2;
-//        }
-//    }
 
     public Pinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
+        currentDirection = choose_direction();
+    }
+    
+    public int choose_direction() {
+        setCorners();                
+        direction();
+        return randNumber;
+    }
+    
+    /**
+     * Algoritmo che fa muovere il fantasma --> inizialmente RANDOM; 
+     */
+    
+    private void direction() {
+
+        switch(randNumber){
+            case 0:
+                if((controlloBlockedSu()) == false)
+                    randNumber = rand.nextInt(2)+2;
+                break;
+            case 1:
+                if((controlloBlockedGiu()) == false)
+                    randNumber = rand.nextInt(2)+2;
+                break;
+            case 2:
+                if((controlloBlockedSx()) == false){
+                    randNumber = rand.nextInt(2);
+                }
+                break;
+            case 3:
+                if((controlloBlockedDx()) == false){
+                    randNumber = rand.nextInt(2);
+                }
+                break;
+        }
     }
     
 }

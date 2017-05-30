@@ -16,8 +16,7 @@ public class Clyde extends Fantasma {
     private int counter;
     private int currentDirection;
     int randNumber = 3;
-    int precedente, c;
-    private int X_MAIN_POS = 224;
+    private int X_MAIN_POS = 288;
     private int Y_MAIN_POS = 256;
     Random rand = new Random();
  
@@ -35,8 +34,6 @@ public class Clyde extends Fantasma {
     }
 
     private void direction() {
-        
-        precedente = randNumber;
 
         switch(randNumber){
             case 0:
