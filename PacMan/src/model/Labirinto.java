@@ -89,7 +89,7 @@ public class Labirinto extends Observable {
         clyde.movimento(clyde.choose_direction());
         blinky.movimento(blinky.choose_direction());
         inky.movimento(inky.choose_direction());
-        pinky.movimento(inky.choose_direction());
+        pinky.movimento(pinky.choose_direction());
        
         setChanged();
         notifyObservers();
