@@ -18,10 +18,9 @@ import java.util.Random;
 public class Inky extends Fantasma {
     
     private int currentDirection;
-    private int counter;
     int randNumber = 3;
     private int X_MAIN_POS = 288;
-    private int Y_MAIN_POS = 320;
+    private int Y_MAIN_POS = 256;
     Random rand = new Random();
     
     public Inky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {

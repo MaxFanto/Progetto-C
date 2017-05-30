@@ -1,4 +1,5 @@
 package model.Fantasmi;
+
 import altro.Tile;
 import java.util.Random;
 
@@ -9,17 +10,16 @@ e verso la fine del livello va sempre più veloce.
 */
 public class Blinky extends Fantasma{
     private int currentDirection;
-    private int counter;
     int randNumber = 3;
-    private int X_MAIN_POS = 320;
-    private int Y_MAIN_POS = 320;
+    private int X_MAIN_POS = 288;
+    private int Y_MAIN_POS = 256;
     Random rand = new Random();
 
     public Blinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
+        currentDirection = choose_direction();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
-        currentDirection = choose_direction();
     }
     
     public int choose_direction() {

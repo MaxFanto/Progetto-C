@@ -14,10 +14,9 @@ import java.util.Random;
  */
 public class Pinky extends Fantasma {
     private int currentDirection;
-    private int counter;
     int randNumber = 3;
-    private int X_MAIN_POS = 256;
-    private int Y_MAIN_POS = 320;
+    private int X_MAIN_POS = 288;
+    private int Y_MAIN_POS = 256;
     Random rand = new Random(); 
     
 
@@ -39,7 +38,7 @@ public class Pinky extends Fantasma {
      */
     
     private void direction() {
-
+        
         switch(randNumber){
             case 0:
                 if((controlloBlockedSu()) == false)

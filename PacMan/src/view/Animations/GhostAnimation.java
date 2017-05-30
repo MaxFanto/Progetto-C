@@ -1,11 +1,8 @@
-
 package view.Animations;
 
-import model.Direzioni;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import view.Animations.AnimationsAdapter;
 
 
 public class GhostAnimation extends Animation implements AnimationsAdapter{

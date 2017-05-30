@@ -11,6 +11,9 @@ import altro.Tile;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
+import model.Fantasmi.Blinky;
+import model.Fantasmi.Inky;
+import model.Fantasmi.Pinky;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -19,7 +22,7 @@ import view.VistaLabirinto;
  *
  * @author lorenzo
  */
-public class Labirinto extends Observable{
+public class Labirinto extends Observable {
     
     private TiledMap mazeMap;
         
@@ -36,6 +39,9 @@ public class Labirinto extends Observable{
    
     private PacMan pacman;
     private Clyde clyde;
+    private Blinky blinky;
+    private Inky inky;
+    private Pinky pinky;
 
     public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
@@ -48,12 +54,15 @@ public class Labirinto extends Observable{
         pacman = new PacMan(tile_width, tile_height, mazeMap.getWidth(), tiles);
         
         clyde = new Clyde(tile_width, tile_height, mazeMap.getWidth(), tiles);
+        blinky = new Blinky(tile_width, tile_height, mazeMap.getWidth(), tiles);
+        inky = new Inky(tile_width, tile_height, mazeMap.getWidth(), tiles);
+        pinky = new Pinky(tile_width, tile_height, mazeMap.getWidth(), tiles);
 
         //generaPowerPills();
         
     }
   
-    private void inizializzazioneTiles(VistaLabirinto vistaLabirinto){
+    private void inizializzazioneTiles(VistaLabirinto vistaLabirinto) {
         boolean[][] blocked = vistaLabirinto.getBlocked();
         boolean[][] tunnel = vistaLabirinto.getTunnel();
         boolean[][] eat = vistaLabirinto.getEat();
@@ -67,7 +76,7 @@ public class Labirinto extends Observable{
             }
         }
     }
-    private void generaPowerPills(){
+    private void generaPowerPills() {
         powerPills.add(POWER_PILL_1);
         powerPills.add(POWER_PILL_2);
         powerPills.add(POWER_PILL_3);
@@ -75,9 +84,12 @@ public class Labirinto extends Observable{
     }
 
     
-    public void movimentoGiocatori(Input input){
+    public void movimentoGiocatori(Input input) {
         pacman.movimento(input);
         clyde.movimento(clyde.choose_direction());
+        blinky.movimento(blinky.choose_direction());
+        inky.movimento(inky.choose_direction());
+        pinky.movimento(inky.choose_direction());
        
         setChanged();
         notifyObservers();
@@ -112,6 +124,18 @@ public class Labirinto extends Observable{
 
     public Clyde getClyde() {
         return clyde;
+    }
+
+    public Blinky getBlinky() {
+        return blinky;
+    }
+
+    public Inky getInky() {
+        return inky;
+    }
+
+    public Pinky getPinky() {
+        return pinky;
     }
     
     

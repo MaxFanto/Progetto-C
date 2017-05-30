@@ -7,8 +7,6 @@ import view.Animations.PillAnimation;
 import controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Giocatore;
 import model.Labirinto;
 import org.newdawn.slick.BasicGame;
@@ -20,7 +18,7 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 import view.Animations.AnimationsAdapter;
 
-public class VistaLabirinto extends BasicGame implements Observer{
+public class VistaLabirinto extends BasicGame implements Observer {
     
     int mem_button;
     public int [] duration;
@@ -109,9 +107,9 @@ public class VistaLabirinto extends BasicGame implements Observer{
             }
         }
         clyde.draw(clyde.getxPos(),clyde.getyPos());
-        pinky.draw(256, 320);
-        inky.draw(288, 320);
-        blinky.draw(320, 320);
+        pinky.draw(pinky.getxPos(), pinky.getyPos());
+        inky.draw(inky.getxPos(), inky.getyPos());
+        blinky.draw(blinky.getxPos(), blinky.getyPos());
     }  
     
     
@@ -168,14 +166,27 @@ public class VistaLabirinto extends BasicGame implements Observer{
         try {
             aggiornaOrientamento(((Labirinto)o).getPacman(),pacman);
             aggiornaOrientamento(((Labirinto)o).getClyde(), clyde);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), blinky);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), inky);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), pinky);
         } catch (SlickException ex) {
             ex.printStackTrace();
         }
         
-        clyde.setxPos(((Labirinto)o).getClyde().getxPos());
-        clyde.setyPos(((Labirinto)o).getClyde().getyPos());
         pacman.setxPos(((Labirinto)o).getPacman().getxPos());
         pacman.setyPos(((Labirinto)o).getPacman().getyPos());
+        
+        clyde.setxPos(((Labirinto)o).getClyde().getxPos());
+        clyde.setyPos(((Labirinto)o).getClyde().getyPos());
+        
+        blinky.setxPos(((Labirinto)o).getBlinky().getxPos());
+        blinky.setyPos(((Labirinto)o).getBlinky().getyPos());
+        
+        inky.setxPos(((Labirinto)o).getInky().getxPos());
+        inky.setyPos(((Labirinto)o).getInky().getyPos());
+        
+        pinky.setxPos(((Labirinto)o).getPinky().getxPos());
+        pinky.setyPos(((Labirinto)o).getPinky().getyPos());
         
     }        
 }
