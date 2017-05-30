@@ -42,20 +42,33 @@ public class Pinky extends Fantasma {
         switch(randNumber){
             case 0:
                 if((controlloBlockedSu()) == false)
-                    randNumber = rand.nextInt(2)+2;
+                    randNumber = 3;
+                    if((controlloBlockedDx()) == false){
+                        randNumber = rand.nextInt(2)+2;
+                    }
                 break;
             case 1:
-                if((controlloBlockedGiu()) == false)
-                    randNumber = rand.nextInt(2)+2;
+                if((controlloBlockedGiu()) == false){
+                    randNumber = 3;
+                    if((controlloBlockedDx()) == false){
+                        randNumber = rand.nextInt(2)+2;
+                    }
+                }
                 break;
             case 2:
                 if((controlloBlockedSx()) == false){
-                    randNumber = rand.nextInt(2);
+                    randNumber = 3;
+                    if((controlloBlockedDx()) == false){
+                        randNumber = rand.nextInt(2);
+                    }
                 }
                 break;
             case 3:
                 if((controlloBlockedDx()) == false){
-                    randNumber = rand.nextInt(2);
+                    randNumber = 3;
+                    if((controlloBlockedDx()) == false){
+                        randNumber = rand.nextInt(2);
+                    }
                 }
                 break;
         }
