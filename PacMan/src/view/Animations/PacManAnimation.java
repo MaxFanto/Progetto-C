@@ -36,12 +36,23 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
 
     @Override
     public void changeAnimationSet() throws SlickException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
         /*
         TODO: - modifica dell'animazione di pacman quando muore
               - modifica animazione quando torna in vita
         */
+        
+        //if(morte)
+        super.getImage(0).destroy();
+        super.getImage(1).destroy();
+        String path = "data/deadAnimation";
+        //aggiunge n frame in base a quanti sono quelli dell'animazione di morte di pacman
+        for (int i = 0; i < 5; i++) {
+            this.addFrame(new Image(path.concat(i +".png")), DURATION);
+        }     
+    }
+    
+    protected void finalize() throws Throwable{
+        System.out.println("animazione distrutta");
     }
   
 }

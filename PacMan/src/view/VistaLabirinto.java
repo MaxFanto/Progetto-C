@@ -17,7 +17,7 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 import view.Animations.AnimationsAdapter;
 
-public class VistaLabirinto extends BasicGame implements Observer {
+public class VistaLabirinto extends BasicGame implements Observer{
     
     int mem_button;
     public int [] duration;
@@ -59,7 +59,21 @@ public class VistaLabirinto extends BasicGame implements Observer {
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
         eat = generaMappaProprietà("eat");
+        initAnimations();
+
         
+//        begin = new Sound("data/Pacman sound/pacman_begin.wav");
+//        begin.play();
+//        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
+        
+        controller.initLabirinto(mazeMap,this);
+    }
+    
+    /**
+     * inizializzazione delle animazioni
+     * @throws SlickException 
+     */
+    private void initAnimations() throws SlickException{
         pacman = new PacManAnimation();
         pacman.rotate(0);
         
@@ -68,13 +82,11 @@ public class VistaLabirinto extends BasicGame implements Observer {
         pinky = new GhostAnimation("pinky"); 
         blinky = new GhostAnimation("blinky");
         pill = new PillAnimation("");
-        
-//        begin = new Sound("data/Pacman sound/pacman_begin.wav");
-//        begin.play();
-//        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
-        
-        controller.initLabirinto(mazeMap,this);
     }
+    
+    
+    
+    
     
     
     @Override
