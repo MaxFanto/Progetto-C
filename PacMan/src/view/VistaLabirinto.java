@@ -106,10 +106,10 @@ public class VistaLabirinto extends BasicGame implements Observer {
                         eat[i][j] = false;
             }
         }
-        clyde.draw(clyde.getxPos(),clyde.getyPos());
+        //clyde.draw(clyde.getxPos(),clyde.getyPos());
         pinky.draw(pinky.getxPos(), pinky.getyPos());
-        inky.draw(inky.getxPos(), inky.getyPos());
-        blinky.draw(blinky.getxPos(), blinky.getyPos());
+        //inky.draw(inky.getxPos(), inky.getyPos());
+        //blinky.draw(blinky.getxPos(), blinky.getyPos());
     }  
     
     
