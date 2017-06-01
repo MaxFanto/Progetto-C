@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Pinky extends Fantasma {
     private int currentDirection;
-    int randNumber = 3;
+    int randNumber;
     private int X_MAIN_POS = 288;
     private int Y_MAIN_POS = 256;
     Random rand = new Random(); 
@@ -24,6 +24,7 @@ public class Pinky extends Fantasma {
         super(tile_width, tile_heigth, mapWidth, tiles);
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
+        randNumber = rand.nextInt(3);
         currentDirection = choose_direction();
     }
     
@@ -39,34 +40,30 @@ public class Pinky extends Fantasma {
     
     private void direction() {
         
+        
         switch(randNumber){
             case 0:
-                if((controlloBlockedSu()) == false)
+                if((controlloBlockedSu()) == false){
                     randNumber = 3;
-                    if((controlloBlockedDx()) == false){
-                        randNumber = rand.nextInt(2)+2;
-                    }
-                break;
+                }
+                break;                    
             case 1:
                 if((controlloBlockedGiu()) == false){
-                    randNumber = 3;
-                    if((controlloBlockedDx()) == false){
-                        randNumber = rand.nextInt(2)+2;
-                    }
+                    randNumber = 2;
                 }
                 break;
             case 2:
                 if((controlloBlockedSx()) == false){
-                    randNumber = 3;
-                    if((controlloBlockedDx()) == false){
+                    randNumber = 0;
+                    if((controlloBlockedSu()) == false){
                         randNumber = rand.nextInt(2);
                     }
                 }
                 break;
             case 3:
                 if((controlloBlockedDx()) == false){
-                    randNumber = 3;
-                    if((controlloBlockedDx()) == false){
+                    randNumber = 1;
+                    if((controlloBlockedGiu()) == false){
                         randNumber = rand.nextInt(2);
                     }
                 }
