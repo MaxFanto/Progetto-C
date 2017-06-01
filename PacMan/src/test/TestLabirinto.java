@@ -23,16 +23,6 @@ public class TestLabirinto {
     public static void main(String[] args) throws SlickException, InterruptedException {
         
         Controller controller = new Controller();
-        try
-        {
-            AppGameContainer app = new AppGameContainer(new VistaLabirinto(controller));
-            app.setDisplayMode(608, 704, false);
-            app.setTargetFrameRate(60);
-            app.start();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-        }
+        controller.startGame();
     }
 }

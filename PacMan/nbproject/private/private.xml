@@ -2,18 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Labirinto.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/view/Animations/GhostAnimation.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/view/VistaLabirinto.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Fantasmi/Inky.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Fantasmi/Fantasma.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Fantasmi/Clyde.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Fantasmi/Guzuta.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/PacMan.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Giocatore.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Fantasmi/Blinky.java</file>
-            <file>file:/C:/Users/Lollodan/Documents/NetBeansProjects/Progetto-C/PacMan/src/model/Fantasmi/Pinky.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -2,12 +2,11 @@ package view;
 
 import view.Animations.PacManAnimation;
 import view.Animations.GhostAnimation;
-import view.Animations.AnimationsFactory;
 import view.Animations.PillAnimation;
 import controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
-import model.Giocatore;
+import model.Player;
 import model.Labirinto;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -29,7 +28,6 @@ public class VistaLabirinto extends BasicGame implements Observer {
     
     private Input input;
     
-    private AnimationsFactory factory;
     private PacManAnimation pacman;
     private GhostAnimation pinky, clyde, blinky, inky;
     private PillAnimation pill;
@@ -45,7 +43,6 @@ public class VistaLabirinto extends BasicGame implements Observer {
     public VistaLabirinto(Controller controller) throws SlickException
     {
         super("Pac-man game");
-        factory = AnimationsFactory.getInstance();
         this.controller = controller;
     }
 
@@ -63,14 +60,14 @@ public class VistaLabirinto extends BasicGame implements Observer {
         tunnel = generaMappaProprietà("tunnel");
         eat = generaMappaProprietà("eat");
         
-        pacman = (PacManAnimation) factory.getPacmanAnimation();
-        pacman = (PacManAnimation) pacman.rotate(0);
+        pacman = new PacManAnimation();
+        pacman.rotate(0);
         
-        clyde = (GhostAnimation) factory.getGhostAnimation("clyde");
-        inky = (GhostAnimation) factory.getGhostAnimation("inky");       
-        pinky = (GhostAnimation) factory.getGhostAnimation("pinky");
-        blinky = (GhostAnimation) factory.getGhostAnimation("blinky");
-        pill = (PillAnimation) factory.getPillAnimation("");     
+        clyde = new GhostAnimation("clyde");
+        inky = new GhostAnimation("inky");       
+        pinky = new GhostAnimation("pinky"); 
+        blinky = new GhostAnimation("blinky");
+        pill = new PillAnimation("");
         
 //        begin = new Sound("data/Pacman sound/pacman_begin.wav");
 //        begin.play();
@@ -84,7 +81,7 @@ public class VistaLabirinto extends BasicGame implements Observer {
     public void update(GameContainer container, int delta) throws SlickException
     {
         input = container.getInput();
-        controller.setInput(input);     
+        controller.setInput(input);
     }
     
  
@@ -106,6 +103,11 @@ public class VistaLabirinto extends BasicGame implements Observer {
                         eat[i][j] = false;
             }
         }
+//        for (int i = 0; i < 720; i+=32) {
+//
+//            g.drawLine(0, i, 672, i);
+//            g.drawLine(i, 0, i, 672);
+//        }
         clyde.draw(clyde.getxPos(),clyde.getyPos());
         pinky.draw(pinky.getxPos(), pinky.getyPos());
         inky.draw(inky.getxPos(), inky.getyPos());
@@ -141,9 +143,16 @@ public class VistaLabirinto extends BasicGame implements Observer {
         this.y = y;
     }
 
-    private void aggiornaOrientamento(Giocatore g, AnimationsAdapter animation) throws SlickException {
+    
+    /**
+     * modifica l'orientamento dell'animazione in base alla sua direzione nel movimento
+     * @param player giocatore di riferimento dell'animazione, da cui prende la posizione
+     * @param animation animazione da ruotare
+     * @throws SlickException 
+     */
+    private void aggiornaOrientamento(Player player, AnimationsAdapter animation) throws SlickException {
         
-        switch(g.getDirection()){
+        switch(player.getDirection()){
             case UP:
                 animation.rotate(270);
                 break;

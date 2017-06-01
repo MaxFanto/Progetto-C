@@ -62,6 +62,7 @@ public class Labirinto extends Observable {
         
     }
   
+    
     private void inizializzazioneTiles(VistaLabirinto vistaLabirinto) {
         boolean[][] blocked = vistaLabirinto.getBlocked();
         boolean[][] tunnel = vistaLabirinto.getTunnel();
@@ -87,10 +88,14 @@ public class Labirinto extends Observable {
     public void movimentoGiocatori(Input input) {
         pacman.movimento(input);
         clyde.movimento(clyde.choose_direction());
-        blinky.movimento(blinky.choose_direction());
+        //blinky.movimento(blinky.choose_direction());
         inky.movimento(inky.choose_direction());
         pinky.movimento(pinky.choose_direction());
        
+        
+        
+        
+        
         setChanged();
         notifyObservers();
     }

@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author cl427927
  */
-public class PacMan extends Giocatore {
+public class PacMan extends Player {
     private int vite;
     private boolean power;
     
@@ -23,15 +23,15 @@ public class PacMan extends Giocatore {
     */
     private final int X_MAIN_POS = 288;
     private final int Y_MAIN_POS = 512;
-    private final int MAIN_VITE = 5;
 
     public PacMan(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
+        vite = 5;
     }
     
-public void movimento(Input input){        
+    public void movimento(Input input){        
         setCorners();
 
         if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && controlloBlockedSu()){                
@@ -114,6 +114,6 @@ public void movimento(Input input){
     
 
     //setter
-    public void setVite(int vite) {this.vite = vite;}
+    public void setVite() {vite--;}
     public void setPower(boolean power) {this.power = power;}      
 }

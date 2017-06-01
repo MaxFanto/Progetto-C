@@ -1,6 +1,7 @@
 package model.Fantasmi;
 
 import altro.Tile;
+import altro.Quadranti;
 import java.util.Random;
 
 /*
@@ -13,20 +14,53 @@ public class Blinky extends Fantasma{
     int randNumber = 3;
     private int X_MAIN_POS = 288;
     private int Y_MAIN_POS = 256;
+    
+    //algoritmo var
+    
     Random rand = new Random();
 
     public Blinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        currentDirection = choose_direction();
+        //currentDirection = choose_direction();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
     }
     
-    public int choose_direction() {
-        setCorners();                
-        direction();
-        return randNumber;
+    public int choose_direction(int xTrget, int yTarget) {
+        Quadranti ghostZone = checkZone(x, y);
+        
+        
+        
+        return 0;
     }
+        
+       
+        private Quadranti checkZone(int currentX, int currentY){
+            Quadranti zone = null;
+            int yAvg = 320;
+            int xAvg = 256;
+            
+            if(currentY > yAvg){
+                if(currentX < xAvg){
+                    //terzo quadrante
+                    zone = Quadranti.THIRD;
+                }
+                else{
+                    //quarto quadrante
+                    zone = Quadranti.FOURTH;
+                }
+            }else{
+                if(currentX < xAvg){
+                    //primo quarante
+                    zone = Quadranti.FIRST;
+                }
+                else{
+                    //secondo quadrante
+                    zone = Quadranti.SECOND;
+                }
+            }
+            return zone;
+        }
     
     /**
      * Algoritmo che fa muovere il fantasma --> inizialmente RANDOM; 

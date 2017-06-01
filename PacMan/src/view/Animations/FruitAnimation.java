@@ -23,8 +23,14 @@ public class FruitAnimation extends Animation implements AnimationsAdapter{
     
  
     @Override
-    public Animation rotate(int value) {
-        return null;
+    public void rotate(int value) {
         //do nothing
+    }
+
+    @Override
+    public void changeAnimationSet() throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        //modifica animazione in base all'uscita casuale 
     }
 }

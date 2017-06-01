@@ -15,6 +15,8 @@ import org.newdawn.slick.SlickException;
 public interface AnimationsAdapter{
     final int DURATION = 200; 
     //rotazione animazione
-    public Animation rotate(int value) throws SlickException;
+    public void rotate(int value) throws SlickException;
+    
+    public void changeAnimationSet() throws SlickException;
     
 }

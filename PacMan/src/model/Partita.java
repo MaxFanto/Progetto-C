@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
  * @author cl427927
  */
 public class Partita {
-    Giocatore pacMan;
+    Player pacMan;
     Fantasma akabei, aosuke;
     Labirinto labirinto;
 

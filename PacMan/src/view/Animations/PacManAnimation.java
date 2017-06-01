@@ -29,10 +29,19 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
     public int getyPos() {return yPos;}
     public void setyPos(int yPos) {this.yPos = yPos;}
     
-    public Animation rotate(int value){
+    public void rotate(int value){
         super.getImage(0).setRotation(value);
         super.getImage(1).setRotation(value);
-        return this;
     }    
+
+    @Override
+    public void changeAnimationSet() throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        /*
+        TODO: - modifica dell'animazione di pacman quando muore
+              - modifica animazione quando torna in vita
+        */
+    }
   
 }

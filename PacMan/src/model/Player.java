@@ -12,7 +12,7 @@ import java.util.Observable;
  *
  * @author cl427927
  */
-public abstract class Giocatore extends Observable{
+public abstract class Player extends Observable{
     private String nome;
     private int punteggio;
     protected int x, y;
@@ -24,7 +24,7 @@ public abstract class Giocatore extends Observable{
     
     protected Direzioni direction = Direzioni.INITIAL;
     
-    public Giocatore(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
+    public Player(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         this.tile_width = tile_width;
         this.tile_height = tile_heigth;
         this.mapWidth = mapWidth;
@@ -37,6 +37,12 @@ public abstract class Giocatore extends Observable{
         xDownSx = x; yDownSx = y + tile_height - 1;
         xDownDx = x + tile_width - 1; yDownDx = y + tile_height - 1;
     }
+
+    public void setPunteggio(int punteggio) {
+        this.punteggio += punteggio;
+    }
+    
+    
 
     public Direzioni getDirection() {
         return direction;

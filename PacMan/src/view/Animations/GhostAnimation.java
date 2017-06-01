@@ -24,14 +24,11 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
     public void setyPos(int yPos) {this.yPos = yPos;}
     
     
-   
-    
-    
-    
     @Override
-    public Animation rotate(int value) throws SlickException{
+    public void rotate(int value) throws SlickException{
+        System.out.println(path_image+name_ghost);
         super.getImage(0).destroy();
-            super.getImage(1).destroy();
+        super.getImage(1).destroy();
             
             switch(value){
                 case 0:
@@ -51,6 +48,14 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
                     this.addFrame(new Image(path_image[1].concat(name_ghost + "_up2.png")), DURATION);
                     break;
         }
-    return null;
+    }
+
+    @Override
+    public void changeAnimationSet() throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        /*
+        TODO: modifica animazione quando muore il fantasma e quando ritorna in vita
+        */
     }
 }

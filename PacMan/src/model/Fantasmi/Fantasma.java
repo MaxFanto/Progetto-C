@@ -7,14 +7,14 @@ package model.Fantasmi;
 
 import altro.Tile;
 import model.Direzioni;
-import model.Giocatore;
+import model.Player;
 import org.newdawn.slick.Input;
 
 /**
  *
  * @author cl427927
  */
-public abstract class Fantasma extends Giocatore{
+public abstract class Fantasma extends Player{
     private boolean blu;
 
     public Fantasma(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
