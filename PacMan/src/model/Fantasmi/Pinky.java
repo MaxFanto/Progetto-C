@@ -15,6 +15,7 @@ import java.util.Random;
 public class Pinky extends Fantasma {
     private int currentDirection;
     int randNumber;
+    int a = 0, b = 0;
     private int X_MAIN_POS = 288;
     private int Y_MAIN_POS = 256;
     Random rand = new Random(); 
@@ -45,18 +46,24 @@ public class Pinky extends Fantasma {
             case 0:
                 if((controlloBlockedSu()) == false){
                     randNumber = 3;
+                    if((controlloBlockedDx()) == false){
+                        randNumber = 2;
+                    }
                 }
                 break;                    
             case 1:
                 if((controlloBlockedGiu()) == false){
                     randNumber = 2;
+                    if((controlloBlockedSx()) == false){
+                        randNumber = 3;
+                    }
                 }
                 break;
             case 2:
                 if((controlloBlockedSx()) == false){
                     randNumber = 0;
                     if((controlloBlockedSu()) == false){
-                        randNumber = rand.nextInt(2);
+                        randNumber = 1;
                     }
                 }
                 break;
@@ -64,10 +71,24 @@ public class Pinky extends Fantasma {
                 if((controlloBlockedDx()) == false){
                     randNumber = 1;
                     if((controlloBlockedGiu()) == false){
-                        randNumber = rand.nextInt(2);
+                        randNumber = 0;
                     }
                 }
                 break;
+        }
+        if(x == 544 && y == 32){
+            a++;
+            if(a == 3){
+                randNumber = 2;
+                a = 0;
+            }
+        }
+        else if(x == 256 && y == 32){
+            b++;
+            if(b == 3){
+                randNumber = 2;
+                b = 0;
+            }
         }
     }
     
