@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="19" height="22" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="right-down" width="19" height="22" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" name="Tile_nero" tilewidth="32" tileheight="32" tilecount="36" columns="6">
   <image source="Tile_nero.png" width="192" height="192"/>
   <tile id="0">
@@ -152,10 +152,20 @@
     <property name="blocked" value="true"/>
    </properties>
   </tile>
+  <tile id="31">
+   <properties>
+    <property name="fruit" value="true"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="superP" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Livello tile 1" width="19" height="22">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA7VUaw+CMAwcoojyFPCBr/3/f+mWtMllrtsC+uFCV7prc+2aK6X6CM4JMVuD1mCIYEyIaYArM9iA3cF5FPx4B7n2BiXYPZxrwY93kGstkGtnUJBdgW8yuNHX97/wcIW0jp2Z60B6oqYXqEOTXhrqvDq9sDhSDKOFvDoArqtx/Dhv2DcNed9QN9eJfWWcHO4BbDdvK8Rp4unUt14V/XfzluTnPmbO/V/qlQf08s2XpNe/3rat4QE2znkt+F9Knnspvxb8GG+57p78qe8R630Kei19j6jXRJgjes0QG9sTS/cX7ok1sHviAxNqNgaIBgAA
+   H4sIAAAAAAAAA7VUaw+CMAwcoojyFHzha/L//6Rb0iaXsbJF9MOFrnTX5to1VUq1AZwiYtYGtUEXQB8RUxHXaJAYrMhv7QbOveDnOyNwWf/WIAe7hXMp+PEOci0Fcm0MMrIL8B0NrvT1/c88XHNah87MtSM9UdMz1KFJLw11XpxeWOwphlFDXj0Drqty/Dhv2DcNeV9QN9eJfWUcHO4ObDdvLcRp4mnUVK+C/rt5c/JzHxPnfoxe70i90hm9fPMl6fWPt80zfAcb57wU/E8lz72UXwt+jLdcN0/+2PeI9T4Evb59j7wLuQaLIaDXALGZmu7CX+wv3BNLYPfEBzeMFaGIBgAA
   </data>
  </layer>
 </map>
