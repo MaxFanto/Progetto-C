@@ -197,9 +197,10 @@ public class VistaLabirinto extends BasicGame implements Observer{
         } catch (SlickException ex) {
             ex.printStackTrace();
         }
-        
-        pacman.setxPos(((Labirinto)o).getPacman().getxPos());
-        pacman.setyPos(((Labirinto)o).getPacman().getyPos());
+        if(!pacmanDeath) {
+            pacman.setxPos(((Labirinto)o).getPacman().getxPos());
+            pacman.setyPos(((Labirinto)o).getPacman().getyPos());
+        }
         
         clyde.setxPos(((Labirinto)o).getClyde().getxPos());
         clyde.setyPos(((Labirinto)o).getClyde().getyPos());
