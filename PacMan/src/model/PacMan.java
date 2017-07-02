@@ -17,6 +17,7 @@ import org.newdawn.slick.SlickException;
 public class PacMan extends Player {
     private int vite;
     private boolean power;
+    private boolean death;
     
     /*
     TODO: definire le posizioni iniziali di PacMan
@@ -110,10 +111,20 @@ public class PacMan extends Player {
     public int getyPos() {return y;}
     public int getVite() {return vite;}
     public boolean isPower() {return power;}
+
+    public boolean isDeath() {
+        return death;
+    }
     
     
 
     //setter
     public void setVite() {vite--;}
     public void setPower(boolean power) {this.power = power;}      
+
+    public void setDeath(boolean death) {
+        this.death = death;
+    }
+
+    
 }

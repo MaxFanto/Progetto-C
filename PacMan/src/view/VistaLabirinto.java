@@ -35,6 +35,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private int x = 288, y = 512;
     private int z = 288, k = 512;
     
+    private boolean pacmanDeath = false;
+    
     //    private Music music;
 //    private Sound begin, eat_pill;
     
@@ -101,7 +103,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
         int y = pacman.getyPos();
         
         mazeMap.render(0, 0);
-        pacman.draw(pacman.getxPos(), pacman.getyPos());
+        if(!pacmanDeath)
+            pacman.draw(pacman.getxPos(), pacman.getyPos());
                 
         for (int i = 0; i < mazeMap.getWidth(); i++) { 
             for (int j = 0; j < mazeMap.getHeight(); j++) {
@@ -123,8 +126,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
 //        }
         clyde.draw(clyde.getxPos(),clyde.getyPos());
         pinky.draw(pinky.getxPos(), pinky.getyPos());
-        //inky.draw(inky.getxPos(), inky.getyPos());
-        //blinky.draw(blinky.getxPos(), blinky.getyPos());
+        inky.draw(inky.getxPos(), inky.getyPos());
+        blinky.draw(blinky.getxPos(), blinky.getyPos());
     }  
     
     
@@ -210,5 +213,6 @@ public class VistaLabirinto extends BasicGame implements Observer{
         pinky.setxPos(((Labirinto)o).getPinky().getxPos());
         pinky.setyPos(((Labirinto)o).getPinky().getyPos());
         
+        pacmanDeath = ((Labirinto)o).getPacman().isDeath();
     }        
 }

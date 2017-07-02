@@ -33,9 +33,11 @@ public class Labirinto extends Observable {
     
     private Tile[][] tiles;
     
+    private int NormFactorX, NormFactorY;
+    
     private ArrayList<int[]> powerPills;
     
-    private int tile_width, tile_height;
+    private int tileWidth, tileHeight;
    
     private PacMan pacman;
     private Clyde clyde;
@@ -48,21 +50,23 @@ public class Labirinto extends Observable {
         this.mazeMap = mazeMap;
         inizializzazioneTiles(vistaLabirinto);
         this.addObserver(vistaLabirinto);
-        tile_width = mazeMap.getTileWidth();
-        tile_height = mazeMap.getTileHeight();
+        tileWidth = mazeMap.getTileWidth();
+        tileHeight = mazeMap.getTileHeight();
         
-        pacman = new PacMan(tile_width, tile_height, mazeMap.getWidth(), tiles);
+        NormFactorX = mazeMap.getWidth()*tileWidth;
         
-        clyde = new Clyde(tile_width, tile_height, mazeMap.getWidth(), tiles);
-        blinky = new Blinky(tile_width, tile_height, mazeMap.getWidth(), tiles);
-        inky = new Inky(tile_width, tile_height, mazeMap.getWidth(), tiles);
-        pinky = new Pinky(tile_width, tile_height, mazeMap.getWidth(), tiles);
+        
+        pacman = new PacMan(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
+        
+        clyde = new Clyde(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
+        blinky = new Blinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
+        inky = new Inky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
+        pinky = new Pinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
 
         //generaPowerPills();
         
     }
   
-    
     private void inizializzazioneTiles(VistaLabirinto vistaLabirinto) {
         boolean[][] blocked = vistaLabirinto.getBlocked();
         boolean[][] tunnel = vistaLabirinto.getTunnel();
@@ -73,7 +77,7 @@ public class Labirinto extends Observable {
         
         for (int i = 0; i < mazeMap.getWidth(); i++) {
             for (int j = 0; j < mazeMap.getHeight(); j++) {
-                tiles[i][j] = new Tile(tile_width, tile_height, blocked[i][j], tunnel[i][j], eat[i][j]);
+                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j]);
             }
         }
     }
@@ -86,16 +90,14 @@ public class Labirinto extends Observable {
 
     
     public void movimentoGiocatori(Input input) {
+                collision();
+
         pacman.movimento(input);
         clyde.movimento(clyde.choose_direction());
         //blinky.movimento(blinky.choose_direction());
         inky.movimento(inky.choose_direction());
         pinky.movimento(pinky.choose_direction());
-       
-        
-        
-        
-        
+        collision();
         setChanged();
         notifyObservers();
     }
@@ -141,6 +143,31 @@ public class Labirinto extends Observable {
 
     public Pinky getPinky() {
         return pinky;
+    }
+
+    private void collision() {
+        if(checkClydeCollision() || checkBlinkyCollision() || checkPinkyCollision() || checkInkyCollision())
+            pacman.setDeath(true);
+    }
+
+    private boolean checkClydeCollision() {
+        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (clyde.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (clyde.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
+    }
+
+    private boolean checkBlinkyCollision() {
+        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (blinky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (blinky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
+    }
+
+    private boolean checkPinkyCollision() {
+        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (pinky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (pinky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
+    }
+
+    private boolean checkInkyCollision() {
+        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (inky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (inky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
     
     
