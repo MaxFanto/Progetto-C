@@ -16,13 +16,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 import view.Animations.AnimationsAdapter;
+import view.Animations.FruitAnimation;
 
 public class VistaLabirinto extends BasicGame implements Observer{
     
     int mem_button;
     public int [] duration;
     
-    boolean[][] blocked, tunnel, eat, superP;
+    boolean[][] blocked, tunnel, eat, superP, fruit;
     
     private TiledMap mazeMap;
     
@@ -31,13 +32,15 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private PacManAnimation pacman;
     private GhostAnimation pinky, clyde, blinky, inky;
     private PillAnimation pill, superPill;
+    private FruitAnimation fruits;
    
     private int x = 288, y = 512;
     private int z = 288, k = 512;
     
     private boolean pacmanDeath = false;
+    private boolean pacmanPower = false;
     
-    //    private Music music;
+//    private Music music;
 //    private Sound begin, eat_pill;
     
     private Controller controller;
@@ -63,6 +66,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         tunnel = generaMappaProprietà("tunnel");
         eat = generaMappaProprietà("eat");
         superP = generaMappaProprietà("superP");
+        fruit = generaMappaProprietà("fruit");
         initAnimations();
 
         
@@ -87,6 +91,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         blinky = new GhostAnimation("blinky");
         pill = new PillAnimation("pill.png");
         superPill = new PillAnimation();
+        fruits = new FruitAnimation();
     }
 
     @Override
@@ -112,10 +117,14 @@ public class VistaLabirinto extends BasicGame implements Observer{
                     pill.draw(i*32, j*32);
                 if (superP[i][j] == true)
                     superPill.draw(i*32, j*32);
-                if ((x  == i*32 && y == j*32) || (x +31 == i*32 +31 && y == j*32) || (x  == i*32 && y +31 == j*32+31) ||
+                if (fruit[i][j] == true)
+                    fruits.draw(i*32, j*32);
+                
+                if ((x == i*32 && y == j*32) || (x +31 == i*32 +31 && y == j*32) || (x  == i*32 && y +31 == j*32+31) ||
                    (x + 31 == i*32+31 && y + 31 == j*32+31)) {
                         eat[i][j] = false;
                         superP[i][j] = false;
+                        fruit[i][j] = false;
                 }        
             }
         }
@@ -150,6 +159,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
         }
         return b;
     }
+    
+    
 
     public void setX(int x) {
         this.x = x;

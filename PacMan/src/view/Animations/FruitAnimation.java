@@ -5,6 +5,7 @@
  */
 package view.Animations;
 
+import java.util.Random;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -15,12 +16,12 @@ import org.newdawn.slick.SlickException;
  */
 public class FruitAnimation extends Animation implements AnimationsAdapter{
 
-    private final String IMAGE_PATH = "path/"; 
+    private final String IMAGE_PATH = "data/frutta/"; 
 
-    public FruitAnimation(String type) throws SlickException {
+    public FruitAnimation() throws SlickException {
+        String type = generaFrutto();
         this.addFrame(new Image(IMAGE_PATH.concat(type)), DURATION);
     }
-    
  
     @Override
     public void rotate(int value) {
@@ -29,8 +30,30 @@ public class FruitAnimation extends Animation implements AnimationsAdapter{
 
     @Override
     public void changeAnimationSet() throws SlickException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
         //modifica animazione in base all'uscita casuale 
+    }
+    
+    public String generaFrutto(){
+        Random random = new Random();
+        int indiceFrutto = random.nextInt(6);
+        
+        switch(indiceFrutto){
+            case 0:
+                return "ciliegia.png";              
+            case 1:
+                return "fragola.png";               
+            case 2:
+                return "arancia.png";              
+            case 3:
+                return "mela.png";            
+            case 4:
+                return "pera.png";        
+            case 5:
+                return "banana.png";
+            case 6:
+                return "pretzel.png";                
+        }
+        return null;
     }
 }

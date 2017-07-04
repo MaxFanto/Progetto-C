@@ -29,10 +29,11 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
     public int getyPos() {return yPos;}
     public void setyPos(int yPos) {this.yPos = yPos;}
     
+    @Override
     public void rotate(int value){
         super.getImage(0).setRotation(value);
         super.getImage(1).setRotation(value);
-    }    
+    }
 
     @Override
     public void changeAnimationSet() throws SlickException {

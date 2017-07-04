@@ -6,11 +6,9 @@
 package model;
 
 import model.Fantasmi.Clyde;
-import altro.Frutto;
 import altro.Tile;
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Random;
 import model.Fantasmi.Blinky;
 import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
@@ -74,13 +72,13 @@ public class Labirinto extends Observable {
         
         tiles = new Tile[mazeMap.getWidth()][mazeMap.getHeight()];
         
-        
         for (int i = 0; i < mazeMap.getWidth(); i++) {
             for (int j = 0; j < mazeMap.getHeight(); j++) {
                 tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j]);
             }
         }
     }
+    
     private void generaPowerPills() {
         powerPills.add(POWER_PILL_1);
         powerPills.add(POWER_PILL_2);
@@ -98,31 +96,10 @@ public class Labirinto extends Observable {
         inky.movimento(inky.choose_direction());
         pinky.movimento(pinky.choose_direction());
         collision();
+        superPillCollision();
+        fruitCollision();
         setChanged();
         notifyObservers();
-    }
-    
-    public Frutto generaFrutto(){
-        Random random = new Random();
-        int indiceFrutto = random.nextInt(6);
-        
-        switch(indiceFrutto){
-            case 0:
-                return Frutto.CILIEGIA;               
-            case 1:
-                return Frutto.FRAGOLA;               
-            case 2:
-                return Frutto.ARANCIA;              
-            case 3:
-                return Frutto.MELA;            
-            case 4:
-                return Frutto.UVA;        
-            case 5:
-                return Frutto.CAMPANA;
-            case 6:
-                return Frutto.CHIAVE;                
-        }
-        return null;
     }
 
     public PacMan getPacman() {
@@ -170,5 +147,25 @@ public class Labirinto extends Observable {
                (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (inky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
     
+    private void fruitCollision() {
+        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (288 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (384 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+            System.out.println("fruit");
+        // incrementa punteggio
+    }
     
+    private void superPillCollision() {
+        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+            pacman.setPower(true);
+        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+            pacman.setPower(true);
+        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+            pacman.setPower(true);
+        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+            pacman.setPower(true);
+    }
 }

@@ -26,7 +26,7 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
     
     @Override
     public void rotate(int value) throws SlickException{
-        System.out.println(path_image+name_ghost);
+//        System.out.println(path_image+name_ghost);
         super.getImage(0).destroy();
         super.getImage(1).destroy();
             
