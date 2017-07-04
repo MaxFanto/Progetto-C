@@ -90,7 +90,7 @@ public class Labirinto extends Observable {
 
     
     public void movimentoGiocatori(Input input) {
-                collision();
+        collision();
 
         pacman.movimento(input);
         clyde.movimento(clyde.choose_direction());
@@ -169,6 +169,5 @@ public class Labirinto extends Observable {
         return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (inky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
                (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (inky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
-    
-    
+        
 }

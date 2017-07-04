@@ -191,9 +191,9 @@ public class VistaLabirinto extends BasicGame implements Observer{
         try {
             aggiornaOrientamento(((Labirinto)o).getPacman(),pacman);
             aggiornaOrientamento(((Labirinto)o).getClyde(), clyde);
-            aggiornaOrientamento(((Labirinto)o).getClyde(), blinky);
-            aggiornaOrientamento(((Labirinto)o).getClyde(), inky);
-            aggiornaOrientamento(((Labirinto)o).getClyde(), pinky);
+            aggiornaOrientamento(((Labirinto)o).getPinky(), blinky);
+            aggiornaOrientamento(((Labirinto)o).getInky(), inky);
+            aggiornaOrientamento(((Labirinto)o).getPinky(), pinky);
         } catch (SlickException ex) {
             ex.printStackTrace();
         }
