@@ -16,8 +16,6 @@ public class Pinky extends Fantasma {
     private int currentDirection;
     int randNumber;
     int a = 0, b = 0;
-    private int X_MAIN_POS = 288;
-    private int Y_MAIN_POS = 256;
     Random rand = new Random(); 
     
 

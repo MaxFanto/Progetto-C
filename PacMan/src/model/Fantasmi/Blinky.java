@@ -12,8 +12,6 @@ e verso la fine del livello va sempre più veloce.
 public class Blinky extends Fantasma{
     private int currentDirection;
     int randNumber = 3;
-    private int X_MAIN_POS = 288;
-    private int Y_MAIN_POS = 256;
     
     //algoritmo var
     

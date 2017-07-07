@@ -6,7 +6,6 @@ package model.Fantasmi;
 
 import altro.Tile;
 import java.util.Random;
-import model.PacMan;
 
 /**
  *
@@ -17,75 +16,45 @@ public class Clyde extends Fantasma {
     private int counter;
     private int currentDirection;
     int randNumber = 3;
-    private int X_MAIN_POS = 288;
-    private int Y_MAIN_POS = 256;
     Random rand = new Random();
  
     public Clyde(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        //currentDirection = choose_direction(null);
+        currentDirection = choose_direction();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
     }
 
-    public int choose_direction(PacMan pacman) {
+    public int choose_direction() {
         setCorners();                
-        direction(pacman);
+        direction();
         return randNumber;
     }
-    
-    //calcola la distanza da pacman
-    private double radar(int x, int y){
 
-	return Math.sqrt(
-            Math.pow(this.x - x, 2) +
-            Math.pow(this.y - y, 2)
-        );
-	
-    }
-    
+    private void direction() {
 
-    private void direction(PacMan pacman) {
-    
-        if(radar(pacman.getxPos(),pacman.getyPos())<100){
-            switch(pacman.getDirection()){
-                case UP:
-                    randNumber = 0;
-                    break;
-                case DOWN:
-                    randNumber = 1;
-                    break;
-                case LEFT:
-                    randNumber = 2;
-                    break;
-                case RIGHT:
-                    randNumber = 3;
-            }
-        }
-        
-        else{
-            switch(randNumber){
-                case 0:
-                    if((controlloBlockedSu()) == false)
-                        randNumber = rand.nextInt(2)+2;
-                    break;
-                case 1:
-                    if((controlloBlockedGiu()) == false)
-                        randNumber = rand.nextInt(2)+2;
-                    break;
-                case 2:
-                    if((controlloBlockedSx()) == false){
-                        randNumber = rand.nextInt(2);
-                    }
-                    break;
-                case 3:
-                    if((controlloBlockedDx()) == false){
-                        randNumber = rand.nextInt(2);
-                    }
-                    break;
-            }
+        switch(randNumber){
+            case 0:
+                if((controlloBlockedSu()) == false)
+                    randNumber = rand.nextInt(2)+2;
+                break;
+            case 1:
+                if((controlloBlockedGiu()) == false)
+                    randNumber = rand.nextInt(2)+2;
+                break;
+            case 2:
+                if((controlloBlockedSx()) == false){
+                    randNumber = rand.nextInt(2);
+                }
+                break;
+            case 3:
+                if((controlloBlockedDx()) == false){
+                    randNumber = rand.nextInt(2);
+                }
+                break;
         }
     }
     
     
 }
+

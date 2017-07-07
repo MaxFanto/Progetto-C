@@ -41,8 +41,14 @@ public abstract class Player extends Observable{
     public void setPunteggio(int punteggio) {
         this.punteggio += punteggio;
     }
-    
-    
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public Direzioni getDirection() {
         return direction;

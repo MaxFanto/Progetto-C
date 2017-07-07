@@ -16,6 +16,8 @@ import org.newdawn.slick.Input;
  */
 public abstract class Fantasma extends Player{
     private boolean blu;
+    protected final int X_MAIN_POS = 288;
+    protected final int Y_MAIN_POS = 256;
 
     public Fantasma(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
@@ -65,6 +67,8 @@ public abstract class Fantasma extends Player{
     
     //setter
     public void setBlu(boolean blu) {this.blu = blu;}
+    
+    
 
     public void morte(){
         //fa qualcosa       

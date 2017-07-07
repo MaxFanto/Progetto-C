@@ -17,7 +17,7 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
 
     private final String PATH_IMAGE_0 = "data/pacman0.png";
     private final String PATH_IMAGE_1 = "data/pacman1.png";
-    private int xPos, yPos;
+    private int xPos = 288, yPos = 512;
     
     public PacManAnimation() throws SlickException{
         super.addFrame(new Image(PATH_IMAGE_0), DURATION);

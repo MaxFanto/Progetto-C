@@ -9,6 +9,8 @@ import model.Fantasmi.Clyde;
 import altro.Tile;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Fantasmi.Blinky;
 import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
@@ -42,6 +44,8 @@ public class Labirinto extends Observable {
     private Blinky blinky;
     private Inky inky;
     private Pinky pinky;
+    
+    private boolean delayFlag = true;
 
     public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
@@ -88,14 +92,18 @@ public class Labirinto extends Observable {
 
     
     public void movimentoGiocatori(Input input) {
+        startMoment();
+        
+        if(pacman.isDeath())
+            resetPosition();
+        
         pacman.movimento(input);
-        clyde.movimento(clyde.choose_direction(pacman));
+        clyde.movimento(clyde.choose_direction());
         //blinky.movimento(blinky.choose_direction());
         inky.movimento(inky.choose_direction());
         pinky.movimento(pinky.choose_direction());
         collision();
         superPillCollision();
-        fruitCollision();
         setChanged();
         notifyObservers();
     }
@@ -122,9 +130,12 @@ public class Labirinto extends Observable {
 
     private void collision() {
         if(checkClydeCollision() || checkBlinkyCollision() || checkPinkyCollision() || checkInkyCollision()) {
+            if(pacman.isDeath() == false)
+                pacman.setVite();
+            
             pacman.setDeath(true);
-            pacman.setVite();
         }
+        
     }
 
     private boolean checkClydeCollision() {
@@ -147,13 +158,6 @@ public class Labirinto extends Observable {
                (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (inky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
     
-    private void fruitCollision() {
-        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (288 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (384 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
-            System.out.println("fruit");
-        // incrementa punteggio
-    }
-    
     private void superPillCollision() {
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
@@ -167,5 +171,29 @@ public class Labirinto extends Observable {
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
             pacman.setPower(true);
+    }
+
+    private void resetPosition() {
+        delay(true);
+        pacman.setX(288); pacman.setY(512); pacman.setDeath(false);
+        blinky.setX(288); blinky.setY(256);
+        inky.setX(288);   inky.setY(256);
+        clyde.setX(288);  clyde.setY(256);
+        pinky.setX(288); pinky.setY(256);
+    }
+    
+    private void delay(boolean flag){
+        try {
+            if (flag == true)
+                Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Labirinto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    private void startMoment() {
+        delay(delayFlag);
+        delayFlag = false;
     }
 }

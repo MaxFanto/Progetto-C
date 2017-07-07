@@ -32,6 +32,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private Input input;
     
+    private Image ready;
+    
     private PacManAnimation pacman;
     private GhostAnimation pinky, clyde, blinky, inky;
     private PillAnimation pill, superPill;
@@ -46,6 +48,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
 //    private Sound begin, eat_pill;
     
     private Controller controller;
+    private boolean readyFlag = true;
     
     public VistaLabirinto(Controller controller) throws SlickException
     {
@@ -63,6 +66,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     @Override
     public void init(GameContainer container) throws SlickException
     {
+        ready = new Image("data/ready.jpg");
         mazeMap = new TiledMap("data/Maze.tmx");
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
@@ -110,10 +114,19 @@ public class VistaLabirinto extends BasicGame implements Observer{
         int y = pacman.getyPos();
         
         mazeMap.render(0, 0);
+        renderFood(x, y);
+        
+        if(readyFlag){
+            ready.draw(226, 384);
+            readyFlag = false;
+        }
         if(!pacmanDeath)
             pacman.draw(pacman.getxPos(), pacman.getyPos());
+        else {
+            ready.draw(226, 384);
+        }
                 
-        renderFood(x, y);
+//        renderFood(x, y);
         
         
 //        for (int i = 0; i < 720; i+=32) {
