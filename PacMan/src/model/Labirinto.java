@@ -89,7 +89,7 @@ public class Labirinto extends Observable {
     
     public void movimentoGiocatori(Input input) {
         pacman.movimento(input);
-        clyde.movimento(clyde.choose_direction());
+        clyde.movimento(clyde.choose_direction(pacman));
         //blinky.movimento(blinky.choose_direction());
         inky.movimento(inky.choose_direction());
         pinky.movimento(pinky.choose_direction());
