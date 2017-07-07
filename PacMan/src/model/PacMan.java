@@ -29,7 +29,7 @@ public class PacMan extends Player {
         super(tile_width, tile_heigth, mapWidth, tiles);
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
-        vite = 5;
+        vite = 3;
     }
     
     public void movimento(Input input){        

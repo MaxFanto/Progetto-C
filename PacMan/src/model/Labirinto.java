@@ -88,8 +88,6 @@ public class Labirinto extends Observable {
 
     
     public void movimentoGiocatori(Input input) {
-                collision();
-
         pacman.movimento(input);
         clyde.movimento(clyde.choose_direction());
         //blinky.movimento(blinky.choose_direction());
@@ -123,8 +121,10 @@ public class Labirinto extends Observable {
     }
 
     private void collision() {
-        if(checkClydeCollision() || checkBlinkyCollision() || checkPinkyCollision() || checkInkyCollision())
+        if(checkClydeCollision() || checkBlinkyCollision() || checkPinkyCollision() || checkInkyCollision()) {
             pacman.setDeath(true);
+            pacman.setVite();
+        }
     }
 
     private boolean checkClydeCollision() {

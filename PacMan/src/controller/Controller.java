@@ -37,6 +37,7 @@ public class Controller {
             AppGameContainer app = new AppGameContainer(vl);
             app.setDisplayMode(608, 704, false);
             app.setTargetFrameRate(60);
+            app.setShowFPS(false);
             app.start();
         }
         catch (SlickException e)

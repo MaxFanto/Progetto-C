@@ -9,9 +9,12 @@ import java.util.Observer;
 import model.Player;
 import model.Labirinto;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
@@ -33,9 +36,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private GhostAnimation pinky, clyde, blinky, inky;
     private PillAnimation pill, superPill;
     private FruitAnimation fruits;
-   
-    private int x = 288, y = 512;
-    private int z = 288, k = 512;
+    
+    private int lives = 3;
     
     private boolean pacmanDeath = false;
     private boolean pacmanPower = false;
@@ -111,32 +113,22 @@ public class VistaLabirinto extends BasicGame implements Observer{
         if(!pacmanDeath)
             pacman.draw(pacman.getxPos(), pacman.getyPos());
                 
-        for (int i = 0; i < mazeMap.getWidth(); i++) { 
-            for (int j = 0; j < mazeMap.getHeight(); j++) {
-                if (eat[i][j] == true)
-                    pill.draw(i*32, j*32);
-                if (superP[i][j] == true)
-                    superPill.draw(i*32, j*32);
-                if (fruit[i][j] == true)
-                    fruits.draw(i*32, j*32);
-                
-                if ((x == i*32 && y == j*32) || (x +31 == i*32 +31 && y == j*32) || (x  == i*32 && y +31 == j*32+31) ||
-                   (x + 31 == i*32+31 && y + 31 == j*32+31)) {
-                        eat[i][j] = false;
-                        superP[i][j] = false;
-                        fruit[i][j] = false;
-                }        
-            }
-        }
+        renderFood(x, y);
+        
+        
 //        for (int i = 0; i < 720; i+=32) {
 //
 //            g.drawLine(0, i, 672, i);
 //            g.drawLine(i, 0, i, 672);
 //        }
+
         clyde.draw(clyde.getxPos(),clyde.getyPos());
         pinky.draw(pinky.getxPos(), pinky.getyPos());
         inky.draw(inky.getxPos(), inky.getyPos());
         blinky.draw(blinky.getxPos(), blinky.getyPos());
+        
+        renderScore(g, countScore());
+        renderLives(g, lives);
     }  
     
     
@@ -159,18 +151,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         }
         return b;
     }
-    
-    
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    
     /**
      * modifica l'orientamento dell'animazione in base alla sua direzione nel movimento
      * @param player giocatore di riferimento dell'animazione, da cui prende la posizione
@@ -200,7 +181,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     @Override
     public void update(Observable o, Object o1) {
         try {
-            aggiornaOrientamento(((Labirinto)o).getPacman(),pacman);
+            aggiornaOrientamento(((Labirinto)o).getPacman(), pacman);
             aggiornaOrientamento(((Labirinto)o).getClyde(), clyde);
             aggiornaOrientamento(((Labirinto)o).getClyde(), blinky);
             aggiornaOrientamento(((Labirinto)o).getClyde(), inky);
@@ -226,5 +207,65 @@ public class VistaLabirinto extends BasicGame implements Observer{
         pinky.setyPos(((Labirinto)o).getPinky().getyPos());
         
         pacmanDeath = ((Labirinto)o).getPacman().isDeath();
+        
+        lives = ((Labirinto)o).getPacman().getVite();
     }        
+
+    private void renderScore(Graphics g, int score) {
+        g.setColor(Color.yellow);
+        g.drawString("SCORE: " + score, 24, 1);
+    }
+    
+    private void renderLives(Graphics g, int lives) throws SlickException {
+        g.setColor(Color.yellow);
+        Image pacmanLives = new Image("data/pacman0.png");
+        
+        if (lives != 0) 
+            pacmanLives.draw(510, 1, 18, 18);
+        
+        if (lives == 2 || lives == 3)
+            pacmanLives.draw(533, 1, 18, 18);
+        
+        if (lives == 3)
+            pacmanLives.draw(556, 1, 18, 18);
+        
+        g.drawString("LIVES: ", 450, 1);
+    }
+
+    private void renderFood(int x, int y) {
+        for (int i = 0; i < mazeMap.getWidth(); i++) { 
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
+                if (eat[i][j] == true)
+                    pill.draw(i*32, j*32);
+                if (superP[i][j] == true)
+                    superPill.draw(i*32, j*32);
+                if (fruit[i][j] == true)
+                    fruits.draw(i*32, j*32);
+                
+                if ((x == i*32 && y == j*32) || (x + 31 == i*32 +31 && y == j*32) || (x == i*32 && y +31 == j*32+31) ||
+                   (x + 31 == i*32+31 && y + 31 == j*32+31)) {
+                        eat[i][j] = false;
+                        superP[i][j] = false;
+                        fruit[i][j] = false;
+                }        
+            }
+        }
+    }
+
+    private int countScore() {
+        int score = -252560;
+        for (int i = 0; i < mazeMap.getWidth(); i++) { 
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
+                if (eat[i][j] == false)
+                    score += 10;
+                if (superP[i][j] == false)
+                    score += 100;
+                if (fruit[i][j] == false)
+                    score += 500;
+            }
+        }
+        return score;
+    }
+    
+    
 }
