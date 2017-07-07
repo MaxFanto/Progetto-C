@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import model.Fantasmi.Blinky;
 import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -93,6 +94,8 @@ public class Labirinto extends Observable {
     
     public void movimentoGiocatori(Input input) {
         startMoment();
+        
+        gameOver();
         
         if(pacman.isDeath())
             resetPosition();
@@ -195,5 +198,12 @@ public class Labirinto extends Observable {
     private void startMoment() {
         delay(delayFlag);
         delayFlag = false;
+    }
+
+    private void gameOver() {
+        if(pacman.getVite() == 0){
+            delay(true);
+            Display.destroy();
+        }
     }
 }

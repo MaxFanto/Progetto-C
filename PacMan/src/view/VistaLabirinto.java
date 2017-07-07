@@ -6,8 +6,11 @@ import view.Animations.PillAnimation;
 import controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Player;
 import model.Labirinto;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -33,6 +36,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private Input input;
     
     private Image ready;
+    private Image gameOver;
     
     private PacManAnimation pacman;
     private GhostAnimation pinky, clyde, blinky, inky;
@@ -49,6 +53,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private Controller controller;
     private boolean readyFlag = true;
+    
     
     public VistaLabirinto(Controller controller) throws SlickException
     {
@@ -67,6 +72,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     public void init(GameContainer container) throws SlickException
     {
         ready = new Image("data/ready.jpg");
+        gameOver = new Image("data/gameover.png");
+        
         mazeMap = new TiledMap("data/Maze.tmx");
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
@@ -125,9 +132,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         else {
             ready.draw(226, 384);
         }
-                
-//        renderFood(x, y);
-        
+                        
         
 //        for (int i = 0; i < 720; i+=32) {
 //
@@ -142,6 +147,15 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         renderScore(g, countScore());
         renderLives(g, lives);
+        
+        if(lives == 0) {
+            gameOver.draw(192, 384);
+//            try {
+//                Thread.sleep(10000);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(VistaLabirinto.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            }
     }  
     
     
