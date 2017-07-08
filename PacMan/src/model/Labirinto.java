@@ -177,7 +177,7 @@ public class Labirinto extends Observable {
     }
 
     private void resetPosition() {
-        delay(true);
+        delay(true, 2000);
         pacman.setX(288); pacman.setY(512); pacman.setDeath(false);
         blinky.setX(288); blinky.setY(256);
         inky.setX(288);   inky.setY(256);
@@ -185,10 +185,10 @@ public class Labirinto extends Observable {
         pinky.setX(288); pinky.setY(256);
     }
     
-    private void delay(boolean flag){
+    private void delay(boolean flag, int time){
         try {
             if (flag == true)
-                Thread.sleep(3000);
+                Thread.sleep(time);
         } catch (InterruptedException ex) {
             Logger.getLogger(Labirinto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -196,13 +196,13 @@ public class Labirinto extends Observable {
     }
 
     private void startMoment() {
-        delay(delayFlag);
+        delay(delayFlag, 4000);
         delayFlag = false;
     }
 
     private void gameOver() {
         if(pacman.getVite() == 0){
-            delay(true);
+            delay(true, 3000);
             Display.destroy();
         }
     }

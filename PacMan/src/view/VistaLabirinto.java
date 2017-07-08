@@ -6,18 +6,14 @@ import view.Animations.PillAnimation;
 import controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Player;
 import model.Labirinto;
-import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
@@ -25,6 +21,7 @@ import view.Animations.AnimationsAdapter;
 import view.Animations.FruitAnimation;
 
 public class VistaLabirinto extends BasicGame implements Observer{
+    boolean fruitFlag = true;
     
     int mem_button;
     public int [] duration;
@@ -48,8 +45,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private boolean pacmanDeath = false;
     private boolean pacmanPower = false;
     
-//    private Music music;
-//    private Sound begin, eat_pill;
+//    private Music ;
+    private Sound begin, eatPill, eatFruit, death, background;
     
     private Controller controller;
     private boolean readyFlag = true;
@@ -74,7 +71,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         ready = new Image("data/ready.jpg");
         gameOver = new Image("data/gameover.png");
         
-        mazeMap = new TiledMap("data/Maze.tmx");
+        mazeMap = new TiledMap("data/maze/Maze.tmx");
         blocked = generaMappaProprietà("blocked");
         tunnel = generaMappaProprietà("tunnel");
         eat = generaMappaProprietà("eat");
@@ -83,9 +80,12 @@ public class VistaLabirinto extends BasicGame implements Observer{
         initAnimations();
 
         
-//        begin = new Sound("data/Pacman sound/pacman_begin.wav");
+//        begin = new Sound("data/pacmanSound/begin.wav");
 //        begin.play();
-//        eat_pill = new Sound("data/Pacman sound/pacman_eat.wav");
+//        eatPill = new Sound("data/pacmanSound/eatPill.wav");
+//        eatFruit = new Sound("data/pacmanSound/eatFruit.wav");
+//        death = new Sound("data/pacmanSound/death.wav");
+//        background = new Sound("data/pacmanSound/background.wav");
         
         controller.initLabirinto(mazeMap,this);
     }
@@ -130,9 +130,15 @@ public class VistaLabirinto extends BasicGame implements Observer{
         if(!pacmanDeath)
             pacman.draw(pacman.getxPos(), pacman.getyPos());
         else {
+//            death.play();
             ready.draw(226, 384);
         }
-                        
+        
+        if (fruit[9][12] == false && fruitFlag == true) {
+//            eatFruit.play();
+            fruitFlag = false;
+        }
+            
         
 //        for (int i = 0; i < 720; i+=32) {
 //
@@ -148,14 +154,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
         renderScore(g, countScore());
         renderLives(g, lives);
         
-        if(lives == 0) {
+        if(lives == 0)
             gameOver.draw(192, 384);
-//            try {
-//                Thread.sleep(10000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(VistaLabirinto.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-            }
     }  
     
     
@@ -245,7 +245,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private void renderLives(Graphics g, int lives) throws SlickException {
         g.setColor(Color.yellow);
-        Image pacmanLives = new Image("data/pacman0.png");
+        Image pacmanLives = new Image("data/pacman/pacman0.png");
         
         if (lives != 0) 
             pacmanLives.draw(510, 1, 18, 18);

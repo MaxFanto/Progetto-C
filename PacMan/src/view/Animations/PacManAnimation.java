@@ -15,13 +15,16 @@ import org.newdawn.slick.SlickException;
  */
 public class PacManAnimation extends Animation implements AnimationsAdapter{
 
-    private final String PATH_IMAGE_0 = "data/pacman0.png";
-    private final String PATH_IMAGE_1 = "data/pacman1.png";
+    private final String PATH_IMAGE_0 = "data/pacman/pacman0.png";
+    private final String PATH_IMAGE_1 = "data/pacman/pacman1.png";
+    private final String PATH_IMAGE_2 = "data/pacman/pacman2.png";
     private int xPos = 288, yPos = 512;
+    final int DURATION = 100;
     
     public PacManAnimation() throws SlickException{
         super.addFrame(new Image(PATH_IMAGE_0), DURATION);
         super.addFrame(new Image(PATH_IMAGE_1), DURATION);
+        super.addFrame(new Image(PATH_IMAGE_2), DURATION);
     }
     
     public int getxPos() {return xPos;}
@@ -45,7 +48,7 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
         //if(morte)
         super.getImage(0).destroy();
         super.getImage(1).destroy();
-        String path = "data/deadAnimation";
+        String path = "data/pacmanDeath/pacmanDeath";
         //aggiunge n frame in base a quanti sono quelli dell'animazione di morte di pacman
         for (int i = 0; i < 5; i++) {
             this.addFrame(new Image(path.concat(i +".png")), DURATION);

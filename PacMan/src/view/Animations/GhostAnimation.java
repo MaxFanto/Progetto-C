@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 public class GhostAnimation extends Animation implements AnimationsAdapter{
 
-    private final String[] path_image = {"data/ghost_images/","data/ghost_images/"};
+    private final String[] path_image = {"data/ghost/","data/ghost/"};
     private String name_ghost;
     
     private int xPos = 288, yPos = 256;
