@@ -7,6 +7,7 @@ package model;
 
 import altro.Tile;
 import java.util.Observable;
+import org.newdawn.slick.Input;
 
 /**
  *
@@ -29,6 +30,78 @@ public abstract class Player extends Observable{
         this.tile_height = tile_heigth;
         this.mapWidth = mapWidth;
         this.tiles = tiles;
+    }
+    
+   public void movimento(Input input){        
+        setCorners();
+
+        if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && controlloBlockedSu()){                
+                mem_button = 1; 
+                
+                if (AltroTastoPremuto(input, Input.KEY_UP)){
+                   mem_button = 0;
+                }else{
+                    y -= spostamento;
+                    direction = Direzioni.UP;
+                }
+        }
+        
+        if ((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && controlloBlockedGiu()){
+                mem_button = 2;
+                
+                if (AltroTastoPremuto(input, Input.KEY_DOWN)){
+                   mem_button = 0;
+                }else{
+                    y += spostamento;
+                    direction = Direzioni.DOWN;
+                }                               
+        }
+        
+        if ((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && controlloBlockedSx()){
+                mem_button = 3;
+            
+                if (AltroTastoPremuto(input, Input.KEY_LEFT)){
+                   mem_button = 0;
+                }else{
+                    x -= spostamento;
+                    direction = Direzioni.LEFT;
+                }
+                
+                if (controlloTunnelSx()) 
+                    x = tile_width * (mapWidth - 1);            
+        }
+        
+        if (((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && controlloBlockedDx())){
+                mem_button = 4;
+                
+                if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
+                   mem_button = 0;
+                }else{
+                    x += spostamento;
+                    direction = Direzioni.RIGHT;
+                }
+                
+                if (controlloTunnelDx())
+                    x = 0;
+        }
+    }
+    
+    public boolean AltroTastoPremuto(Input input, int n) {
+        int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
+
+        if ((input.isKeyDown(Input.KEY_DOWN)) && controlloBlockedGiu() && Input.KEY_DOWN != n)
+                return true;
+                
+        else if ((input.isKeyDown(Input.KEY_UP)) && controlloBlockedSu() && Input.KEY_UP != n)
+                return true;
+        
+        else if ((input.isKeyDown(Input.KEY_LEFT)) && controlloBlockedSx() && Input.KEY_LEFT != n)
+                return true;
+        
+        else if((input.isKeyDown(Input.KEY_RIGHT)) && controlloBlockedDx() && Input.KEY_RIGHT != n)
+                return true;
+        else
+            return false;
     }
 
     protected void setCorners(){
