@@ -7,6 +7,10 @@ package model;
 
 import altro.Tile;
 import java.util.Observable;
+import model.Fantasmi.Blinky;
+import model.Fantasmi.Clyde;
+import model.Fantasmi.Inky;
+import model.Fantasmi.Pinky;
 import org.newdawn.slick.Input;
 
 /**
@@ -22,6 +26,7 @@ public abstract class Player extends Observable{
     public int xUpSx, xUpDx, xDownSx, xDownDx;     
     public int yUpSx, yUpDx, yDownSx, yDownDx;
     public int spostamento = 2;
+    public int[] comandi = new int[4];
     
     protected Direzioni direction = Direzioni.INITIAL;
     
@@ -32,13 +37,14 @@ public abstract class Player extends Observable{
         this.tiles = tiles;
     }
     
-   public void movimento(Input input){        
+   public void movimentoManuale(Input input){ 
+        setControlKeys();
         setCorners();
 
-        if ((input.isKeyDown(Input.KEY_UP) || mem_button == 1) && controlloBlockedSu()){                
+        if ((input.isKeyDown(comandi[0]) || mem_button == 1) && controlloBlockedSu()){                
                 mem_button = 1; 
                 
-                if (AltroTastoPremuto(input, Input.KEY_UP)){
+                if (AltroTastoPremuto(input, comandi[0])){
                    mem_button = 0;
                 }else{
                     y -= spostamento;
@@ -46,10 +52,10 @@ public abstract class Player extends Observable{
                 }
         }
         
-        if ((input.isKeyDown(Input.KEY_DOWN) || mem_button == 2) && controlloBlockedGiu()){
+        if ((input.isKeyDown(comandi[1]) || mem_button == 2) && controlloBlockedGiu()){
                 mem_button = 2;
                 
-                if (AltroTastoPremuto(input, Input.KEY_DOWN)){
+                if (AltroTastoPremuto(input, comandi[1])){
                    mem_button = 0;
                 }else{
                     y += spostamento;
@@ -57,10 +63,10 @@ public abstract class Player extends Observable{
                 }                               
         }
         
-        if ((input.isKeyDown(Input.KEY_LEFT) || mem_button == 3) && controlloBlockedSx()){
+        if ((input.isKeyDown(comandi[2]) || mem_button == 3) && controlloBlockedSx()){
                 mem_button = 3;
             
-                if (AltroTastoPremuto(input, Input.KEY_LEFT)){
+                if (AltroTastoPremuto(input, comandi[2])){
                    mem_button = 0;
                 }else{
                     x -= spostamento;
@@ -71,10 +77,10 @@ public abstract class Player extends Observable{
                     x = tile_width * (mapWidth - 1);            
         }
         
-        if (((input.isKeyDown(Input.KEY_RIGHT) || mem_button == 4) && controlloBlockedDx())){
+        if (((input.isKeyDown(comandi[3]) || mem_button == 4) && controlloBlockedDx())){
                 mem_button = 4;
                 
-                if (AltroTastoPremuto(input, Input.KEY_RIGHT)){
+                if (AltroTastoPremuto(input, comandi[3])){
                    mem_button = 0;
                 }else{
                     x += spostamento;
@@ -87,18 +93,18 @@ public abstract class Player extends Observable{
     }
     
     public boolean AltroTastoPremuto(Input input, int n) {
-        int[] UsedKeys = {Input.KEY_DOWN, Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT}; 
+        int[] UsedKeys = {comandi[1], comandi[0], comandi[2], comandi[3]}; 
 
-        if ((input.isKeyDown(Input.KEY_DOWN)) && controlloBlockedGiu() && Input.KEY_DOWN != n)
+        if ((input.isKeyDown(comandi[1])) && controlloBlockedGiu() && comandi[1] != n)
                 return true;
                 
-        else if ((input.isKeyDown(Input.KEY_UP)) && controlloBlockedSu() && Input.KEY_UP != n)
+        else if ((input.isKeyDown(comandi[0])) && controlloBlockedSu() && comandi[0] != n)
                 return true;
         
-        else if ((input.isKeyDown(Input.KEY_LEFT)) && controlloBlockedSx() && Input.KEY_LEFT != n)
+        else if ((input.isKeyDown(comandi[2])) && controlloBlockedSx() && comandi[2] != n)
                 return true;
         
-        else if((input.isKeyDown(Input.KEY_RIGHT)) && controlloBlockedDx() && Input.KEY_RIGHT != n)
+        else if((input.isKeyDown(comandi[3])) && controlloBlockedDx() && comandi[3] != n)
                 return true;
         else
             return false;
@@ -156,5 +162,43 @@ public abstract class Player extends Observable{
     public boolean controlloTunnelDx(){
         return tiles[(xUpSx + spostamento)/tile_width][yUpSx/tile_height].isTunnel() &&
                tiles[(xDownDx + spostamento)/tile_width][yDownDx/tile_height].isTunnel();
+    }
+
+    private void setControlKeys() {
+        if(this instanceof PacMan) {
+            comandi[0] = Input.KEY_UP;
+            comandi[1] = Input.KEY_DOWN;
+            comandi[2] = Input.KEY_LEFT;
+            comandi[3] = Input.KEY_RIGHT;
+        }
+        
+        if(this instanceof Clyde) {
+            comandi[0] = Input.KEY_W;
+            comandi[1] = Input.KEY_S;
+            comandi[2] = Input.KEY_A;
+            comandi[3] = Input.KEY_D;
+        }
+        
+        if(this instanceof Inky) {
+            comandi[0] = Input.KEY_T;
+            comandi[1] = Input.KEY_G;
+            comandi[2] = Input.KEY_F;
+            comandi[3] = Input.KEY_H;
+        }
+        
+        if(this instanceof Pinky) {
+            comandi[0] = Input.KEY_I;
+            comandi[1] = Input.KEY_K;
+            comandi[2] = Input.KEY_J;
+            comandi[3] = Input.KEY_L;
+        }
+        
+        if(this instanceof Blinky) {
+            comandi[0] = Input.KEY_1;
+            comandi[1] = Input.KEY_2;
+            comandi[2] = Input.KEY_3;
+            comandi[3] = Input.KEY_4;
+        }
+            
     }
 }

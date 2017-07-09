@@ -92,7 +92,7 @@ public class Labirinto extends Observable {
     }
 
     
-    public void movimentoGiocatori(Input input) {
+    public void movimentoGiocatori(Input input, String mode) {
         startMoment();
         
         gameOver();
@@ -100,11 +100,21 @@ public class Labirinto extends Observable {
         if(pacman.isDeath())
             resetPosition();
         
-        pacman.movimento(input);
-        clyde.movimento(clyde.choose_direction(pacman));
-        //blinky.movimento(blinky.choose_direction());
-        inky.movimento(inky.choose_direction());
-        pinky.movimento(pinky.choose_direction());
+        pacman.movimentoManuale(input);
+        
+        if(mode.equals("single")) {
+            clyde.movimentoArtificiale(clyde.choose_direction(pacman));
+//            blinky.movimentoArtificiale(blinky.choose_direction());
+            inky.movimentoArtificiale(inky.choose_direction());
+            pinky.movimentoArtificiale(pinky.choose_direction());
+        }
+        if(mode.equals("multi")){
+            clyde.movimentoManuale(input);
+            blinky.movimentoManuale(input);
+            inky.movimentoManuale(input);
+            pinky.movimentoManuale(input);
+        }
+        
         collision();
         superPillCollision();
         setChanged();

@@ -24,7 +24,7 @@ public abstract class Fantasma extends Player{
         
     }
 
-    public void movimento(int direzione){
+    public void movimentoArtificiale(int direzione){
         
         int spostamento = 2;
         

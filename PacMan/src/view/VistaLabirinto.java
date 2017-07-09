@@ -111,7 +111,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     public void update(GameContainer container, int delta) throws SlickException
     {
         input = container.getInput();
-        controller.setInput(input);
+        controller.setInput(input, "single");
     }
 
     @Override
