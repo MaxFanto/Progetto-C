@@ -23,7 +23,7 @@ public class Controller {
 
     public void setInput(Input input, String mode) {
         this.input = input;
-        sendInput(mode);
+        sendInfo(mode);
     }
 
     public void initLabirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException{
@@ -46,7 +46,7 @@ public class Controller {
         }
     }
     
-    private void sendInput(String mode){
+    private void sendInfo(String mode){
         labirinto.movimentoGiocatori(input, mode);
     }
 }

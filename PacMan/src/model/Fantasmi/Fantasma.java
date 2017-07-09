@@ -28,9 +28,6 @@ public abstract class Fantasma extends Player{
         
         int spostamento = 2;
         
-        
-        //setCorners();
-
         if ((direzione == 0) && controlloBlockedSu()){   
                 y -= spostamento; 
                 direction = Direzioni.UP;
