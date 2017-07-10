@@ -8,7 +8,6 @@ package model.Fantasmi;
 import altro.Tile;
 import model.Direzioni;
 import model.Player;
-import org.newdawn.slick.Input;
 
 /**
  *
@@ -43,7 +42,7 @@ public abstract class Fantasma extends Player{
                     direction = Direzioni.LEFT;
                 
                 if (controlloTunnelSx()) 
-                    x = tile_width * (mapWidth - 1);            
+                    x = tileWidth * (mapWidth - 1);            
         }
         
         if ((direzione == 3) && controlloBlockedDx()){

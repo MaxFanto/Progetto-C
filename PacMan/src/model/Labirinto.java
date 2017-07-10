@@ -39,6 +39,7 @@ public class Labirinto extends Observable {
     private Pinky pinky;
     
     private boolean delayFlag = true;
+    private boolean superFlagUL=true,superFlagUR=true, superFlagDL=true, superFlagDR=true;
 
     public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
 
@@ -75,15 +76,14 @@ public class Labirinto extends Observable {
         
         gameOver();
         
-        if(pacman.isDeath())
-            resetPosition();
+        checkDeath();
         
         pacman.movimentoManuale(input);
         
-        checkModalità(input, mode);
-        
-        collision();
+        checkModeGame(input, mode);
+        checkModeCollision();
         superPillCollision();
+        
         setChanged();
         notifyObservers();
     }
@@ -115,7 +115,6 @@ public class Labirinto extends Observable {
             
             pacman.setDeath(true);
         }
-        
     }
 
     private boolean checkClydeCollision() {
@@ -139,27 +138,52 @@ public class Labirinto extends Observable {
     }
     
     private void superPillCollision() {
+        long time = 0;
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
+           && superFlagUL==true) {
+            
             pacman.setPower(true);
+            time = System.currentTimeMillis();
+            superFlagUL = false;
+        }
+        
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
+           && superFlagUR==true) {
+            
             pacman.setPower(true);
+            time = System.currentTimeMillis();
+            superFlagUR = false;
+        }
+        
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
+           && superFlagDL==true) {
+            
             pacman.setPower(true);
+            time = System.currentTimeMillis();
+            superFlagDL = false;
+        }
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight())
+           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
+           && superFlagDR==true) {
+            
             pacman.setPower(true);
+            time = System.currentTimeMillis();
+            superFlagDR = false;
+        }
+        
+        checkTime(time);
     }
 
     private void resetPosition() {
         delay(true, 2000);
         pacman.setX(288); pacman.setY(512); pacman.setDeath(false);
-        blinky.setX(288); blinky.setY(256);
-        inky.setX(288);   inky.setY(256);
-        clyde.setX(288);  clyde.setY(256);
-        pinky.setX(288); pinky.setY(256);
+        blinkyResetPosition();
+        inkyResetPosition();
+        clydeResetPosition();
+        pinkyResetPosition();
     }
     
     private void delay(boolean flag, int time){
@@ -184,7 +208,7 @@ public class Labirinto extends Observable {
         }
     }
 
-    private void checkModalità(Input input, String mode) {
+    private void checkModeGame(Input input, String mode) {
         if(mode.equals("single")) {
             clyde.movimentoArtificiale(clyde.choose_direction(pacman));
 //            blinky.movimentoArtificiale(blinky.choose_direction());
@@ -197,5 +221,60 @@ public class Labirinto extends Observable {
             inky.movimentoManuale(input);
             pinky.movimentoManuale(input);
         }
+    }
+
+    private void checkTime(long time) {
+        if (System.currentTimeMillis() >= time + 7000 && pacman.isPower())
+            pacman.setPower(false);
+    }
+
+    private void checkModeCollision() {
+        if (pacman.isPower())
+            collisionPower();
+        else 
+            collision();
+    }
+
+    private void collisionPower() {
+        if (checkClydeCollision())
+            clyde.setDeath(true);
+        
+        if (checkBlinkyCollision())
+            blinky.setDeath(true);
+                
+        if (checkPinkyCollision())
+            pinky.setDeath(true);
+            
+        if (checkInkyCollision())
+            inky.setDeath(true);
+    }
+
+    private void blinkyResetPosition() {
+        blinky.setX(288); blinky.setY(256);
+    }
+
+    private void inkyResetPosition() {
+        inky.setX(288);   inky.setY(256);
+    }
+
+    private void clydeResetPosition() {
+        clyde.setX(288);  clyde.setY(256);
+    }
+
+    private void pinkyResetPosition() {
+        pinky.setX(288); pinky.setY(256);
+    }
+
+    private void checkDeath() {
+        if(pacman.isDeath())
+            resetPosition();
+        if(blinky.isDeath())
+            blinkyResetPosition();
+        if(inky.isDeath())
+            inkyResetPosition();
+        if(clyde.isDeath())
+            clydeResetPosition();
+        if(pinky.isDeath())
+            pinkyResetPosition();
     }
 }

@@ -39,7 +39,6 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private int lives = 3;
     private int score = 0;
     
-    int memButton;
     private boolean pacmanDeath = false;
     private boolean pacmanPower = false;
     
@@ -127,7 +126,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     public void update(GameContainer container, int delta) throws SlickException
     {
         input = container.getInput();
-        controller.setInfo(input, "single");
+        controller.setInfo(input, "multi");
     }
     
     @Override
@@ -294,9 +293,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
         if(!pacmanDeath)
             pacman.draw(pacman.getxPos(), pacman.getyPos());
         else {
-//            death.play();
+            death.play();
             ready.draw(226, 384);
-            pacman.changeAnimationSet();
         }
     }
     

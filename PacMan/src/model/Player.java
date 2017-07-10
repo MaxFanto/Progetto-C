@@ -18,21 +18,20 @@ import org.newdawn.slick.Input;
  * @author cl427927
  */
 public abstract class Player extends Observable{
-    private String nome;
-    private int punteggio;
     protected int x, y;
-    public int mem_button, tile_width, tile_height, mapWidth;
+    public int memButton, tileWidth, tileHeight, mapWidth;
     public Tile[][] tiles;
     public int xUpSx, xUpDx, xDownSx, xDownDx;     
     public int yUpSx, yUpDx, yDownSx, yDownDx;
     public int spostamento = 2;
     public int[] comandi = new int[4];
+    private boolean death;
     
     protected Direzioni direction = Direzioni.INITIAL;
     
     public Player(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
-        this.tile_width = tile_width;
-        this.tile_height = tile_heigth;
+        this.tileWidth = tile_width;
+        this.tileHeight = tile_heigth;
         this.mapWidth = mapWidth;
         this.tiles = tiles;
     }
@@ -41,47 +40,47 @@ public abstract class Player extends Observable{
         setControlKeys();
         setCorners();
 
-        if ((input.isKeyDown(comandi[0]) || mem_button == 1) && controlloBlockedSu()){                
-                mem_button = 1; 
+        if ((input.isKeyDown(comandi[0]) || memButton == 1) && controlloBlockedSu()){                
+                memButton = 1; 
                 
                 if (AltroTastoPremuto(input, comandi[0])){
-                   mem_button = 0;
+                   memButton = 0;
                 }else{
                     y -= spostamento;
                     direction = Direzioni.UP;
                 }
         }
         
-        if ((input.isKeyDown(comandi[1]) || mem_button == 2) && controlloBlockedGiu()){
-                mem_button = 2;
+        if ((input.isKeyDown(comandi[1]) || memButton == 2) && controlloBlockedGiu()){
+                memButton = 2;
                 
                 if (AltroTastoPremuto(input, comandi[1])){
-                   mem_button = 0;
+                   memButton = 0;
                 }else{
                     y += spostamento;
                     direction = Direzioni.DOWN;
                 }                               
         }
         
-        if ((input.isKeyDown(comandi[2]) || mem_button == 3) && controlloBlockedSx()){
-                mem_button = 3;
+        if ((input.isKeyDown(comandi[2]) || memButton == 3) && controlloBlockedSx()){
+                memButton = 3;
             
                 if (AltroTastoPremuto(input, comandi[2])){
-                   mem_button = 0;
+                   memButton = 0;
                 }else{
                     x -= spostamento;
                     direction = Direzioni.LEFT;
                 }
                 
                 if (controlloTunnelSx()) 
-                    x = tile_width * (mapWidth - 1);            
+                    x = tileWidth * (mapWidth - 1);            
         }
         
-        if (((input.isKeyDown(comandi[3]) || mem_button == 4) && controlloBlockedDx())){
-                mem_button = 4;
+        if (((input.isKeyDown(comandi[3]) || memButton == 4) && controlloBlockedDx())){
+                memButton = 4;
                 
                 if (AltroTastoPremuto(input, comandi[3])){
-                   mem_button = 0;
+                   memButton = 0;
                 }else{
                     x += spostamento;
                     direction = Direzioni.RIGHT;
@@ -112,13 +111,9 @@ public abstract class Player extends Observable{
 
     protected void setCorners(){
         xUpSx = x; yUpSx = y;
-        xUpDx = x + tile_width - 1; yUpDx = y;
-        xDownSx = x; yDownSx = y + tile_height - 1;
-        xDownDx = x + tile_width - 1; yDownDx = y + tile_height - 1;
-    }
-
-    public void setPunteggio(int punteggio) {
-        this.punteggio += punteggio;
+        xUpDx = x + tileWidth - 1; yUpDx = y;
+        xDownSx = x; yDownSx = y + tileHeight - 1;
+        xDownDx = x + tileWidth - 1; yDownDx = y + tileHeight - 1;
     }
 
     public void setX(int x) {
@@ -135,33 +130,33 @@ public abstract class Player extends Observable{
     
         
     public boolean controlloBlockedSu(){
-    return !tiles[xUpSx/tile_width][(yUpSx - spostamento)/tile_height].isBlocked() &&
-           !tiles[xUpDx/tile_width][(yUpDx - spostamento)/tile_height].isBlocked();
+    return !tiles[xUpSx/tileWidth][(yUpSx - spostamento)/tileHeight].isBlocked() &&
+           !tiles[xUpDx/tileWidth][(yUpDx - spostamento)/tileHeight].isBlocked();
     }
     
     public boolean controlloBlockedGiu(){
-    return !tiles[xDownSx/tile_width][(yDownSx + spostamento)/tile_height].isBlocked() && 
-           !tiles[xDownDx/tile_width][(yDownDx + spostamento)/tile_height].isBlocked();
+    return !tiles[xDownSx/tileWidth][(yDownSx + spostamento)/tileHeight].isBlocked() && 
+           !tiles[xDownDx/tileWidth][(yDownDx + spostamento)/tileHeight].isBlocked();
     }
     
     public boolean controlloBlockedSx() {
-    return !tiles[(xUpSx - spostamento)/tile_width][yUpSx/tile_height].isBlocked() && 
-           !tiles[(xDownSx - spostamento)/tile_width][yDownSx/tile_height].isBlocked();
+    return !tiles[(xUpSx - spostamento)/tileWidth][yUpSx/tileHeight].isBlocked() && 
+           !tiles[(xDownSx - spostamento)/tileWidth][yDownSx/tileHeight].isBlocked();
     }
     
     public boolean controlloBlockedDx() {
-        return !tiles[(xUpDx + spostamento)/tile_width][yUpDx/tile_height].isBlocked() &&
-               !tiles[(xDownDx + spostamento)/tile_width][yDownDx/tile_height].isBlocked();
+        return !tiles[(xUpDx + spostamento)/tileWidth][yUpDx/tileHeight].isBlocked() &&
+               !tiles[(xDownDx + spostamento)/tileWidth][yDownDx/tileHeight].isBlocked();
     }
     
     public boolean controlloTunnelSx(){
-        return tiles[(xUpDx - spostamento)/tile_width][yUpSx/tile_height].isTunnel() && 
-               tiles[(xUpSx - spostamento)/tile_width][yDownDx/tile_height].isTunnel();
+        return tiles[(xUpDx - spostamento)/tileWidth][yUpSx/tileHeight].isTunnel() && 
+               tiles[(xUpSx - spostamento)/tileWidth][yDownDx/tileHeight].isTunnel();
     }
     
     public boolean controlloTunnelDx(){
-        return tiles[(xUpSx + spostamento)/tile_width][yUpSx/tile_height].isTunnel() &&
-               tiles[(xDownDx + spostamento)/tile_width][yDownDx/tile_height].isTunnel();
+        return tiles[(xUpSx + spostamento)/tileWidth][yUpSx/tileHeight].isTunnel() &&
+               tiles[(xDownDx + spostamento)/tileWidth][yDownDx/tileHeight].isTunnel();
     }
 
     private void setControlKeys() {
@@ -201,4 +196,8 @@ public abstract class Player extends Observable{
         }
             
     }
+    
+    public boolean isDeath() {return death;}
+    
+    public void setDeath(boolean death) {this.death = death;}
 }
