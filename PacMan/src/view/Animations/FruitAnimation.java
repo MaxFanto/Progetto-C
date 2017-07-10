@@ -40,7 +40,7 @@ public class FruitAnimation extends Animation implements AnimationsAdapter{
         
         switch(indiceFrutto){
             case 0:
-                return "ciliegia.png";              
+                return "ciliegia.png";            
             case 1:
                 return "fragola.png";               
             case 2:

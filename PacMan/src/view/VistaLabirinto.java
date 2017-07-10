@@ -21,10 +21,6 @@ import view.Animations.AnimationsAdapter;
 import view.Animations.FruitAnimation;
 
 public class VistaLabirinto extends BasicGame implements Observer{
-    boolean fruitFlag = true;
-    
-    int mem_button;
-    public int [] duration;
     
     boolean[][] blocked, tunnel, eat, superP, fruit;
     
@@ -32,16 +28,18 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     private Input input;
     
-    private Image ready;
-    private Image gameOver;
-    
     private PacManAnimation pacman;
     private GhostAnimation pinky, clyde, blinky, inky;
     private PillAnimation pill, superPill;
     private FruitAnimation fruits;
     
-    private int lives = 3;
+    private Image ready;
+    private Image gameOver;
     
+    private int lives = 3;
+    private int score = 0;
+    
+    int memButton;
     private boolean pacmanDeath = false;
     private boolean pacmanPower = false;
     
@@ -49,7 +47,9 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private Sound begin, eatPill, eatFruit, death, background;
     
     private Controller controller;
+    
     private boolean readyFlag = true;
+    private boolean fruitFlag = true;
     
     
     public VistaLabirinto(Controller controller) throws SlickException
@@ -72,48 +72,19 @@ public class VistaLabirinto extends BasicGame implements Observer{
         gameOver = new Image("data/gameover.png");
         
         mazeMap = new TiledMap("data/maze/Maze.tmx");
-        blocked = generaMappaProprietà("blocked");
-        tunnel = generaMappaProprietà("tunnel");
-        eat = generaMappaProprietà("eat");
-        superP = generaMappaProprietà("superP");
-        fruit = generaMappaProprietà("fruit");
+        initMapProperty();
         initAnimations();
-
         
-//        begin = new Sound("data/pacmanSound/begin.wav");
-//        begin.play();
-//        eatPill = new Sound("data/pacmanSound/eatPill.wav");
+        begin = new Sound("data/pacmanSound/begin.wav");
+        begin.play();
+        eatPill = new Sound("data/pacmanSound/eatPill.wav");
 //        eatFruit = new Sound("data/pacmanSound/eatFruit.wav");
-//        death = new Sound("data/pacmanSound/death.wav");
-//        background = new Sound("data/pacmanSound/background.wav");
+        death = new Sound("data/pacmanSound/death.wav");
+        background = new Sound("data/pacmanSound/background.wav");
         
         controller.initLabirinto(mazeMap,this);
     }
     
-    /**
-     * inizializzazione delle animazioni
-     * @throws SlickException 
-     */
-    private void initAnimations() throws SlickException{
-        pacman = new PacManAnimation();
-        pacman.rotate(0);
-        
-        clyde = new GhostAnimation("clyde");
-        inky = new GhostAnimation("inky");       
-        pinky = new GhostAnimation("pinky"); 
-        blinky = new GhostAnimation("blinky");
-        pill = new PillAnimation("pill.png");
-        superPill = new PillAnimation();
-        fruits = new FruitAnimation();
-    }
-
-    @Override
-    public void update(GameContainer container, int delta) throws SlickException
-    {
-        input = container.getInput();
-        controller.setInput(input, "single");
-    }
-
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
@@ -123,16 +94,9 @@ public class VistaLabirinto extends BasicGame implements Observer{
         mazeMap.render(0, 0);
         renderFood(x, y);
         
-        if(readyFlag){
-            ready.draw(226, 384);
-            readyFlag = false;
-        }
-        if(!pacmanDeath)
-            pacman.draw(pacman.getxPos(), pacman.getyPos());
-        else {
-//            death.play();
-            ready.draw(226, 384);
-        }
+        startReady();
+        
+        renderPacman();
         
         if (fruit[9][12] == false && fruitFlag == true) {
 //            eatFruit.play();
@@ -151,14 +115,79 @@ public class VistaLabirinto extends BasicGame implements Observer{
         inky.draw(inky.getxPos(), inky.getyPos());
         blinky.draw(blinky.getxPos(), blinky.getyPos());
         
-        renderScore(g, countScore());
+        score = countScore();
+        renderScore(g, score);
         renderLives(g, lives);
         
         if(lives == 0)
             gameOver.draw(192, 384);
-    }  
+    }
     
+    @Override
+    public void update(GameContainer container, int delta) throws SlickException
+    {
+        input = container.getInput();
+        controller.setInfo(input, "single");
+    }
     
+    @Override
+    public void update(Observable o, Object o1) {
+        try {
+            aggiornaOrientamento(((Labirinto)o).getPacman(), pacman);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), clyde);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), blinky);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), inky);
+            aggiornaOrientamento(((Labirinto)o).getClyde(), pinky);
+        } catch (SlickException ex) {
+            ex.printStackTrace();
+        }
+        if(!pacmanDeath) {
+            pacman.setxPos(((Labirinto)o).getPacman().getxPos());
+            pacman.setyPos(((Labirinto)o).getPacman().getyPos());
+        }
+        
+        clyde.setxPos(((Labirinto)o).getClyde().getxPos());
+        clyde.setyPos(((Labirinto)o).getClyde().getyPos());
+        
+        blinky.setxPos(((Labirinto)o).getBlinky().getxPos());
+        blinky.setyPos(((Labirinto)o).getBlinky().getyPos());
+        
+        inky.setxPos(((Labirinto)o).getInky().getxPos());
+        inky.setyPos(((Labirinto)o).getInky().getyPos());
+        
+        pinky.setxPos(((Labirinto)o).getPinky().getxPos());
+        pinky.setyPos(((Labirinto)o).getPinky().getyPos());
+        
+        pacmanDeath = ((Labirinto)o).getPacman().isDeath();
+        
+        lives = ((Labirinto)o).getPacman().getVite();
+    }
+    
+    /**
+     * inizializzazione delle animazioni
+     * @throws SlickException 
+     */
+    private void initMapProperty() {
+        blocked = generaMappaProprietà("blocked");
+        tunnel = generaMappaProprietà("tunnel");
+        eat = generaMappaProprietà("eat");
+        superP = generaMappaProprietà("superP");
+        fruit = generaMappaProprietà("fruit");
+    }
+    
+    private void initAnimations() throws SlickException{
+        pacman = new PacManAnimation();
+        pacman.rotate(0);
+        
+        clyde = new GhostAnimation("clyde");
+        inky = new GhostAnimation("inky");       
+        pinky = new GhostAnimation("pinky"); 
+        blinky = new GhostAnimation("blinky");
+        pill = new PillAnimation("pill.png");
+        superPill = new PillAnimation();
+        fruits = new FruitAnimation();
+    }
+
     private boolean[][] generaMappaProprietà(String s) {
         
         int altezza = mazeMap.getHeight();
@@ -205,39 +234,6 @@ public class VistaLabirinto extends BasicGame implements Observer{
         }
     }
 
-    @Override
-    public void update(Observable o, Object o1) {
-        try {
-            aggiornaOrientamento(((Labirinto)o).getPacman(), pacman);
-            aggiornaOrientamento(((Labirinto)o).getClyde(), clyde);
-            aggiornaOrientamento(((Labirinto)o).getClyde(), blinky);
-            aggiornaOrientamento(((Labirinto)o).getClyde(), inky);
-            aggiornaOrientamento(((Labirinto)o).getClyde(), pinky);
-        } catch (SlickException ex) {
-            ex.printStackTrace();
-        }
-        if(!pacmanDeath) {
-            pacman.setxPos(((Labirinto)o).getPacman().getxPos());
-            pacman.setyPos(((Labirinto)o).getPacman().getyPos());
-        }
-        
-        clyde.setxPos(((Labirinto)o).getClyde().getxPos());
-        clyde.setyPos(((Labirinto)o).getClyde().getyPos());
-        
-        blinky.setxPos(((Labirinto)o).getBlinky().getxPos());
-        blinky.setyPos(((Labirinto)o).getBlinky().getyPos());
-        
-        inky.setxPos(((Labirinto)o).getInky().getxPos());
-        inky.setyPos(((Labirinto)o).getInky().getyPos());
-        
-        pinky.setxPos(((Labirinto)o).getPinky().getxPos());
-        pinky.setyPos(((Labirinto)o).getPinky().getyPos());
-        
-        pacmanDeath = ((Labirinto)o).getPacman().isDeath();
-        
-        lives = ((Labirinto)o).getPacman().getVite();
-    }        
-
     private void renderScore(Graphics g, int score) {
         g.setColor(Color.yellow);
         g.drawString("SCORE: " + score, 24, 1);
@@ -266,7 +262,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
                     pill.draw(i*32, j*32);
                 if (superP[i][j] == true)
                     superPill.draw(i*32, j*32);
-                if (fruit[i][j] == true)
+                if (fruit[i][j] == true && score > 500)
                     fruits.draw(i*32, j*32);
                 
                 if ((x == i*32 && y == j*32) || (x + 31 == i*32 +31 && y == j*32) || (x == i*32 && y +31 == j*32+31) ||
@@ -293,6 +289,21 @@ public class VistaLabirinto extends BasicGame implements Observer{
         }
         return score;
     }
+
+    private void renderPacman() throws SlickException {
+        if(!pacmanDeath)
+            pacman.draw(pacman.getxPos(), pacman.getyPos());
+        else {
+//            death.play();
+            ready.draw(226, 384);
+            pacman.changeAnimationSet();
+        }
+    }
     
-    
+    private void startReady() {
+        if(readyFlag){
+            ready.draw(226, 384);
+            readyFlag = false;
+        }
+    }
 }

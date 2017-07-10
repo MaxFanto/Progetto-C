@@ -6,9 +6,6 @@
 package model;
 
 import altro.Tile;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 
 /**
  *
@@ -31,30 +28,17 @@ public class PacMan extends Player {
         y = Y_MAIN_POS;
         vite = 3;
     }
-    
- 
 
-
-    
     //getter
     public int getxPos() {return x;}
     public int getyPos() {return y;}
     public int getVite() {return vite;}
     public boolean isPower() {return power;}
-
-    public boolean isDeath() {
-        return death;
-    }
-    
-    
+    public boolean isDeath() {return death;}
 
     //setter
     public void setVite() {vite--;}
     public void setPower(boolean power) {this.power = power;}      
-
-    public void setDeath(boolean death) {
-        this.death = death;
-    }
-
+    public void setDeath(boolean death) {this.death = death;}
     
 }

@@ -7,7 +7,6 @@ package model;
 
 import model.Fantasmi.Clyde;
 import altro.Tile;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,19 +25,12 @@ import view.VistaLabirinto;
 public class Labirinto extends Observable {
     
     private TiledMap mazeMap;
-        
-    private final int[] POWER_PILL_1 = new int[]{3,7};
-    private final int[] POWER_PILL_2 = new int[]{3,7};
-    private final int[] POWER_PILL_3 = new int[]{3,7};
-    private final int[] POWER_PILL_4 = new int[]{3,7};
     
     private Tile[][] tiles;
     
-    private int NormFactorX, NormFactorY;
-    
-    private ArrayList<int[]> powerPills;
-    
     private int tileWidth, tileHeight;
+    
+    private int score;
    
     private PacMan pacman;
     private Clyde clyde;
@@ -56,18 +48,12 @@ public class Labirinto extends Observable {
         tileWidth = mazeMap.getTileWidth();
         tileHeight = mazeMap.getTileHeight();
         
-        NormFactorX = mazeMap.getWidth()*tileWidth;
-        
-        
         pacman = new PacMan(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
         
         clyde = new Clyde(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
         blinky = new Blinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
         inky = new Inky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
         pinky = new Pinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
-
-        //generaPowerPills();
-        
     }
   
     private void inizializzazioneTiles(VistaLabirinto vistaLabirinto) {
@@ -84,14 +70,6 @@ public class Labirinto extends Observable {
         }
     }
     
-    private void generaPowerPills() {
-        powerPills.add(POWER_PILL_1);
-        powerPills.add(POWER_PILL_2);
-        powerPills.add(POWER_PILL_3);
-        powerPills.add(POWER_PILL_4);
-    }
-
-    
     public void movimentoGiocatori(Input input, String mode) {
         startMoment();
         
@@ -102,18 +80,7 @@ public class Labirinto extends Observable {
         
         pacman.movimentoManuale(input);
         
-        if(mode.equals("single")) {
-            clyde.movimentoArtificiale(clyde.choose_direction(pacman));
-//            blinky.movimentoArtificiale(blinky.choose_direction());
-            inky.movimentoArtificiale(inky.choose_direction());
-            pinky.movimentoArtificiale(pinky.choose_direction());
-        }
-        if(mode.equals("multi")){
-            clyde.movimentoManuale(input);
-            blinky.movimentoManuale(input);
-            inky.movimentoManuale(input);
-            pinky.movimentoManuale(input);
-        }
+        checkModalità(input, mode);
         
         collision();
         superPillCollision();
@@ -214,6 +181,21 @@ public class Labirinto extends Observable {
         if(pacman.getVite() == 0){
             delay(true, 3000);
             Display.destroy();
+        }
+    }
+
+    private void checkModalità(Input input, String mode) {
+        if(mode.equals("single")) {
+            clyde.movimentoArtificiale(clyde.choose_direction(pacman));
+//            blinky.movimentoArtificiale(blinky.choose_direction());
+            inky.movimentoArtificiale(inky.choose_direction());
+            pinky.movimentoArtificiale(pinky.choose_direction());
+        }
+        if(mode.equals("multi")){
+            clyde.movimentoManuale(input);
+            blinky.movimentoManuale(input);
+            inky.movimentoManuale(input);
+            pinky.movimentoManuale(input);
         }
     }
 }

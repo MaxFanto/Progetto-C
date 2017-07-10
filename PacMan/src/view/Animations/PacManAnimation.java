@@ -55,6 +55,7 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
         }     
     }
     
+    @Override
     protected void finalize() throws Throwable{
         System.out.println("animazione distrutta");
     }
