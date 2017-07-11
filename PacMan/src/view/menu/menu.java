@@ -49,11 +49,12 @@ public class menu extends javax.swing.JFrame {
         backgorund_panel.setBackground(new java.awt.Color(0, 0, 0));
         backgorund_panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 5));
         
-        InputStream font1 = new FileInputStream("pac-font.ttf");
+        
+        InputStream font1 = new FileInputStream("data/font/pac-font.ttf");
         Font pac_man_font1 = Font.createFont(Font.TRUETYPE_FONT, font1);
-        InputStream font2 = new FileInputStream("lot.otf");
+        InputStream font2 = new FileInputStream("data/font/lot.otf");
         Font pac_man_font2 = Font.createFont(Font.TRUETYPE_FONT, font2);
-        InputStream font3 = new FileInputStream("namco.ttf");
+        InputStream font3 = new FileInputStream("data/font/namco.ttf");
         Font pac_man_font3 = Font.createFont(Font.TRUETYPE_FONT, font3);
         
                 
