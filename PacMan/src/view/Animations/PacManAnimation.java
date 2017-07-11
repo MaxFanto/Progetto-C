@@ -48,6 +48,7 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
         //if(morte)
         super.getImage(0).destroy();
         super.getImage(1).destroy();
+        super.getImage(2).destroy();
         String path = "data/pacmanDeath/pacmanDeath";
         //aggiunge n frame in base a quanti sono quelli dell'animazione di morte di pacman
         for (int i = 0; i < 5; i++) {

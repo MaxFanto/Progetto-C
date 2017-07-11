@@ -121,6 +121,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         if(lives == 0)
             gameOver.draw(192, 384);
+        if (pacmanPower == true)
+            clyde.changeAnimationSet();
     }
     
     @Override
@@ -159,6 +161,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         pinky.setyPos(((Labirinto)o).getPinky().getyPos());
         
         pacmanDeath = ((Labirinto)o).getPacman().isDeath();
+        pacmanPower = ((Labirinto)o).getPacman().isPower();
         
         lives = ((Labirinto)o).getPacman().getVite();
     }
