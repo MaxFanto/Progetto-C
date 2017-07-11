@@ -20,6 +20,14 @@ import java.util.logging.Logger;
  */
 public class menu extends javax.swing.JFrame {
 
+    private javax.swing.JPanel backgorund_panel;
+    private javax.swing.JLabel controls;
+    private javax.swing.JLabel multi_player;
+    private javax.swing.JLabel quit;
+    private javax.swing.JLabel single_player;
+    private javax.swing.JLabel title;
+    private javax.swing.JLabel image_menu;
+
     public menu() throws FontFormatException, IOException {
         initComponents();
     }
@@ -72,7 +80,7 @@ public class menu extends javax.swing.JFrame {
         quit.setForeground(new java.awt.Color(255, 255, 0));
         quit.setText("Quit");
         
-        image_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\matteo\\Desktop\\Progetto-C\\PacMan\\data\\immagine_menu.png")); // NOI18N
+        image_menu.setIcon(new javax.swing.ImageIcon("data/immagine_menu.png")); // NOI18N
         image_menu.setText("");
 
         
@@ -167,15 +175,5 @@ public class menu extends javax.swing.JFrame {
                 }
             }
         });
-    }
-
-    // Variables declaration - do not modify                     
-    private javax.swing.JPanel backgorund_panel;
-    private javax.swing.JLabel controls;
-    private javax.swing.JLabel multi_player;
-    private javax.swing.JLabel quit;
-    private javax.swing.JLabel single_player;
-    private javax.swing.JLabel title;
-    private javax.swing.JLabel image_menu;
-    // End of variables declaration                   
+    }            
 }
