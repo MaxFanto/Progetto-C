@@ -23,18 +23,17 @@ public class menu extends javax.swing.JFrame {
     public menu() throws FontFormatException, IOException {
         initComponents();
     }
-    
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+                          
     private void initComponents() throws FileNotFoundException, FontFormatException, IOException {
 
         backgorund_panel = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         single_player = new javax.swing.JLabel();
         multi_player = new javax.swing.JLabel();
-        leaderboard = new javax.swing.JLabel();
+        controls = new javax.swing.JLabel();
         quit = new javax.swing.JLabel();
-
+        image_menu = new javax.swing.JLabel();
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pac-man");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -59,67 +58,84 @@ public class menu extends javax.swing.JFrame {
         single_player.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
         single_player.setForeground(new java.awt.Color(255, 255, 0));
         single_player.setText("Single player");
-        single_player.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        single_player.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         multi_player.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
         multi_player.setForeground(new java.awt.Color(255, 255, 0));
         multi_player.setText("Multi player");
 
-        leaderboard.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
-        leaderboard.setForeground(new java.awt.Color(255, 255, 0));
-        leaderboard.setText("Leaderboard");
+        controls.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
+        controls.setForeground(new java.awt.Color(255, 255, 0));
+        controls.setText("Controls");
 
         quit.setFont(pac_man_font2.deriveFont(0,25)); // NOI18N
         quit.setForeground(new java.awt.Color(255, 255, 0));
         quit.setText("Quit");
+        
+        image_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\matteo\\Desktop\\Progetto-C\\PacMan\\data\\immagine_menu.png")); // NOI18N
+        image_menu.setText("");
 
+        
         javax.swing.GroupLayout backgorund_panelLayout = new javax.swing.GroupLayout(backgorund_panel);
         backgorund_panel.setLayout(backgorund_panelLayout);
+        
         backgorund_panelLayout.setHorizontalGroup(
             backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgorund_panelLayout.createSequentialGroup()
-                .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(backgorund_panelLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(leaderboard, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(backgorund_panelLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(145, Short.MAX_VALUE))
+                    
+            .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgorund_panelLayout.createSequentialGroup()
+            .addGap(25, 25, 25)
+            .addComponent(image_menu,javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(backgorund_panelLayout.createSequentialGroup()
+            .addGap(200, 200, 200)
+            .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(controls, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(backgorund_panelLayout.createSequentialGroup()
+            .addGap(25, 25, 25)
+            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(30, 30, 30)
+            .addGroup(backgorund_panelLayout.createSequentialGroup()
+            .addGap(25, 25, 25)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap(145, Short.MAX_VALUE))                
         );
         backgorund_panelLayout.setVerticalGroup(
             backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgorund_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(leaderboard, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+            .addContainerGap()
+            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(70, 70, 70)
+            .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
+            .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
+            .addComponent(controls, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(image_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(10, 10, 10)
+            .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(57, 57, 57)
+            .addContainerGap(52, Short.MAX_VALUE))
         );
 
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgorund_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backgorund_panel, 800, 800, 800)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgorund_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backgorund_panel, 650, 650, 650)
         );
 
         pack();
-    }// </editor-fold>                        
+    }
 
     public static void main(String args[]) {
 
@@ -155,10 +171,11 @@ public class menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JPanel backgorund_panel;
-    private javax.swing.JLabel leaderboard;
+    private javax.swing.JLabel controls;
     private javax.swing.JLabel multi_player;
     private javax.swing.JLabel quit;
     private javax.swing.JLabel single_player;
     private javax.swing.JLabel title;
+    private javax.swing.JLabel image_menu;
     // End of variables declaration                   
 }

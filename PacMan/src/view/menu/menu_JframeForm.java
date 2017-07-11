@@ -33,6 +33,7 @@ public class menu_JframeForm extends javax.swing.JFrame {
         multi_player = new javax.swing.JLabel();
         leaderboard = new javax.swing.JLabel();
         quit = new javax.swing.JLabel();
+        image_menu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pac-man");
@@ -62,21 +63,32 @@ public class menu_JframeForm extends javax.swing.JFrame {
         quit.setForeground(new java.awt.Color(255, 255, 0));
         quit.setText("Quit");
 
+        image_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\matteo\\Desktop\\Progetto-C\\PacMan\\data\\immgine_menu.png")); // NOI18N
+        image_menu.setText("jLabel1");
+
         javax.swing.GroupLayout backgorund_panelLayout = new javax.swing.GroupLayout(backgorund_panel);
         backgorund_panel.setLayout(backgorund_panelLayout);
         backgorund_panelLayout.setHorizontalGroup(
             backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgorund_panelLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
                 .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(leaderboard, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(445, Short.MAX_VALUE))
-            .addGroup(backgorund_panelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(backgorund_panelLayout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backgorund_panelLayout.createSequentialGroup()
+                                .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(leaderboard, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(backgorund_panelLayout.createSequentialGroup()
+                                .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                                .addComponent(image_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(95, 95, 95))))
+                    .addGroup(backgorund_panelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         backgorund_panelLayout.setVerticalGroup(
@@ -84,15 +96,17 @@ public class menu_JframeForm extends javax.swing.JFrame {
             .addGroup(backgorund_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addGap(102, 102, 102)
                 .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
+                .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(image_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(leaderboard, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(88, 88, 88)
                 .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -146,6 +160,7 @@ public class menu_JframeForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgorund_panel;
+    private javax.swing.JLabel image_menu;
     private javax.swing.JLabel leaderboard;
     private javax.swing.JLabel multi_player;
     private javax.swing.JLabel quit;
