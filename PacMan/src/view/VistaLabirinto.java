@@ -53,7 +53,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     
     public VistaLabirinto(Controller controller) throws SlickException
     {
-        super("Pac-man game");
+        super("");
         this.controller = controller;
     }
 
@@ -75,7 +75,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         initAnimations();
         
         begin = new Sound("data/pacmanSound/begin.wav");
-        begin.play();
+//        begin.play();
         eatPill = new Sound("data/pacmanSound/eatPill.wav");
 //        eatFruit = new Sound("data/pacmanSound/eatFruit.wav");
         death = new Sound("data/pacmanSound/death.wav");
@@ -117,6 +117,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         score = countScore();
         renderScore(g, score);
         renderLives(g, lives);
+        renderTitle(g);
         
         if(lives == 0)
             gameOver.draw(192, 384);
@@ -126,7 +127,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     public void update(GameContainer container, int delta) throws SlickException
     {
         input = container.getInput();
-        controller.setInfo(input, "multi");
+        controller.setInfo(input, "single");
     }
     
     @Override
@@ -293,7 +294,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         if(!pacmanDeath)
             pacman.draw(pacman.getxPos(), pacman.getyPos());
         else {
-            death.play();
+//            death.play();
             ready.draw(226, 384);
         }
     }
@@ -303,5 +304,10 @@ public class VistaLabirinto extends BasicGame implements Observer{
             ready.draw(226, 384);
             readyFlag = false;
         }
+    }
+
+    private void renderTitle(Graphics g) {
+        g.setColor(Color.yellow);
+        g.drawString("PAC-MAN", 272, 1);
     }
 }

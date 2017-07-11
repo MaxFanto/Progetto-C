@@ -9,6 +9,7 @@ import altro.Tile;
 import java.util.Observable;
 import model.Fantasmi.Blinky;
 import model.Fantasmi.Clyde;
+import model.Fantasmi.Fantasma;
 import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
 import org.newdawn.slick.Input;
@@ -200,4 +201,8 @@ public abstract class Player extends Observable{
     public boolean isDeath() {return death;}
     
     public void setDeath(boolean death) {this.death = death;}
+
+    public void setSpostamento(int spostamento) {
+        this.spostamento = spostamento;
+    }
 }

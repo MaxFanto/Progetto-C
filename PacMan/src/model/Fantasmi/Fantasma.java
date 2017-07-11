@@ -25,8 +25,6 @@ public abstract class Fantasma extends Player{
 
     public void movimentoArtificiale(int direzione){
         
-        int spostamento = 2;
-        
         if ((direzione == 0) && controlloBlockedSu()){   
                 y -= spostamento; 
                 direction = Direzioni.UP;

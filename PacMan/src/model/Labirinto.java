@@ -30,7 +30,7 @@ public class Labirinto extends Observable {
     
     private int tileWidth, tileHeight;
     
-    private int score;
+    private long time = 0;
    
     private PacMan pacman;
     private Clyde clyde;
@@ -138,7 +138,6 @@ public class Labirinto extends Observable {
     }
     
     private void superPillCollision() {
-        long time = 0;
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
            && superFlagUL==true) {
@@ -146,6 +145,7 @@ public class Labirinto extends Observable {
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagUL = false;
+            setGhostsSpeed(1);
         }
         
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
@@ -155,6 +155,7 @@ public class Labirinto extends Observable {
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagUR = false;
+            setGhostsSpeed(1);
         }
         
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
@@ -164,6 +165,7 @@ public class Labirinto extends Observable {
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagDL = false;
+            setGhostsSpeed(1);
         }
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
@@ -172,6 +174,7 @@ public class Labirinto extends Observable {
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagDR = false;
+            setGhostsSpeed(1);
         }
         
         checkTime(time);
@@ -224,8 +227,12 @@ public class Labirinto extends Observable {
     }
 
     private void checkTime(long time) {
-        if (System.currentTimeMillis() >= time + 7000 && pacman.isPower())
+        long a;
+        if ( ((a = System.currentTimeMillis()) >= (time + 5000)) && pacman.isPower()) {
             pacman.setPower(false);
+            setGhostsSpeed(2);
+        }
+        
     }
 
     private void checkModeCollision() {
@@ -238,31 +245,30 @@ public class Labirinto extends Observable {
     private void collisionPower() {
         if (checkClydeCollision())
             clyde.setDeath(true);
-        
         if (checkBlinkyCollision())
-            blinky.setDeath(true);
-                
+            blinky.setDeath(true);   
         if (checkPinkyCollision())
             pinky.setDeath(true);
-            
         if (checkInkyCollision())
             inky.setDeath(true);
+        
+        
     }
 
     private void blinkyResetPosition() {
-        blinky.setX(288); blinky.setY(256);
+        blinky.setX(288); blinky.setY(256); blinky.setDeath(false);
     }
 
     private void inkyResetPosition() {
-        inky.setX(288);   inky.setY(256);
+        inky.setX(288);   inky.setY(256); inky.setDeath(false);
     }
 
     private void clydeResetPosition() {
-        clyde.setX(288);  clyde.setY(256);
+        clyde.setX(288);  clyde.setY(256); clyde.setDeath(false);
     }
 
     private void pinkyResetPosition() {
-        pinky.setX(288); pinky.setY(256);
+        pinky.setX(288); pinky.setY(256); pinky.setDeath(false);
     }
 
     private void checkDeath() {
@@ -276,5 +282,12 @@ public class Labirinto extends Observable {
             clydeResetPosition();
         if(pinky.isDeath())
             pinkyResetPosition();
+    }
+
+    private void setGhostsSpeed(int speed) {
+        clyde.setSpostamento(speed);
+        inky.setSpostamento(speed);
+        blinky.setSpostamento(speed);
+        pinky.setSpostamento(speed);
     }
 }
