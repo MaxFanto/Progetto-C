@@ -5,8 +5,13 @@
  */
 package view.menu;
 
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,9 +34,26 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel image_menu;
 
     public menu() throws FontFormatException, IOException {
-        initComponents();
+        initComponents();      
     }
+    
+    private void single_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
+        //TODO collegare a inizio partita single player
+    } 
+    
+    private void multi_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
+        //TODO collegare a inizio partita multi player
+    }
+    
+    private void controlsMousePressed(java.awt.event.MouseEvent evt) {                                           
+        //TODO collegare alla pagina con i controlli
+    }
+    
+    private void quitMousePressed(java.awt.event.MouseEvent evt) {                                           
+        //TODO uscire dal gioco
+    } 
                           
+    
     private void initComponents() throws FileNotFoundException, FontFormatException, IOException {
 
         backgorund_panel = new javax.swing.JPanel();
@@ -41,14 +63,12 @@ public class menu extends javax.swing.JFrame {
         controls = new javax.swing.JLabel();
         quit = new javax.swing.JLabel();
         image_menu = new javax.swing.JLabel();
-        
+                
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pac-man");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
+        
         backgorund_panel.setBackground(new java.awt.Color(0, 0, 0));
         backgorund_panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 5));
-        
         
         InputStream font1 = new FileInputStream("data/font/pac-font.ttf");
         Font pac_man_font1 = Font.createFont(Font.TRUETYPE_FONT, font1);
@@ -67,23 +87,47 @@ public class menu extends javax.swing.JFrame {
         single_player.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
         single_player.setForeground(new java.awt.Color(255, 255, 0));
         single_player.setText("Single player");
-        single_player.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
+        single_player.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        single_player.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                single_playerMousePressed(evt);
+            }
+        });
+        
+        
         multi_player.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
         multi_player.setForeground(new java.awt.Color(255, 255, 0));
         multi_player.setText("Multi player");
-
+        multi_player.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        multi_player.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                multi_playerMousePressed(evt);
+            }
+        });        
+        
         controls.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
         controls.setForeground(new java.awt.Color(255, 255, 0));
         controls.setText("Controls");
-
+        controls.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        controls.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                controlsMousePressed(evt);
+            }
+        });
+                
         quit.setFont(pac_man_font2.deriveFont(0,25)); // NOI18N
         quit.setForeground(new java.awt.Color(255, 255, 0));
         quit.setText("Quit");
+        quit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        quit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                quitMousePressed(evt);
+            }
+        });
         
         image_menu.setIcon(new javax.swing.ImageIcon("data/immagine_menu.png")); // NOI18N
         image_menu.setText("");
-
+        
         
         javax.swing.GroupLayout backgorund_panelLayout = new javax.swing.GroupLayout(backgorund_panel);
         backgorund_panel.setLayout(backgorund_panelLayout);
@@ -99,10 +143,10 @@ public class menu extends javax.swing.JFrame {
             .addGroup(backgorund_panelLayout.createSequentialGroup()
             .addGap(200, 200, 200)
             .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(controls, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(controls, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(backgorund_panelLayout.createSequentialGroup()
             .addGap(25, 25, 25)
             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)))

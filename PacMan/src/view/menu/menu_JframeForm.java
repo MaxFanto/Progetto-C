@@ -50,6 +50,14 @@ public class menu_JframeForm extends javax.swing.JFrame {
         single_player.setForeground(new java.awt.Color(255, 255, 0));
         single_player.setText("Single player");
         single_player.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        single_player.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                single_playerMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                single_playerMousePressed(evt);
+            }
+        });
 
         multi_player.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         multi_player.setForeground(new java.awt.Color(255, 255, 0));
@@ -63,7 +71,6 @@ public class menu_JframeForm extends javax.swing.JFrame {
         quit.setForeground(new java.awt.Color(255, 255, 0));
         quit.setText("Quit");
 
-        image_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\matteo\\Desktop\\Progetto-C\\PacMan\\data\\immgine_menu.png")); // NOI18N
         image_menu.setText("jLabel1");
 
         javax.swing.GroupLayout backgorund_panelLayout = new javax.swing.GroupLayout(backgorund_panel);
@@ -122,6 +129,14 @@ public class menu_JframeForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void single_playerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_single_playerMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_single_playerMouseClicked
+
+    private void single_playerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_single_playerMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_single_playerMousePressed
 
     /**
      * @param args the command line arguments
