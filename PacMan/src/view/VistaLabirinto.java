@@ -117,7 +117,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
         if(lives == 0)
             gameOver.draw(192, 384);
         if (youWin() == 0)
-            youWin.draw(207, 384);
+            youWin.draw(212, 384);
         if (pacmanPower)
             clyde.changeAnimationSet();
     }
