@@ -5,7 +5,9 @@
  */
 package view.menu;
 
+import controller.Controller;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
@@ -37,19 +39,21 @@ public class menu extends javax.swing.JFrame {
         initComponents();      
     }
     
-    private void single_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
-        //TODO collegare a inizio partita single player
+    public void single_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
+        Controller controller = new Controller();
+        setVisible(false);
+        controller.startGame();
     } 
     
-    private void multi_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
+    public void multi_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
         //TODO collegare a inizio partita multi player
     }
     
-    private void controlsMousePressed(java.awt.event.MouseEvent evt) {                                           
+    public void controlsMousePressed(java.awt.event.MouseEvent evt) {                                           
         //TODO collegare alla pagina con i controlli
     }
     
-    private void quitMousePressed(java.awt.event.MouseEvent evt) {                                           
+    public void quitMousePressed(java.awt.event.MouseEvent evt) {                                           
         //TODO uscire dal gioco
     } 
                           
@@ -63,7 +67,12 @@ public class menu extends javax.swing.JFrame {
         controls = new javax.swing.JLabel();
         quit = new javax.swing.JLabel();
         image_menu = new javax.swing.JLabel();
-                
+        
+        Dimension dim_screen = Toolkit.getDefaultToolkit().getScreenSize();
+        int w = getSize().width;
+        int x = (dim_screen.width-w)/5;
+               
+        setLocation(x, 0);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pac-man");
         
@@ -76,36 +85,36 @@ public class menu extends javax.swing.JFrame {
         Font pac_man_font2 = Font.createFont(Font.TRUETYPE_FONT, font2);
         InputStream font3 = new FileInputStream("data/font/namco.ttf");
         Font pac_man_font3 = Font.createFont(Font.TRUETYPE_FONT, font3);
-        
-                
-        
+               
         title.setFont(pac_man_font1.deriveFont(0,88));
         title.setForeground(new java.awt.Color(255, 255, 0));
         title.setText(" PAC MAN");
         title.setToolTipText("");
 
-        single_player.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
+        single_player.setFont(pac_man_font2.deriveFont(0,30));
         single_player.setForeground(new java.awt.Color(255, 255, 0));
         single_player.setText("Single player");
         single_player.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         single_player.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 single_playerMousePressed(evt);
+                setVisible(false);
             }
         });
         
         
-        multi_player.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
+        multi_player.setFont(pac_man_font2.deriveFont(0,30)); 
         multi_player.setForeground(new java.awt.Color(255, 255, 0));
         multi_player.setText("Multi player");
         multi_player.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         multi_player.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 multi_playerMousePressed(evt);
+                setVisible(false);
             }
         });        
         
-        controls.setFont(pac_man_font2.deriveFont(0,30)); // NOI18N
+        controls.setFont(pac_man_font2.deriveFont(0,30)); 
         controls.setForeground(new java.awt.Color(255, 255, 0));
         controls.setText("Controls");
         controls.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -115,17 +124,18 @@ public class menu extends javax.swing.JFrame {
             }
         });
                 
-        quit.setFont(pac_man_font2.deriveFont(0,25)); // NOI18N
+        quit.setFont(pac_man_font2.deriveFont(0,25));
         quit.setForeground(new java.awt.Color(255, 255, 0));
         quit.setText("Quit");
         quit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         quit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 quitMousePressed(evt);
+                dispose();
             }
         });
         
-        image_menu.setIcon(new javax.swing.ImageIcon("data/immagine_menu.png")); // NOI18N
+        image_menu.setIcon(new javax.swing.ImageIcon("data/immagine_menu.png")); 
         image_menu.setText("");
         
         
@@ -139,7 +149,7 @@ public class menu extends javax.swing.JFrame {
             .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgorund_panelLayout.createSequentialGroup()
             .addGap(25, 25, 25)
-            .addComponent(image_menu,javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(image_menu,javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(backgorund_panelLayout.createSequentialGroup()
             .addGap(200, 200, 200)
             .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,11 +190,11 @@ public class menu extends javax.swing.JFrame {
         
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgorund_panel, 800, 800, 800)
+            .addComponent(backgorund_panel, 750, 750, 750)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgorund_panel, 650, 650, 650)
+            .addComponent(backgorund_panel, 690, 690, 690)
         );
 
         pack();
@@ -192,33 +202,34 @@ public class menu extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
                 try {
                     new menu().setVisible(true);
+                    
                 } catch (FontFormatException ex) {
-                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error FontFormatException");
                 } catch (IOException ex) {
-                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error IOException");
                 }
-            }
-        });
+//            }
+//        });
     }            
 }
