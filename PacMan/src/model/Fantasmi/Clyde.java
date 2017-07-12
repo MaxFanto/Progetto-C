@@ -8,10 +8,6 @@ import altro.Tile;
 import java.util.Random;
 import model.PacMan;
 
-/**
- *
- * @author matteo
- */
 public class Clyde extends Fantasma {
 
     private int counter;
@@ -21,20 +17,32 @@ public class Clyde extends Fantasma {
     private int Y_MAIN_POS = 256;
     Random rand = new Random();
  
+       
+    /** 
+     * @param tile_width identifies the width of a single tile
+     * @param tile_heigth identifies the height of a single tile
+     * @param mapWidth identifies the width of the map
+     * @param tiles informations about the tiles of the map
+     */
     public Clyde(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         //currentDirection = choose_direction(null);
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
     }
-
+    
     public int choose_direction(PacMan pacman) {
         setCorners();                
         direction(pacman);
         return randNumber;
     }
     
-    //calcola la distanza da pacman
+    /**
+     * 
+     * @param x x position of pacman
+     * @param y y position of pacman
+     * @return the distance between the ghost and pacman.
+     */
     private double radar(int x, int y){
 
 	return Math.sqrt(
@@ -85,9 +93,7 @@ public class Clyde extends Fantasma {
                     break;
             }
         }
-    }
-    
-    
+    }   
 }
 
 

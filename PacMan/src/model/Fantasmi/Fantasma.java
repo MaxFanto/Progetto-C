@@ -1,23 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.Fantasmi;
 
 import altro.Tile;
 import model.Direzioni;
 import model.Player;
 
-/**
- *
- * @author cl427927
- */
 public abstract class Fantasma extends Player{
     private boolean blu;
     protected final int X_MAIN_POS = 288;
     protected final int Y_MAIN_POS = 256;
 
+    /** 
+     * @param tile_width identifies the width of a single tile
+     * @param tile_heigth identifies the height of a single tile
+     * @param mapWidth identifies the width of the map
+     * @param tiles informations about the tiles of the map
+     */
     public Fantasma(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         
@@ -55,8 +52,17 @@ public abstract class Fantasma extends Player{
     //getter
     public boolean isBlu() {return blu;}
 
+    /**
+     * 
+     * @return the x position of the ghost.
+     */
     public int getxPos() {return x;}
-
+    
+    
+    /**
+     * 
+     * @return the y position of the ghost.
+     */
     public int getyPos() {return y;}
     
     //setter

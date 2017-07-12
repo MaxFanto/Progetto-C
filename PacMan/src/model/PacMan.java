@@ -1,24 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import altro.Tile;
 
-/**
- *
- * @author cl427927
- */
 public class PacMan extends Player {
     private int vite;
     private boolean power;
-    
-    
-    /*
-    TODO: definire le posizioni iniziali di PacMan
-    */
     private final int X_MAIN_POS = 288;
     private final int Y_MAIN_POS = 512;
 
@@ -29,14 +15,35 @@ public class PacMan extends Player {
         vite = 3;
     }
 
-    //getter
+    /**
+     * 
+     * @return x position of pacman 
+     */
     public int getxPos() {return x;}
+    /**
+     * 
+     * @return y position of pacmna 
+     */
     public int getyPos() {return y;}
+    /**
+     * 
+     * @return the number of lives
+     */
     public int getVite() {return vite;}
+    /**
+     * 
+     * @return return if the pill is a power pil. 
+     */
     public boolean isPower() {return power;}
 
-    //setter
+    /**
+     * method that sets the number of lives
+     */
     public void setVite() {vite--;}
+    /**
+     * 
+     * @param power set the pill as power 
+     */
     public void setPower(boolean power) {this.power = power;}
     
 }

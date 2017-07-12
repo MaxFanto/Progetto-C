@@ -17,6 +17,12 @@ public class Blinky extends Fantasma{
     
     Random rand = new Random();
 
+    /** 
+     * @param tile_width identifies the width of a single tile
+     * @param tile_heigth identifies the height of a single tile
+     * @param mapWidth identifies the width of the map
+     * @param tiles informations about the tiles of the map
+     */
     public Blinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         //currentDirection = choose_direction();
