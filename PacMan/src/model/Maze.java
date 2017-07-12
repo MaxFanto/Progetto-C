@@ -13,9 +13,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
-import view.VistaLabirinto;
+import view.MazeView;
 
-public class Labirinto extends Observable {
+public class Maze extends Observable {
     
     private TiledMap mazeMap;
     
@@ -24,6 +24,11 @@ public class Labirinto extends Observable {
     private int tileWidth, tileHeight;
     
     private long time = 0;
+    
+    private final int POWER_TIME = 10000;
+    
+    private int speedLow = 1;
+    private int speedHigh = 2;
    
     private PacMan pacman;
     private Clyde clyde;
@@ -36,7 +41,7 @@ public class Labirinto extends Observable {
     private boolean delayFlag = true;
     private boolean superFlagUL=true,superFlagUR=true, superFlagDL=true, superFlagDR=true;
 
-    public Labirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException {
+    public Maze(TiledMap mazeMap, MazeView vistaLabirinto) throws SlickException {
 
         this.mazeMap = mazeMap;
         inizializzazioneTiles(vistaLabirinto);
@@ -56,7 +61,7 @@ public class Labirinto extends Observable {
         eatSuperPill = new Sound("data/pacmanSound/eatSuperPill.wav");
     }
   
-    private void inizializzazioneTiles(VistaLabirinto vistaLabirinto) {
+    private void inizializzazioneTiles(MazeView vistaLabirinto) {
         boolean[][] blocked = vistaLabirinto.getBlocked();
         boolean[][] tunnel = vistaLabirinto.getTunnel();
         boolean[][] eat = vistaLabirinto.getEat();
@@ -70,14 +75,14 @@ public class Labirinto extends Observable {
         }
     }
     
-    public void movimentoGiocatori(Input input, String mode) {
+    public void notifyModify(Input input, String mode) {
         startMoment();
         
         gameOver();
         
         checkDeath();
         
-        pacman.movimentoManuale(input);
+        pacman.manualMovement(input);
         
         checkModeGame(input, mode);
         checkModeCollision();
@@ -140,44 +145,44 @@ public class Labirinto extends Observable {
     private void superPillCollision() {
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagUL==true) {
+           && superFlagUL == true) {
             
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagUL = false;
-            setGhostsSpeed(1);
+            setGhostsSpeed(speedHigh);
             eatSuperPill.play();
         }
         
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagUR==true) {
+           && superFlagUR == true) {
             
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagUR = false;
-            setGhostsSpeed(1);
+            setGhostsSpeed(speedHigh);
             eatSuperPill.play();
         }
         
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagDL==true) {
+           && superFlagDL == true) {
             
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagDL = false;
-            setGhostsSpeed(1);
+            setGhostsSpeed(speedHigh);
             eatSuperPill.play();
         }
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagDR==true) {
+           && superFlagDR == true) {
             
             pacman.setPower(true);
             time = System.currentTimeMillis();
             superFlagDR = false;
-            setGhostsSpeed(1);
+            setGhostsSpeed(speedHigh);
             eatSuperPill.play();
         }
         
@@ -198,7 +203,7 @@ public class Labirinto extends Observable {
             if (flag == true)
                 Thread.sleep(time);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Labirinto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Maze.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -208,7 +213,7 @@ public class Labirinto extends Observable {
     }
 
     private void gameOver() {
-        if(pacman.getVite() == 0){
+        if(pacman.getLives() == 0){
             delay(true, 3000);
             Display.destroy();
         }
@@ -216,23 +221,23 @@ public class Labirinto extends Observable {
 
     private void checkModeGame(Input input, String mode) {
         if(mode.equals("single")) {
-            clyde.movimentoArtificiale(clyde.choose_direction(pacman));
-//            blinky.movimentoArtificiale(blinky.choose_direction());
-            inky.movimentoArtificiale(inky.choose_direction());
-            pinky.movimentoArtificiale(pinky.choose_direction());
+            clyde.AIMovement(clyde.chooseDirection());
+            blinky.AIMovement(blinky.chooseDirection());
+            inky.AIMovement(inky.chooseDirection());
+            pinky.AIMovement(pinky.chooseDirection());
         }
         if(mode.equals("multi")){
-            clyde.movimentoManuale(input);
-            blinky.movimentoManuale(input);
-            inky.movimentoManuale(input);
-            pinky.movimentoManuale(input);
+            clyde.manualMovement(input);
+            blinky.manualMovement(input);
+            inky.manualMovement(input);
+            pinky.manualMovement(input);
         }
     }
 
     private void checkTime(long time) {
-        if (System.currentTimeMillis() >= (time + 10000) && pacman.isPower()) {
+        if (System.currentTimeMillis() >= (time + POWER_TIME) && pacman.isPower()) {
             pacman.setPower(false);
-            setGhostsSpeed(2);
+            setGhostsSpeed(speedHigh);
         }
     }
 
@@ -292,9 +297,9 @@ public class Labirinto extends Observable {
     }
 
     private void setGhostsSpeed(int speed) {
-        clyde.setSpostamento(speed);
-        inky.setSpostamento(speed);
-        blinky.setSpostamento(speed);
-        pinky.setSpostamento(speed);
+        clyde.setSpeed(speed);
+        inky.setSpeed(speed);
+        blinky.setSpeed(speed);
+        pinky.setSpeed(speed);
     }
 }

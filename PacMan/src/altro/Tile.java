@@ -60,10 +60,5 @@ public class Tile {
     public boolean isEat() {
         return eat;
     }
-    
-    
-    
-    
-    
-    
+
 }

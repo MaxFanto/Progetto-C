@@ -6,7 +6,7 @@ package model.Fantasmi;
 import altro.Tile;
 import java.util.Random;
 
-public class Pinky extends Fantasma {
+public class Pinky extends Ghost {
     private int currentDirection;
     int randNumber;
     int a = 0, b = 0;
@@ -24,18 +24,17 @@ public class Pinky extends Fantasma {
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
         randNumber = rand.nextInt(3);
-        currentDirection = choose_direction();
+        currentDirection = chooseDirection();
     }
     
     /**
      * @return a random number that idententifies the direction
      */
-    public int choose_direction() {
+    public int chooseDirection() {
         setCorners();                
         direction();
         return randNumber;
     }
-    
     
     /**
      * this method checks if the right direction is accesible or not. Then it controls if pinky runs in a circle and if it is true change direction.
@@ -43,33 +42,33 @@ public class Pinky extends Fantasma {
     private void direction() {        
         switch(randNumber){
             case 0:
-                if((controlloBlockedSu()) == false){
+                if((checkBlockUp()) == false){
                     randNumber = 3;
-                    if((controlloBlockedDx()) == false){
+                    if((checkBlockRight()) == false){
                         randNumber = 2;
                     }
                 }
                 break;                    
             case 1:
-                if((controlloBlockedGiu()) == false){
+                if((checkBlockDown()) == false){
                     randNumber = 2;
-                    if((controlloBlockedSx()) == false){
+                    if((checkBlockLeft()) == false){
                         randNumber = 3;
                     }
                 }
                 break;
             case 2:
-                if((controlloBlockedSx()) == false){
+                if((checkBlockLeft()) == false){
                     randNumber = 0;
-                    if((controlloBlockedSu()) == false){
+                    if((checkBlockUp()) == false){
                         randNumber = 1;
                     }
                 }
                 break;
             case 3:
-                if((controlloBlockedDx()) == false){
+                if((checkBlockRight()) == false){
                     randNumber = 1;
-                    if((controlloBlockedGiu()) == false){
+                    if((checkBlockDown()) == false){
                         randNumber = 0;
                     }
                 }
@@ -90,5 +89,5 @@ public class Pinky extends Fantasma {
             }
         }
     }
-    
+
 }

@@ -2,17 +2,17 @@ package controller;
 
 import java.awt.FontFormatException;
 import java.io.IOException;
-import model.Labirinto;
+import model.Maze;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import view.VistaLabirinto;
+import view.MazeView;
 import view.menu.Menu;
 
-public class Controller {
+public class PacmanGame {
     
-    private Labirinto labirinto;
+    private Maze maze;
     private Input input;
 
     public void setInfo(Input input, String mode) {
@@ -20,8 +20,8 @@ public class Controller {
         sendInput(mode);
     }
 
-    public void initLabirinto(TiledMap mazeMap, VistaLabirinto vistaLabirinto) throws SlickException{
-        labirinto = new Labirinto(mazeMap,vistaLabirinto);
+    public void initLabirinto(TiledMap mazeMap, MazeView vistaLabirinto) throws SlickException{
+        maze = new Maze(mazeMap,vistaLabirinto);
     }
     
     public void startMenu() throws FontFormatException, IOException{
@@ -31,7 +31,7 @@ public class Controller {
     public void startGame(String mode){
         try
         {
-            VistaLabirinto vl = new VistaLabirinto(this,mode);
+            MazeView vl = new MazeView(this, mode);
             AppGameContainer app = new AppGameContainer(vl);
             app.setDisplayMode(608, 704, false);
             app.setTargetFrameRate(60);
@@ -45,6 +45,6 @@ public class Controller {
     }
     
     private void sendInput(String mode){
-        labirinto.movimentoGiocatori(input, mode);
+        maze.notifyModify(input, mode);
     }
 }

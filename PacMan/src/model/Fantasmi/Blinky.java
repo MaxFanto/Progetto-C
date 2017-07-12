@@ -1,19 +1,12 @@
 package model.Fantasmi;
 
 import altro.Tile;
-import altro.Quadranti;
 import java.util.Random;
 
-/*
-Blinky è il fantasma più furbo e più pericoloso, segue pacman con
-l'obiettivo di mangiarlo, la sua velocità si incrementa con il passare del tempo
-e verso la fine del livello va sempre più veloce.
-*/
-public class Blinky extends Fantasma{
+
+public class Blinky extends Ghost {
     private int currentDirection;
     int randNumber = 3;
-    
-    //algoritmo var
     
     Random rand = new Random();
 
@@ -25,78 +18,43 @@ public class Blinky extends Fantasma{
      */
     public Blinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        //currentDirection = choose_direction();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
+        currentDirection = chooseDirection();
     }
-    
-    public int choose_direction(int xTrget, int yTarget) {
-        Quadranti ghostZone = checkZone(x, y);
-        
-        
-        
-        return 0;
-    }
-        
-       
-        private Quadranti checkZone(int currentX, int currentY){
-            Quadranti zone = null;
-            int yAvg = 320;
-            int xAvg = 256;
-            
-            if(currentY > yAvg){
-                if(currentX < xAvg){
-                    //terzo quadrante
-                    zone = Quadranti.THIRD;
-                }
-                else{
-                    //quarto quadrante
-                    zone = Quadranti.FOURTH;
-                }
-            }else{
-                if(currentX < xAvg){
-                    //primo quarante
-                    zone = Quadranti.FIRST;
-                }
-                else{
-                    //secondo quadrante
-                    zone = Quadranti.SECOND;
-                }
-            }
-            return zone;
-        }
     
     /**
-     * Algoritmo che fa muovere il fantasma --> inizialmente RANDOM; 
+     * @return a random number that idententifies the direction 
      */
+    public int chooseDirection() {
+        setCorners();                
+        direction();
+        return randNumber;
+    }
     
+    /**
+     * this method checks if direction is accessible or not
+     */    
     private void direction() {
-
         switch(randNumber){
             case 0:
-                if((controlloBlockedSu()) == false)
+                if((checkBlockUp()) == false)
                     randNumber = rand.nextInt(2)+2;
                 break;
             case 1:
-                if((controlloBlockedGiu()) == false)
+                if((checkBlockDown()) == false)
                     randNumber = rand.nextInt(2)+2;
                 break;
             case 2:
-                if((controlloBlockedSx()) == false){
+                if((checkBlockLeft()) == false){
                     randNumber = rand.nextInt(2);
                 }
                 break;
             case 3:
-                if((controlloBlockedDx()) == false){
+                if((checkBlockRight()) == false){
                     randNumber = rand.nextInt(2);
                 }
                 break;
         }
-    }
-    /*
-        RED
-    */
-    
-    
+    }    
 }
-

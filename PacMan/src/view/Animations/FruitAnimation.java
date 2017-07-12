@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.Animations;
 
 import java.util.Random;
@@ -10,31 +5,18 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-/**
- *
- * @author cl427927
- */
-public class FruitAnimation extends Animation implements AnimationsAdapter{
+public class FruitAnimation extends Animation {
 
-    private final String IMAGE_PATH = "data/frutta/"; 
+    private final String IMAGE_PATH = "data/frutta/";
+    
+    final int DURATION = 200;
 
     public FruitAnimation() throws SlickException {
-        String type = generaFrutto();
+        String type = generateFruit();
         this.addFrame(new Image(IMAGE_PATH.concat(type)), DURATION);
     }
- 
-    @Override
-    public void rotate(int value) {
-        //do nothing
-    }
-
-    @Override
-    public void changeAnimationSet() throws SlickException {
-        
-        //modifica animazione in base all'uscita casuale 
-    }
     
-    public String generaFrutto(){
+    public String generateFruit(){
         Random random = new Random();
         int indiceFrutto = random.nextInt(6);
         

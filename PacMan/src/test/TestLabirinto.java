@@ -1,21 +1,14 @@
 package test;
 
-import controller.Controller;
+import controller.PacmanGame;
 import java.awt.FontFormatException;
 import java.io.IOException;
-import model.Labirinto;
-import model.Partita;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.Game;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import view.VistaLabirinto;
 
 public class TestLabirinto {
     public static void main(String[] args) throws SlickException, InterruptedException, FontFormatException, IOException {
         
-        Controller controller = new Controller();
-        controller.startMenu();
-        //controller.startGame();
+        PacmanGame pacmanGame = new PacmanGame();
+        pacmanGame.startMenu();
     }
 }

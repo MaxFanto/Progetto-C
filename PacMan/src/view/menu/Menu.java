@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.menu;
 
-import controller.Controller;
+import controller.PacmanGame;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -15,10 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- *
- * @author matteo
- */
 public class Menu extends javax.swing.JFrame {
 
     private javax.swing.JPanel backgorund_panel;
@@ -28,22 +19,22 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel single_player;
     private javax.swing.JLabel title;
     private javax.swing.JLabel image_menu;
-    private Controller controller;
+    private PacmanGame pacmanGame;
     
-    public Menu(Controller c) throws FontFormatException, IOException {
-        controller = c;
+    public Menu(PacmanGame c) throws FontFormatException, IOException {
+        pacmanGame = c;
         initComponents();      
     }
     
     public void single_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
         setVisible(false);
-        controller.startGame("single");
+        pacmanGame.startGame("single");
     } 
     
     public void multi_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
         //TODO collegare a inizio partita multi player
         setVisible(false);
-        controller.startGame("multi");
+        pacmanGame.startGame("multi");
     }
     
     public void controlsMousePressed(java.awt.event.MouseEvent evt) {                                           
@@ -194,38 +185,5 @@ public class Menu extends javax.swing.JFrame {
         );
 
         pack();
-    }
-
-    public static void main(String args[]) {
-
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    new Menu().setVisible(true);
-//                    
-//                } catch (FontFormatException ex) {
-//                    System.out.println("Error FontFormatException");
-//                } catch (IOException ex) {
-//                    System.out.println("Error IOException");
-//                }
-//            }
-//        });
     }            
 }

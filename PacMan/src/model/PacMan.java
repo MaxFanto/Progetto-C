@@ -3,7 +3,7 @@ package model;
 import altro.Tile;
 
 public class PacMan extends Player {
-    private int vite;
+    private int lives;
     private boolean power;
     private final int X_MAIN_POS = 288;
     private final int Y_MAIN_POS = 512;
@@ -12,7 +12,7 @@ public class PacMan extends Player {
         super(tile_width, tile_heigth, mapWidth, tiles);
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
-        vite = 3;
+        lives = 3;
     }
 
     /**
@@ -29,7 +29,7 @@ public class PacMan extends Player {
      * 
      * @return the number of lives
      */
-    public int getVite() {return vite;}
+    public int getLives() {return lives;}
     /**
      * 
      * @return return if the pill is a power pil. 
@@ -39,7 +39,7 @@ public class PacMan extends Player {
     /**
      * method that sets the number of lives
      */
-    public void setVite() {vite--;}
+    public void setVite() {lives--;}
     /**
      * 
      * @param power set the pill as power 

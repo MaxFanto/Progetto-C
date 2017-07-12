@@ -4,7 +4,7 @@ import altro.Tile;
 import java.util.Random;
 
 
-public class Inky extends Fantasma{
+public class Inky extends Ghost {
     
     private int currentDirection;
     int randNumber = 3;
@@ -20,14 +20,13 @@ public class Inky extends Fantasma{
         super(tile_width, tile_heigth, mapWidth, tiles);
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
-        currentDirection = choose_direction();
+        currentDirection = chooseDirection();
     }
-    
     
     /**
      * @return a random number that idententifies the direction 
      */
-    public int choose_direction(){
+    public int chooseDirection() {
         setCorners();                
         direction();
         return randNumber;
@@ -36,23 +35,23 @@ public class Inky extends Fantasma{
     /**
      * this method checks if direction is accessible or not
      */    
-    private void direction(){
+    private void direction() {
         switch(randNumber){
             case 0:
-                if((controlloBlockedSu()) == false)
+                if((checkBlockUp()) == false)
                     randNumber = rand.nextInt(2)+2;
                 break;
             case 1:
-                if((controlloBlockedGiu()) == false)
+                if((checkBlockDown()) == false)
                     randNumber = rand.nextInt(2)+2;
                 break;
             case 2:
-                if((controlloBlockedSx()) == false){
+                if((checkBlockLeft()) == false){
                     randNumber = rand.nextInt(2);
                 }
                 break;
             case 3:
-                if((controlloBlockedDx()) == false){
+                if((checkBlockRight()) == false){
                     randNumber = rand.nextInt(2);
                 }
                 break;

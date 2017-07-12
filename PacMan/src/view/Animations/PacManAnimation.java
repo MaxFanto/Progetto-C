@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.Animations;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-/**
- *
- * @author mattia
- */
-public class PacManAnimation extends Animation implements AnimationsAdapter{
+public class PacManAnimation extends Animation implements AnimationsAdapter {
 
     private final String PATH_IMAGE_0 = "data/pacman/pacman0.png";
     private final String PATH_IMAGE_1 = "data/pacman/pacman1.png";
@@ -56,9 +47,9 @@ public class PacManAnimation extends Animation implements AnimationsAdapter{
         }     
     }
     
-    @Override
-    protected void finalize() throws Throwable{
-        System.out.println("animazione distrutta");
-    }
+//    @Override
+//    protected void finalize() throws Throwable{
+//        System.out.println("animazione distrutta");
+//    }
   
 }
