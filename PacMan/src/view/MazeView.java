@@ -63,6 +63,11 @@ public class MazeView extends BasicGame implements Observer {
     public boolean[][] getEat() {return eat;}
     public boolean[][] getPills() {return superP;}
     
+    /**
+     * inizialize map, images, animations and sounds 
+     * @param container
+     */
+    
     @Override
     public void init(GameContainer container) throws SlickException {
         ready = new Image("data/ready.jpg");
@@ -176,7 +181,12 @@ public class MazeView extends BasicGame implements Observer {
         superPill = new PillAnimation();
         fruits = new FruitAnimation();
     }
-
+    
+    /**
+     * take maze property directly from map file
+     * @param s denote type of property
+     */
+    
     private boolean[][] checkMazeProperty(String s) {
         
         int height = mazeMap.getHeight();
