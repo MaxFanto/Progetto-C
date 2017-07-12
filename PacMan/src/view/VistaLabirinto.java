@@ -33,8 +33,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private PillAnimation pill, superPill;
     private FruitAnimation fruits;
     
-    private Image ready;
-    private Image gameOver;
+    private Image ready, gameOver, youWin;
     
     private int lives = 3;
     private int score = 0;
@@ -72,6 +71,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     {
         ready = new Image("data/ready.jpg");
         gameOver = new Image("data/gameover.png");
+        youWin = new Image("data/youwin.png");
         
         mazeMap = new TiledMap("data/maze/Maze.tmx");
         initMapProperty();
@@ -124,7 +124,9 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         if(lives == 0)
             gameOver.draw(192, 384);
-        if (pacmanPower == true)
+        if (youWin() == 0)
+            youWin.draw(207, 384);
+        if (pacmanPower)
             clyde.changeAnimationSet();
     }
     
@@ -315,5 +317,18 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private void renderTitle(Graphics g) {
         g.setColor(Color.yellow);
         g.drawString("PAC-MAN", 272, 1);
+    }
+    
+    private int youWin() {
+        int counter = 0;
+        for (int i = 0; i < mazeMap.getWidth(); i++) { 
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
+                if (eat[i][j] == true)
+                    counter++;
+                if(superP[i][j] == true)
+                    counter++;
+            }
+        }
+        return counter;
     }
 }
