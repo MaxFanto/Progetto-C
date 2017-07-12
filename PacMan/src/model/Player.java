@@ -9,7 +9,6 @@ import altro.Tile;
 import java.util.Observable;
 import model.Fantasmi.Blinky;
 import model.Fantasmi.Clyde;
-import model.Fantasmi.Fantasma;
 import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
 import org.newdawn.slick.Input;
@@ -27,7 +26,7 @@ public abstract class Player extends Observable{
     public int spostamento = 2;
     public int[] comandi = new int[4];
     private boolean death;
-    
+
     protected Direzioni direction = Direzioni.INITIAL;
     
     public Player(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {

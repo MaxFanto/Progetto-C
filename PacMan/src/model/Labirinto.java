@@ -16,6 +16,7 @@ import model.Fantasmi.Pinky;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 import view.VistaLabirinto;
 /**
@@ -37,6 +38,10 @@ public class Labirinto extends Observable {
     private Blinky blinky;
     private Inky inky;
     private Pinky pinky;
+    
+    Sound eatGhost = new Sound("data/pacmanSound/eatGhost.wav");
+    Sound death = new Sound("data/pacmanSound/death.wav");
+    Sound eatSuperPill = new Sound("data/pacmanSound/eatSuperPill.wav");
     
     private boolean delayFlag = true;
     private boolean superFlagUL=true,superFlagUR=true, superFlagDL=true, superFlagDR=true;
@@ -110,6 +115,7 @@ public class Labirinto extends Observable {
 
     private void collision() {
         if(checkClydeCollision() || checkBlinkyCollision() || checkPinkyCollision() || checkInkyCollision()) {
+            death.play();
             if(pacman.isDeath() == false)
                 pacman.setVite();
             
@@ -146,6 +152,7 @@ public class Labirinto extends Observable {
             time = System.currentTimeMillis();
             superFlagUL = false;
             setGhostsSpeed(1);
+            eatSuperPill.play();
         }
         
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
@@ -156,6 +163,7 @@ public class Labirinto extends Observable {
             time = System.currentTimeMillis();
             superFlagUR = false;
             setGhostsSpeed(1);
+            eatSuperPill.play();
         }
         
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
@@ -166,6 +174,7 @@ public class Labirinto extends Observable {
             time = System.currentTimeMillis();
             superFlagDL = false;
             setGhostsSpeed(1);
+            eatSuperPill.play();
         }
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
@@ -175,6 +184,7 @@ public class Labirinto extends Observable {
             time = System.currentTimeMillis();
             superFlagDR = false;
             setGhostsSpeed(1);
+            eatSuperPill.play();
         }
         
         checkTime(time);
@@ -196,7 +206,6 @@ public class Labirinto extends Observable {
         } catch (InterruptedException ex) {
             Logger.getLogger(Labirinto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     private void startMoment() {
@@ -227,12 +236,10 @@ public class Labirinto extends Observable {
     }
 
     private void checkTime(long time) {
-        long a;
-        if ( ((a = System.currentTimeMillis()) >= (time + 5000)) && pacman.isPower()) {
+        if (System.currentTimeMillis() >= (time + 10000) && pacman.isPower()) {
             pacman.setPower(false);
             setGhostsSpeed(2);
         }
-        
     }
 
     private void checkModeCollision() {
@@ -243,32 +250,38 @@ public class Labirinto extends Observable {
     }
 
     private void collisionPower() {
-        if (checkClydeCollision())
+        if (checkClydeCollision()) {
             clyde.setDeath(true);
-        if (checkBlinkyCollision())
-            blinky.setDeath(true);   
-        if (checkPinkyCollision())
+            eatGhost.play();
+        }
+        if (checkBlinkyCollision()) {
+            blinky.setDeath(true);
+            eatGhost.play();
+        }
+        if (checkPinkyCollision()) {
             pinky.setDeath(true);
-        if (checkInkyCollision())
+            eatGhost.play();
+        }
+        if (checkInkyCollision()) {
             inky.setDeath(true);
-        
-        
+            eatGhost.play();
+        }
     }
 
     private void blinkyResetPosition() {
-        blinky.setX(288); blinky.setY(256); blinky.setDeath(false);
+        blinky.setX(288); blinky.setY(320); blinky.setDeath(false);
     }
 
     private void inkyResetPosition() {
-        inky.setX(288);   inky.setY(256); inky.setDeath(false);
+        inky.setX(288);   inky.setY(320); inky.setDeath(false);
     }
 
     private void clydeResetPosition() {
-        clyde.setX(288);  clyde.setY(256); clyde.setDeath(false);
+        clyde.setX(288);  clyde.setY(320); clyde.setDeath(false);
     }
 
     private void pinkyResetPosition() {
-        pinky.setX(288); pinky.setY(256); pinky.setDeath(false);
+        pinky.setX(288); pinky.setY(320); pinky.setDeath(false);
     }
 
     private void checkDeath() {

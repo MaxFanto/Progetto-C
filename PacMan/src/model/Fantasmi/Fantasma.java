@@ -16,11 +16,10 @@ import model.Player;
 public abstract class Fantasma extends Player{
     private boolean blu;
     protected final int X_MAIN_POS = 288;
-    protected final int Y_MAIN_POS = 256;
+    protected final int Y_MAIN_POS = 320;
 
     public Fantasma(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        
     }
 
     public void movimentoArtificiale(int direzione){
