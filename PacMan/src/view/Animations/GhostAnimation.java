@@ -11,7 +11,7 @@ public class GhostAnimation extends Animation implements AnimationsAdapter{
     private final String PATH_IMAGE_1 = "data/ghost/";
     private String name_ghost;
     
-    private int xPos = 288, yPos = 256;
+    private int xPos = 288, yPos = 320;
 
     public GhostAnimation(String type) throws SlickException {
         super.addFrame(new Image(PATH_IMAGE_0.concat(type).concat("_up1.png")), DURATION);

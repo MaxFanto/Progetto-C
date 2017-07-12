@@ -157,10 +157,15 @@
     <property name="superP" value="true"/>
    </properties>
   </tile>
+  <tile id="33">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Livello tile 1" width="19" height="22">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA7VUaw+CMAwcoojyFHzha/L//6Rb0iaXsbJF9MOFrnTX5to1VUq1AZwiYtYGtUEXQB8RUxHXaJAYrMhv7QbOveDnOyNwWf/WIAe7hXMp+PEOci0Fcm0MMrIL8B0NrvT1/c88XHNah87MtSM9UdMz1KFJLw11XpxeWOwphlFDXj0Drqty/Dhv2DcNeV9QN9eJfWUcHO4ObDdvLcRp4mnUVK+C/rt5c/JzHxPnfoxe70i90hm9fPMl6fWPt80zfAcb57wU/E8lz72UXwt+jLdcN0/+2PeI9T4Evb59j7wLuQaLIaDXALGZmu7CX+wv3BNLYPfEBzeMFaGIBgAA
+   H4sIAAAAAAAAA7VUaw+CMAwcoojyFHzha8L//5FuSZtcxgqL6IcLXemuzbVrrJSqZ3AKiFkblAbNDNqAmIK4eoPIYEV+a1dwbgU/3+mBy/q3BinYNZxzwY93kGspkGtjkJCdge9ocKWv73/i4ZrSeu7MXDvSEzU9Qx2a9NJQ58XphcWeYhgl5NUT4LoKx4/zhn3TkPcFdXOd2FfGweFuwLZ5B7IHqtsXp4mnUmO9Mvrv5k3Jz32MnPsher0D9Yon9PLNl6TXP942z/AdbJzzXPA/lTz3Un4t+DHect08+UPfI9b7EPT69j3yLuQaLLoZvTqITdR4F/5if+GeWAK7Jz529BtAiAYAAA==
   </data>
  </layer>
 </map>

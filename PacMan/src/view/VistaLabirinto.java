@@ -41,8 +41,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private boolean pacmanDeath = false;
     private boolean pacmanPower = false;
     
-//    private Music ;
-    private Sound begin, eatPill, eatFruit, death, background;
+    private Sound begin, eatFruit;
     
     private Controller controller;
     
@@ -78,12 +77,9 @@ public class VistaLabirinto extends BasicGame implements Observer{
         initAnimations();
         
         begin = new Sound("data/pacmanSound/begin.wav");
-//        begin.play();
-        eatPill = new Sound("data/pacmanSound/eatPill.wav");
-//        eatFruit = new Sound("data/pacmanSound/eatFruit.wav");
-        death = new Sound("data/pacmanSound/death.wav");
-        background = new Sound("data/pacmanSound/background.wav");
+        begin.play();
         
+        eatFruit = new Sound("data/pacmanSound/eatFruit.wav");
         controller.initLabirinto(mazeMap,this);
     }
     
@@ -100,12 +96,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
         
         renderPacman();
         
-        if (fruit[9][12] == false && fruitFlag == true) {
-//            eatFruit.play();
-            fruitFlag = false;
-        }
-            
-        
+        soundEatFruit();
+
 //        for (int i = 0; i < 720; i+=32) {
 //
 //            g.drawLine(0, i, 672, i);
@@ -301,10 +293,8 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private void renderPacman() throws SlickException {
         if(!pacmanDeath)
             pacman.draw(pacman.getxPos(), pacman.getyPos());
-        else {
-//            death.play();
+        else
             ready.draw(226, 384);
-        }
     }
     
     private void startReady() {
@@ -330,5 +320,12 @@ public class VistaLabirinto extends BasicGame implements Observer{
             }
         }
         return counter;
+    }
+
+    private void soundEatFruit() {
+        if (fruit[9][12] == false && fruitFlag == true) {
+            eatFruit.play();
+            fruitFlag = false;
+        }
     }
 }

@@ -39,9 +39,7 @@ public class Labirinto extends Observable {
     private Inky inky;
     private Pinky pinky;
     
-    Sound eatGhost = new Sound("data/pacmanSound/eatGhost.wav");
-    Sound death = new Sound("data/pacmanSound/death.wav");
-    Sound eatSuperPill = new Sound("data/pacmanSound/eatSuperPill.wav");
+    private Sound eatGhost, death, eatSuperPill;
     
     private boolean delayFlag = true;
     private boolean superFlagUL=true,superFlagUR=true, superFlagDL=true, superFlagDR=true;
@@ -60,6 +58,10 @@ public class Labirinto extends Observable {
         blinky = new Blinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
         inky = new Inky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
         pinky = new Pinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
+        
+        eatGhost = new Sound("data/pacmanSound/eatGhost.wav");
+        death = new Sound("data/pacmanSound/death.wav");
+        eatSuperPill = new Sound("data/pacmanSound/eatSuperPill.wav");
     }
   
     private void inizializzazioneTiles(VistaLabirinto vistaLabirinto) {
