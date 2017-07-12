@@ -1,6 +1,8 @@
 package test;
 
 import controller.Controller;
+import java.awt.FontFormatException;
+import java.io.IOException;
 import model.Labirinto;
 import model.Partita;
 import org.newdawn.slick.AppGameContainer;
@@ -9,20 +11,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import view.VistaLabirinto;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author cl427927
- */
 public class TestLabirinto {
-    public static void main(String[] args) throws SlickException, InterruptedException {
+    public static void main(String[] args) throws SlickException, InterruptedException, FontFormatException, IOException {
         
         Controller controller = new Controller();
-        controller.startGame();
+        controller.startMenu();
+        //controller.startGame();
     }
 }

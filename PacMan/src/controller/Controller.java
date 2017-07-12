@@ -5,12 +5,15 @@
  */
 package controller;
 
+import java.awt.FontFormatException;
+import java.io.IOException;
 import model.Labirinto;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import view.VistaLabirinto;
+import view.menu.Menu;
 
 /**
  *
@@ -30,10 +33,14 @@ public class Controller {
         labirinto = new Labirinto(mazeMap,vistaLabirinto);
     }
     
-    public void startGame(){
+    public void startMenu() throws FontFormatException, IOException{
+        new Menu(this).setVisible(true);
+    }
+    
+    public void startGame(String mode){
         try
         {
-            VistaLabirinto vl = new VistaLabirinto(this);
+            VistaLabirinto vl = new VistaLabirinto(this,mode);
             AppGameContainer app = new AppGameContainer(vl);
             app.setDisplayMode(608, 704, false);
             app.setTargetFrameRate(60);

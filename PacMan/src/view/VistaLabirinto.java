@@ -50,10 +50,13 @@ public class VistaLabirinto extends BasicGame implements Observer{
     private boolean readyFlag = true;
     private boolean fruitFlag = true;
     
+    private String mode;
     
-    public VistaLabirinto(Controller controller) throws SlickException
+    
+    public VistaLabirinto(Controller controller,String mode) throws SlickException
     {
         super("");
+        this.mode = mode;
         this.controller = controller;
     }
 
@@ -129,7 +132,7 @@ public class VistaLabirinto extends BasicGame implements Observer{
     public void update(GameContainer container, int delta) throws SlickException
     {
         input = container.getInput();
-        controller.setInfo(input, "single");
+        controller.setInfo(input, this.mode);
     }
     
     @Override

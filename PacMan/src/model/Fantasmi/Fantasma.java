@@ -68,4 +68,8 @@ public abstract class Fantasma extends Player{
         //fa qualcosa       
     }
     
+    public void esciGabbia(){
+        //impostare movimento di uscita
+    }
+    
 }
