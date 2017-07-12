@@ -75,6 +75,11 @@ public class Maze extends Observable {
         }
     }
     
+    /**
+     * inizialization of tile's static property 
+     * @param vistalabirinto the view of the game
+     */
+    
     public void notifyModify(Input input, String mode) {
         startMoment();
         
@@ -219,6 +224,12 @@ public class Maze extends Observable {
         }
     }
 
+     /**
+     * gestion of modify from controller 
+     * @param input input from keyboard
+     * @param mode selection of modality
+     */
+    
     private void checkModeGame(Input input, String mode) {
         if(mode.equals("single")) {
             clyde.AIMovement(clyde.chooseDirection());
@@ -283,6 +294,10 @@ public class Maze extends Observable {
         pinky.setX(288); pinky.setY(320); pinky.setDeath(false);
     }
 
+    /**
+     * reset of position after player death 
+     */
+    
     private void checkDeath() {
         if(pacman.isDeath())
             resetPosition();
