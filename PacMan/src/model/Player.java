@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import altro.Tile;
@@ -13,10 +8,6 @@ import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
 import org.newdawn.slick.Input;
 
-/**
- *
- * @author cl427927
- */
 public abstract class Player extends Observable{
     protected int x, y;
     public int memButton, tileWidth, tileHeight, mapWidth;
@@ -29,6 +20,12 @@ public abstract class Player extends Observable{
 
     protected Direzioni direction = Direzioni.INITIAL;
     
+    /** 
+     * @param tile_width identifies the width of a single tile
+     * @param tile_heigth identifies the height of a single tile
+     * @param mapWidth identifies the width of the map
+     * @param tiles informations about the tiles of the map
+     */
     public Player(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         this.tileWidth = tile_width;
         this.tileHeight = tile_heigth;

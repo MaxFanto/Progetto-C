@@ -1,17 +1,11 @@
 /*
-Tende a girare sempre a destra quando si ritrova un ostacolo davanti.
-Se è impossibilitato a girare a destra gira a sinistra o fa un 180° in modo
-casuale.
+It tends to always turn right when it finds a frontal obstacle. If it runs in a circle, turns left once.
 */
 package model.Fantasmi;
 
 import altro.Tile;
 import java.util.Random;
 
-/**
- *
- * @author matteo
- */
 public class Pinky extends Fantasma {
     private int currentDirection;
     int randNumber;
@@ -19,6 +13,12 @@ public class Pinky extends Fantasma {
     Random rand = new Random(); 
     
 
+    /** 
+     * @param tile_width identifies the width of a single tile
+     * @param tile_heigth identifies the height of a single tile
+     * @param mapWidth identifies the width of the map
+     * @param tiles informations about the tiles of the map
+     */    
     public Pinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
         x = X_MAIN_POS;
@@ -27,19 +27,20 @@ public class Pinky extends Fantasma {
         currentDirection = choose_direction();
     }
     
+    /**
+     * @return a random number that idententifies the direction
+     */
     public int choose_direction() {
         setCorners();                
         direction();
         return randNumber;
     }
     
-    /**
-     * Algoritmo che fa muovere il fantasma --> inizialmente RANDOM; 
-     */
     
-    private void direction() {
-        
-        
+    /**
+     * this method checks if the right direction is accesible or not. Then it controls if pinky runs in a circle and if it is true change direction.
+     */
+    private void direction() {        
         switch(randNumber){
             case 0:
                 if((controlloBlockedSu()) == false){
