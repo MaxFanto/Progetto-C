@@ -12,7 +12,7 @@ public abstract class Player extends Observable {
     protected int x, y;
     public int memButton, tileWidth, tileHeight, mapWidth;
     public Tile[][] tiles;
-    public int xUpSx, xUpDx, xDownSx, xDownDx;     
+    public int xUpSx, xUpDx, xDownSx, xDownDx;
     public int yUpSx, yUpDx, yDownSx, yDownDx;
     public int speed = 2;
     public int[] comands = new int[4];
@@ -158,28 +158,28 @@ public abstract class Player extends Observable {
             comands[3] = Input.KEY_RIGHT;
         }
         
-        if(this instanceof Clyde) {
+        if(this instanceof Blinky) {
             comands[0] = Input.KEY_W;
             comands[1] = Input.KEY_S;
             comands[2] = Input.KEY_A;
             comands[3] = Input.KEY_D;
         }
         
-        if(this instanceof Inky) {
+        if(this instanceof Clyde) {
             comands[0] = Input.KEY_T;
             comands[1] = Input.KEY_G;
             comands[2] = Input.KEY_F;
             comands[3] = Input.KEY_H;
         }
         
-        if(this instanceof Pinky) {
+        if(this instanceof Inky) {
             comands[0] = Input.KEY_I;
             comands[1] = Input.KEY_K;
             comands[2] = Input.KEY_J;
             comands[3] = Input.KEY_L;
         }
         
-        if(this instanceof Blinky) {
+        if(this instanceof Pinky) {
             comands[0] = Input.KEY_1;
             comands[1] = Input.KEY_2;
             comands[2] = Input.KEY_3;

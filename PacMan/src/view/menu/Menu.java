@@ -1,44 +1,72 @@
 package view.menu;
 
 import controller.PacmanGame;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ *
+ * @author matteo
+ */
 public class Menu extends javax.swing.JFrame {
 
     private javax.swing.JPanel backgorund_panel;
+    private javax.swing.JLabel controls_image;
     private javax.swing.JLabel controls;
     private javax.swing.JLabel multi_player;
     private javax.swing.JLabel quit;
     private javax.swing.JLabel single_player;
     private javax.swing.JLabel title;
     private javax.swing.JLabel image_menu;
-    private PacmanGame pacmanGame;
+    private javax.swing.JLabel menu_label;
+    
+    private PacmanGame controller;
     
     public Menu(PacmanGame c) throws FontFormatException, IOException {
-        pacmanGame = c;
+        controller = c;
         initComponents();      
     }
     
     public void single_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
         setVisible(false);
-        pacmanGame.startGame("single");
+        controller.startGame("single");
     } 
     
     public void multi_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
-        //TODO collegare a inizio partita multi player
         setVisible(false);
-        pacmanGame.startGame("multi");
+        controller.startGame("multi");
     }
     
-    public void controlsMousePressed(java.awt.event.MouseEvent evt) {                                           
-        //TODO collegare alla pagina con i controlli
+    public void controlsMousePressed(java.awt.event.MouseEvent evt) {                                     
+        
+        getContentPane().removeAll();
+        javax.swing.GroupLayout layout1 = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout1);
+        layout1.setHorizontalGroup(
+            layout1.createParallelGroup()
+            .addComponent(menu_label, 110, 110, 110)
+            .addComponent(controls_image, 750, 750, 750)
+                
+        );
+        layout1.setVerticalGroup(
+            layout1.createParallelGroup()
+            .addComponent(menu_label, 50, 50, 50)
+            .addComponent(controls_image, 690, 690, 690)
+        );
+                    
+        pack();
     }
     
     public void quitMousePressed(java.awt.event.MouseEvent evt) {                                           
@@ -55,7 +83,14 @@ public class Menu extends javax.swing.JFrame {
         controls = new javax.swing.JLabel();
         quit = new javax.swing.JLabel();
         image_menu = new javax.swing.JLabel();
+        controls_image = new javax.swing.JLabel();
+        menu_label = new javax.swing.JLabel();
         
+        controls_image.setIcon(new javax.swing.ImageIcon("data/controls.png"));
+        controls_image.setText("");
+        controls_image.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 5));
+//        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
         Dimension dim_screen = Toolkit.getDefaultToolkit().getScreenSize();
         int w = getSize().width;
         int x = (dim_screen.width-w)/5;
@@ -122,17 +157,29 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         
+        menu_label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menu_label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                controls_image.setVisible(false);
+                menu_label.setVisible(false);
+                setMain_menu();
+            }
+        });
+        
         image_menu.setIcon(new javax.swing.ImageIcon("data/immagine_menu.png")); 
         image_menu.setText("");
         
-        
+        setMain_menu();
+    }
+
+    void setMain_menu() {
+        getContentPane().removeAll();
         javax.swing.GroupLayout backgorund_panelLayout = new javax.swing.GroupLayout(backgorund_panel);
         backgorund_panel.setLayout(backgorund_panelLayout);
         
         backgorund_panelLayout.setHorizontalGroup(
             backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgorund_panelLayout.createSequentialGroup()
-                    
+            .addGroup(backgorund_panelLayout.createSequentialGroup()         
             .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgorund_panelLayout.createSequentialGroup()
             .addGap(25, 25, 25)
@@ -169,9 +216,7 @@ public class Menu extends javax.swing.JFrame {
             .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(57, 57, 57)
             .addContainerGap(52, Short.MAX_VALUE))
-        );
-
-        
+        );    
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         
@@ -183,7 +228,7 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(backgorund_panel, 690, 690, 690)
         );
-
+        
         pack();
-    }            
+    }
 }
