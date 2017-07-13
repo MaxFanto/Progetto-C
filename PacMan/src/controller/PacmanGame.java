@@ -20,14 +20,18 @@ public class PacmanGame {
         sendInput(mode);
     }
 
-    public void initLabirinto(TiledMap mazeMap, MazeView vistaLabirinto) throws SlickException{
-        maze = new Maze(mazeMap,vistaLabirinto);
+    public void initLabirinto(TiledMap mazeMap, MazeView mazeView) throws SlickException{
+        maze = new Maze(mazeMap,mazeView);
     }
     
     public void startMenu() throws FontFormatException, IOException{
         new Menu(this).setVisible(true);
     }
     
+    /**
+     * This method starts the game 
+     * @param mode identify the modality of the game 
+     */
     public void startGame(String mode){
         try
         {

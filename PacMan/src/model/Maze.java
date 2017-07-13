@@ -41,11 +41,17 @@ public class Maze extends Observable {
     private boolean delayFlag = true;
     private boolean superFlagUL=true,superFlagUR=true, superFlagDL=true, superFlagDR=true;
 
-    public Maze(TiledMap mazeMap, MazeView vistaLabirinto) throws SlickException {
+    /**
+     * 
+     * @param mazeMap
+     * @param mazeView
+     * @throws SlickException 
+     */
+    public Maze(TiledMap mazeMap, MazeView mazeView) throws SlickException {
 
         this.mazeMap = mazeMap;
-        inizializzazioneTiles(vistaLabirinto);
-        this.addObserver(vistaLabirinto);
+        initializationTiles(mazeView);
+        this.addObserver(mazeView);
         tileWidth = mazeMap.getTileWidth();
         tileHeight = mazeMap.getTileHeight();
         
@@ -61,10 +67,14 @@ public class Maze extends Observable {
         eatSuperPill = new Sound("data/pacmanSound/eatSuperPill.wav");
     }
   
-    private void inizializzazioneTiles(MazeView vistaLabirinto) {
-        boolean[][] blocked = vistaLabirinto.getBlocked();
-        boolean[][] tunnel = vistaLabirinto.getTunnel();
-        boolean[][] eat = vistaLabirinto.getEat();
+    /**
+     * 
+     * @param mazeView 
+     */
+    private void initializationTiles(MazeView mazeView) {
+        boolean[][] blocked = mazeView.getBlocked();
+        boolean[][] tunnel = mazeView.getTunnel();
+        boolean[][] eat = mazeView.getEat();
         
         tiles = new Tile[mazeMap.getWidth()][mazeMap.getHeight()];
         
@@ -76,7 +86,7 @@ public class Maze extends Observable {
     }
     
     /**
-     * inizialization of tile's static property 
+     * This method is for the inizialization of tile's static property 
      * @param vistalabirinto the view of the game
      */
     
@@ -127,26 +137,45 @@ public class Maze extends Observable {
         }
     }
 
+    /**
+     * This method checks if the is a collision between pacman and Clyde
+     * @return true if there is collision
+     */
     private boolean checkClydeCollision() {
         return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (clyde.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
                (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (clyde.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
-
+    
+    /**
+     * This method checks if the is a collision between pacman and Blinky
+     * @return true if there is collision
+     */
     private boolean checkBlinkyCollision() {
         return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (blinky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
                (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (blinky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
 
+    /**
+     * This method checks if the is a collision between Pacman and Pinky
+     * @return true if there is collision
+     */
     private boolean checkPinkyCollision() {
         return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (pinky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
                (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (pinky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
-
+    
+    /**
+     * This method checks if the is a collision between pacman and Inky
+     * @return true if there is collision
+     */
     private boolean checkInkyCollision() {
         return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (inky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
                (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (inky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
     
+    /**
+     * This method manages the collision with a super-pill
+     */
     private void superPillCollision() {
         if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
            (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
@@ -194,6 +223,9 @@ public class Maze extends Observable {
         checkTime(time);
     }
 
+    /**
+     * This method resets the positions of pacman and the ghosts
+     */
     private void resetPosition() {
         delay(true, 2000);
         pacman.setX(288); pacman.setY(512); pacman.setDeath(false);
@@ -212,11 +244,17 @@ public class Maze extends Observable {
         }
     }
 
+    /**
+     * This method starts the game
+     */
     private void startMoment() {
         delay(delayFlag, 4000);
         delayFlag = false;
     }
 
+    /**
+     * This method ends the game
+     */
     private void gameOver() {
         if(pacman.getLives() == 0){
             delay(true, 3000);
@@ -225,9 +263,9 @@ public class Maze extends Observable {
     }
 
      /**
-     * gestion of modify from controller 
+     * This method is gestion of modify from controller 
      * @param input input from keyboard
-     * @param mode selection of modality
+     * @param mode chose of modality
      */
     
     private void checkModeGame(Input input, String mode) {
@@ -277,25 +315,36 @@ public class Maze extends Observable {
             eatGhost.play();
         }
     }
-
+    /**
+     * This method make Blinky returns to the starting coordinate
+     */
     private void blinkyResetPosition() {
         blinky.setX(288); blinky.setY(320); blinky.setDeath(false);
     }
-
+    
+    /**
+     * This method make Inky returns to the starting coordinate
+     */
     private void inkyResetPosition() {
         inky.setX(288);   inky.setY(320); inky.setDeath(false);
     }
-
+    
+    /**
+     * This method make Clyde returns to the starting coordinate
+     */
     private void clydeResetPosition() {
         clyde.setX(288);  clyde.setY(320); clyde.setDeath(false);
     }
 
+    /**
+     * This method make Pinky returns to the starting coordinate
+     */
     private void pinkyResetPosition() {
         pinky.setX(288); pinky.setY(320); pinky.setDeath(false);
     }
 
     /**
-     * reset of position after player death 
+     * This method reset the position after player's death 
      */
     
     private void checkDeath() {
@@ -311,6 +360,10 @@ public class Maze extends Observable {
             pinkyResetPosition();
     }
 
+    /**
+     * This method set the speed of the ghost
+     * @param speed identify the speed of the ghost
+     */
     private void setGhostsSpeed(int speed) {
         clyde.setSpeed(speed);
         inky.setSpeed(speed);
