@@ -29,7 +29,7 @@ public class MazeView extends BasicGame implements Observer {
     private Input input;
     
     private PacManAnimation pacman;
-    private GhostAnimation pinky, clyde, blinky, inky;
+    private GhostAnimation pinky, clyde, blinky, inky, blue;
     private PillAnimation pill, superPill;
     private FruitAnimation fruits;
     
@@ -98,11 +98,8 @@ public class MazeView extends BasicGame implements Observer {
         renderPacman();
         
         soundEatFruit();
-
-        clyde.draw(clyde.getxPos(),clyde.getyPos());
-        pinky.draw(pinky.getxPos(), pinky.getyPos());
-        inky.draw(inky.getxPos(), inky.getyPos());
-        blinky.draw(blinky.getxPos(), blinky.getyPos());
+        
+        renderGhosts();
         
         score = countScore();
         renderScore(g, score);
@@ -113,8 +110,6 @@ public class MazeView extends BasicGame implements Observer {
             gameOver.draw(192, 384);
         if (youWin() == 0)
             youWin.draw(212, 384);
-        if (pacmanPower)
-            clyde.changeAnimationSet();
     }
     
     @Override
@@ -177,6 +172,7 @@ public class MazeView extends BasicGame implements Observer {
         inky = new GhostAnimation("inky");       
         pinky = new GhostAnimation("pinky"); 
         blinky = new GhostAnimation("blinky");
+        blue = new GhostAnimation();
         pill = new PillAnimation("pill.png");
         superPill = new PillAnimation();
         fruits = new FruitAnimation();
@@ -321,6 +317,21 @@ public class MazeView extends BasicGame implements Observer {
         if (fruit[9][12] == false && fruitFlag == true) {
             eatFruit.play();
             fruitFlag = false;
+        }
+    }
+
+    private void renderGhosts() {
+        if(pacmanPower) {
+            blue.draw(clyde.getxPos(),clyde.getyPos());
+            blue.draw(pinky.getxPos(), pinky.getyPos());
+            blue.draw(inky.getxPos(), inky.getyPos());
+            blue.draw(blinky.getxPos(), blinky.getyPos());
+        }
+        else {
+            clyde.draw(clyde.getxPos(),clyde.getyPos());
+            pinky.draw(pinky.getxPos(), pinky.getyPos());
+            inky.draw(inky.getxPos(), inky.getyPos());
+            blinky.draw(blinky.getxPos(), blinky.getyPos());
         }
     }
 }

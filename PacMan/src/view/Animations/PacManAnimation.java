@@ -12,7 +12,7 @@ public class PacManAnimation extends Animation implements AnimationsAdapter {
     private int xPos = 288, yPos = 512;
     final int DURATION = 100;
     
-    public PacManAnimation() throws SlickException{
+    public PacManAnimation() throws SlickException {
         super.addFrame(new Image(PATH_IMAGE_0), DURATION);
         super.addFrame(new Image(PATH_IMAGE_1), DURATION);
         super.addFrame(new Image(PATH_IMAGE_2), DURATION);
@@ -24,32 +24,8 @@ public class PacManAnimation extends Animation implements AnimationsAdapter {
     public void setyPos(int yPos) {this.yPos = yPos;}
     
     @Override
-    public void rotate(int value){
+    public void rotate(int value) {
         super.getImage(0).setRotation(value);
         super.getImage(1).setRotation(value);
-    }
-
-    @Override
-    public void changeAnimationSet() throws SlickException {
-        /*
-        TODO: - modifica dell'animazione di pacman quando muore
-              - modifica animazione quando torna in vita
-        */
-        
-        //if(morte)
-        super.getImage(0).destroy();
-        super.getImage(1).destroy();
-        super.getImage(2).destroy();
-        String path = "data/pacmanDeath/pacmanDeath";
-        //aggiunge n frame in base a quanti sono quelli dell'animazione di morte di pacman
-        for (int i = 0; i < 5; i++) {
-            this.addFrame(new Image(path.concat(i +".png")), DURATION);
-        }     
-    }
-    
-//    @Override
-//    protected void finalize() throws Throwable{
-//        System.out.println("animazione distrutta");
-//    }
-  
+    }  
 }

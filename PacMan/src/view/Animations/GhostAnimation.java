@@ -20,6 +20,11 @@ public class GhostAnimation extends Animation implements AnimationsAdapter {
         nameGhost = type;
     }
 
+    public GhostAnimation() throws SlickException {
+        super.addFrame(new Image(PATH_IMAGE_0.concat("blue_ghost1.png")), DURATION);
+        super.addFrame(new Image(PATH_IMAGE_1.concat("blue_ghost2.png")), DURATION);
+    }
+
     public int getxPos() {return xPos;}
     public void setxPos(int xPos) {this.xPos = xPos;}
     public int getyPos() {return yPos;}
@@ -48,14 +53,5 @@ public class GhostAnimation extends Animation implements AnimationsAdapter {
                 this.addFrame(new Image(PATH_IMAGE_1.concat(nameGhost + "_up2.png")), DURATION);
                 break;
         }
-    }
-
-    @Override
-    public void changeAnimationSet() throws SlickException {
-        super.getImage(0).destroy();
-        super.getImage(1).destroy();
-        
-        super.addFrame(new Image(PATH_IMAGE_0.concat("blue_ghost1.png")), DURATION);
-        super.addFrame(new Image(PATH_IMAGE_1.concat("blue_ghost2.png")), DURATION);
     }
 }
