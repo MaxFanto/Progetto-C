@@ -16,6 +16,10 @@ public class FruitAnimation extends Animation {
         this.addFrame(new Image(IMAGE_PATH.concat(type)), DURATION);
     }
     
+    /**
+     * This method choses randomly a fruit
+     * @return the fruit tha will be display on the map
+     */
     public String generateFruit(){
         Random random = new Random();
         int indiceFrutto = random.nextInt(6);
