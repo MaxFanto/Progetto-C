@@ -89,7 +89,6 @@ public class Menu extends javax.swing.JFrame {
         controls_image.setIcon(new javax.swing.ImageIcon("data/controls.png"));
         controls_image.setText("");
         controls_image.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 5));
-//        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
         Dimension dim_screen = Toolkit.getDefaultToolkit().getScreenSize();
         int w = getSize().width;

@@ -107,7 +107,7 @@ public class MazeView extends BasicGame implements Observer {
         renderTitle(g);
         
         if(lives == 0)
-            gameOver.draw(192, 384);
+            gameOver.draw(200, 384);
         if (youWin() == 0)
             youWin.draw(212, 384);
     }
