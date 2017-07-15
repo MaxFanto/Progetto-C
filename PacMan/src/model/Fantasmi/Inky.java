@@ -24,6 +24,7 @@ public class Inky extends Ghost {
     }
     
     /**
+     * This method chooses the Inky's direction
      * @return a random number that idententifies the direction 
      */
     public int chooseDirection() {
@@ -33,7 +34,7 @@ public class Inky extends Ghost {
     }
     
     /**
-     * this method checks if direction is accessible or not
+     * This method checks if direction is accessible or not
      */    
     private void direction() {
         switch(randNumber){

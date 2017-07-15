@@ -232,11 +232,22 @@ public class MazeView extends BasicGame implements Observer {
         }
     }
 
+    /**
+     * This method draws the score
+     * @param g
+     * @param score identify the points scored by the player
+     */
     private void renderScore(Graphics g, int score) {
         g.setColor(Color.yellow);
         g.drawString("SCORE: " + score, 24, 1);
     }
     
+    /**
+     * This method draws and updates the lives of pacman
+     * @param g
+     * @param lives
+     * @throws SlickException 
+     */
     private void renderLives(Graphics g, int lives) throws SlickException {
         g.setColor(Color.yellow);
         Image pacmanLives = new Image("data/pacman/pacman0.png");

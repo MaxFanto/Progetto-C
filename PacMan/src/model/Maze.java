@@ -42,7 +42,6 @@ public class Maze extends Observable {
     private boolean superFlagUL=true,superFlagUR=true, superFlagDL=true, superFlagDR=true;
 
     /**
-     * 
      * @param mazeMap
      * @param mazeView
      * @throws SlickException 
@@ -68,8 +67,8 @@ public class Maze extends Observable {
     }
   
     /**
-     * 
-     * @param mazeView 
+     * This method is for the inizialization of tile's static property
+     * @param mazeView the view of the game
      */
     private void initializationTiles(MazeView mazeView) {
         boolean[][] blocked = mazeView.getBlocked();
@@ -86,10 +85,10 @@ public class Maze extends Observable {
     }
     
     /**
-     * This method is for the inizialization of tile's static property 
-     * @param vistalabirinto the view of the game
-     */
-    
+     * This method notifies the changes
+     * @param input from keybord by player
+     * @param mode can be single/multy player
+     */   
     public void notifyModify(Input input, String mode) {
         startMoment();
         
@@ -127,6 +126,10 @@ public class Maze extends Observable {
         return pinky;
     }
 
+    /**
+     * This method checks if there is collision between one of the ghosts and pacman.
+     * If it happens pacman will kill.
+     */
     private void collision() {
         if(checkClydeCollision() || checkBlinkyCollision() || checkPinkyCollision() || checkInkyCollision()) {
             death.play();
@@ -344,7 +347,7 @@ public class Maze extends Observable {
     }
 
     /**
-     * This method reset the position after player's death 
+     * This method reset the position after player's (or ghost's) death 
      */
     
     private void checkDeath() {

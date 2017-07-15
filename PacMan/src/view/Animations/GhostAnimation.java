@@ -30,6 +30,7 @@ public class GhostAnimation extends Animation implements AnimationsAdapter {
     public int getyPos() {return yPos;}
     public void setyPos(int yPos) {this.yPos = yPos;}
     
+    
     @Override
     public void rotate(int value) throws SlickException {
         super.getImage(0).destroy();
