@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Fantasmi.Blinky;
+import model.Fantasmi.Ghost;
 import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
 import org.lwjgl.opengl.Display;
@@ -131,7 +132,7 @@ public class Maze extends Observable {
      * If it happens pacman will kill.
      */
     private void collision() {
-        if(checkClydeCollision() || checkBlinkyCollision() || checkPinkyCollision() || checkInkyCollision()) {
+        if(checkGhostCollision(clyde) || checkGhostCollision(blinky) || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
             death.play();
             if(pacman.isDeath() == false)
                 pacman.setVite();
@@ -141,39 +142,13 @@ public class Maze extends Observable {
     }
 
     /**
-     * This method checks if the is a collision between pacman and Clyde
+     * This method checks if the is a collision between pacman and selected ghost
+     * @param ghost selected ghost
      * @return true if there is collision
      */
-    private boolean checkClydeCollision() {
-        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (clyde.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (clyde.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
-    }
-    
-    /**
-     * This method checks if the is a collision between pacman and Blinky
-     * @return true if there is collision
-     */
-    private boolean checkBlinkyCollision() {
-        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (blinky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (blinky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
-    }
-
-    /**
-     * This method checks if the is a collision between Pacman and Pinky
-     * @return true if there is collision
-     */
-    private boolean checkPinkyCollision() {
-        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (pinky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (pinky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
-    }
-    
-    /**
-     * This method checks if the is a collision between pacman and Inky
-     * @return true if there is collision
-     */
-    private boolean checkInkyCollision() {
-        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (inky.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (inky.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
+    private boolean checkGhostCollision(Ghost ghost) {
+        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (ghost.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
+               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (ghost.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
     }
     
     /**
@@ -301,19 +276,19 @@ public class Maze extends Observable {
     }
 
     private void collisionPower() {
-        if (checkClydeCollision()) {
+        if (checkGhostCollision(clyde)) {
             clyde.setDeath(true);
             eatGhost.play();
         }
-        if (checkBlinkyCollision()) {
+        if (checkGhostCollision(blinky)) {
             blinky.setDeath(true);
             eatGhost.play();
         }
-        if (checkPinkyCollision()) {
+        if (checkGhostCollision(pinky)) {
             pinky.setDeath(true);
             eatGhost.play();
         }
-        if (checkInkyCollision()) {
+        if (checkGhostCollision(inky)) {
             inky.setDeath(true);
             eatGhost.play();
         }

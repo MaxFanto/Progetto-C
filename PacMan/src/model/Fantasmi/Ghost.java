@@ -44,10 +44,6 @@ public abstract class Ghost extends Player {
     
     
     public boolean isBlue() {return blue;}
-
-    public int getxPos() {return x;}
-    
-    public int getyPos() {return y;}
     
     public void setBlue(boolean blue) {this.blue = blue;}
 }

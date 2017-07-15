@@ -17,16 +17,6 @@ public class PacMan extends Player {
 
     /**
      * 
-     * @return x position of pacman 
-     */
-    public int getxPos() {return x;}
-    /**
-     * 
-     * @return y position of pacmna 
-     */
-    public int getyPos() {return y;}
-    /**
-     * 
      * @return the number of lives
      */
     public int getLives() {return lives;}
