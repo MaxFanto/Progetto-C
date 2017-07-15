@@ -123,9 +123,9 @@ public class MazeView extends BasicGame implements Observer {
         try {
             updateOrientation(((Maze)o).getPacman(), pacman);
             updateOrientation(((Maze)o).getClyde(), clyde);
-            updateOrientation(((Maze)o).getClyde(), blinky);
-            updateOrientation(((Maze)o).getClyde(), inky);
-            updateOrientation(((Maze)o).getClyde(), pinky);
+            updateOrientation(((Maze)o).getBlinky(), blinky);
+            updateOrientation(((Maze)o).getInky(), inky);
+            updateOrientation(((Maze)o).getPinky(), pinky);
         } catch (SlickException ex) {
             ex.printStackTrace();
         }

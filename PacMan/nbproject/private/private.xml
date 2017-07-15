@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/matteo/Desktop/Progetto-C/PacMan/src/view/menu/win_pane.java</file>
+            <file>file:/C:/Users/matteo/Desktop/Progetto-C/PacMan/src/view/MazeView.java</file>
+            <file>file:/C:/Users/matteo/Desktop/Progetto-C/PacMan/src/view/menu/Menu.java</file>
+            <file>file:/C:/Users/matteo/Desktop/Progetto-C/PacMan/src/view/menu/popup_game_over.java</file>
+            <file>file:/C:/Users/matteo/Desktop/Progetto-C/PacMan/src/view/menu/lose_pane.java</file>
+        </group>
     </open-files>
 </project-private>
