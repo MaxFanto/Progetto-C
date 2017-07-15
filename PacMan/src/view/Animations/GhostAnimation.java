@@ -62,7 +62,11 @@ public class GhostAnimation extends Animation implements AnimationsAdapter {
         
         return t;
     }
-    
+    /**
+     * change texture of ghost current frame
+     * according with rotation of the ghost
+     * @throws SlickException 
+     */
     @Override
     public void rotate(int value) throws SlickException {
                    

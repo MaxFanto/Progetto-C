@@ -64,7 +64,7 @@ public class MazeView extends BasicGame implements Observer {
     public boolean[][] getPills() {return superP;}
     
     /**
-     * inizialize map, images, animations and sounds 
+     * This method inizializes map, images, animations and sounds 
      * @param container
      */
     
@@ -153,7 +153,7 @@ public class MazeView extends BasicGame implements Observer {
     }
     
     /**
-     * inizializzazione delle animazioni
+     * This method initializes the animations of the map
      * @throws SlickException 
      */
     private void initMapProperty() {
@@ -164,6 +164,10 @@ public class MazeView extends BasicGame implements Observer {
         fruit = checkMazeProperty("fruit");
     }
     
+    /**
+     * This method initializes the animations of the character
+     * @throws SlickException 
+     */
     private void initAnimations() throws SlickException {
         pacman = new PacManAnimation();
         pacman.rotate(0);
@@ -179,7 +183,7 @@ public class MazeView extends BasicGame implements Observer {
     }
     
     /**
-     * take maze property directly from map file
+     * This methodtake maze property directly from map file
      * @param s denote type of property
      */
     
@@ -204,9 +208,9 @@ public class MazeView extends BasicGame implements Observer {
     }
 
     /**
-     * modifica l'orientamento dell'animazione in base alla sua direzione nel movimento
-     * @param player giocatore di riferimento dell'animazione, da cui prende la posizione
-     * @param animation animazione da ruotare
+     * This method change the orientation of animation based on the direction in the movement
+     * @param player main player of the animation from whom take the position
+     * @param animation animation that has to be rotate
      * @throws SlickException 
      */
     private void updateOrientation(Player player, AnimationsAdapter animation) throws SlickException {
@@ -228,11 +232,22 @@ public class MazeView extends BasicGame implements Observer {
         }
     }
 
+    /**
+     * This method draws the score
+     * @param g
+     * @param score identify the points scored by the player
+     */
     private void renderScore(Graphics g, int score) {
         g.setColor(Color.yellow);
         g.drawString("SCORE: " + score, 24, 1);
     }
     
+    /**
+     * This method draws and updates the lives of pacman
+     * @param g
+     * @param lives
+     * @throws SlickException 
+     */
     private void renderLives(Graphics g, int lives) throws SlickException {
         g.setColor(Color.yellow);
         Image pacmanLives = new Image("data/pacman/pacman0.png");
@@ -266,6 +281,10 @@ public class MazeView extends BasicGame implements Observer {
         }
     }
 
+    /**
+     * This method calculate the score
+     * @return the score
+     */
     private int countScore() {
         int s = -252560;
         for (int i = 0; i < mazeMap.getWidth(); i++) { 

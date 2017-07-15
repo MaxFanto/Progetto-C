@@ -39,16 +39,28 @@ public class Menu extends javax.swing.JFrame {
         initComponents();      
     }
     
+    /**
+     * This method checks if singleplayer's button is pressed by the player
+     * @param evt indetify the event
+     */
     public void single_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
         setVisible(false);
         controller.startGame("single");
     } 
     
+    /**
+     * This method checks if multiplayer's button is pressed by the player
+     * @param evt indetify the event
+     */
     public void multi_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
         setVisible(false);
         controller.startGame("multi");
     }
     
+    /**
+     * This method checks if controls' button is pressed by the player
+     * @param evt indetify the event
+     */
     public void controlsMousePressed(java.awt.event.MouseEvent evt) {                                     
         
         getContentPane().removeAll();
@@ -69,11 +81,20 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }
     
+    /**
+     * This method checks if quit's button is pressed by the player
+     * @param evt indetify the event
+     */
     public void quitMousePressed(java.awt.event.MouseEvent evt) {                                           
         dispose();
     } 
                           
-    
+    /**
+     * This method contains the information about the components of the menu
+     * @throws FileNotFoundException
+     * @throws FontFormatException
+     * @throws IOException 
+     */
     private void initComponents() throws FileNotFoundException, FontFormatException, IOException {
 
         backgorund_panel = new javax.swing.JPanel();
@@ -171,6 +192,9 @@ public class Menu extends javax.swing.JFrame {
         setMain_menu();
     }
 
+    /**
+     * This method draws the menu
+     */
     void setMain_menu() {
         getContentPane().removeAll();
         javax.swing.GroupLayout backgorund_panelLayout = new javax.swing.GroupLayout(backgorund_panel);

@@ -28,7 +28,8 @@ public class Pinky extends Ghost {
     }
     
     /**
-     * @return a random number that idententifies the direction
+     * This method chooses the Pinky's direction
+     * @return a random number that idententifies the direction 
      */
     public int chooseDirection() {
         setCorners();                
@@ -37,7 +38,7 @@ public class Pinky extends Ghost {
     }
     
     /**
-     * this method checks if the right direction is accesible or not. Then it controls if pinky runs in a circle and if it is true change direction.
+     * This method checks if the right direction is accesible or not. Then it controls if pinky runs in a circle and if it is true change direction.
      */
     private void direction() {        
         switch(randNumber){

@@ -42,21 +42,8 @@ public abstract class Ghost extends Player {
         }
     }
     
-    //getter
+    
     public boolean isBlue() {return blue;}
-
-    /**
-     * 
-     * @return the x position of the ghost.
-     */
-    public int getxPos() {return x;}
     
-    /**
-     * 
-     * @return the y position of the ghost.
-     */
-    public int getyPos() {return y;}
-    
-    //setter
     public void setBlue(boolean blue) {this.blue = blue;}
 }

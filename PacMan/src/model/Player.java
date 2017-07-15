@@ -195,4 +195,8 @@ public abstract class Player extends Observable {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+    
+    public int getxPos() {return x;}
+    
+    public int getyPos() {return y;}
 }

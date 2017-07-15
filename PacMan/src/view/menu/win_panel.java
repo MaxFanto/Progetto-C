@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class win_pane extends javax.swing.JFrame {
+public class win_panel extends javax.swing.JFrame {
                   
     private javax.swing.JPanel background;
     private javax.swing.JLabel youwin;
@@ -19,7 +19,7 @@ public class win_pane extends javax.swing.JFrame {
     private javax.swing.JLabel quit;
     private javax.swing.JLabel score;    
     
-    public win_pane() throws FontFormatException, IOException {
+    public win_panel() throws FontFormatException, IOException {
         initComponents();
     }
     
