@@ -265,7 +265,15 @@ public class MazeView extends BasicGame implements Observer {
         for (int i = 0; i < mazeMap.getWidth(); i++) { 
             for (int j = 0; j < mazeMap.getHeight(); j++) {
                 if (eat[i][j] == true)
-                    pill.draw(i*32, j*32);
+                    if(mode.equals("extreme"))
+                        if(pacmanPower)
+                            pill.draw(i*32, j*32, Color.red);
+                        else
+                            pill.draw(i*32, j*32, Color.blue);                            
+                    else 
+                        pill.draw(i*32, j*32);
+
+                        
                 if (superP[i][j] == true)
                     superPill.draw(i*32, j*32);
                 if (fruit[i][j] == true && score > 500)
@@ -302,9 +310,6 @@ public class MazeView extends BasicGame implements Observer {
 
     private void renderPacman() throws SlickException {
         if(!pacmanDeath)
-            if(mode.equals("extreme"))
-                pacman.draw(pacman.getxPos(), pacman.getyPos(), Color.red);
-            else
                 pacman.draw(pacman.getxPos(), pacman.getyPos());
         else
             ready.draw(226, 384);
