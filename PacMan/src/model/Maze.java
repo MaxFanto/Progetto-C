@@ -26,7 +26,7 @@ public class Maze extends Observable {
     
     private long time = 0;
     
-    private final int POWER_TIME = 10000;
+    private int POWER_TIME;
     
     private int speedLow = 1;
     private int speedHigh = 2;
@@ -99,6 +99,7 @@ public class Maze extends Observable {
         
         pacman.manualMovement(input);
         
+        checkPowerTime(mode);
         checkModeGame(input, mode);
         checkModeCollision();
         superPillCollision();
@@ -247,7 +248,7 @@ public class Maze extends Observable {
      */
     
     private void checkModeGame(Input input, String mode) {
-        if(mode.equals("single")) {
+        if(mode.equals("single") || mode.equals("extreme")) {
             clyde.AIMovement(clyde.chooseDirection());
             blinky.AIMovement(blinky.chooseDirection());
             inky.AIMovement(inky.chooseDirection());
@@ -347,5 +348,12 @@ public class Maze extends Observable {
         inky.setSpeed(speed);
         blinky.setSpeed(speed);
         pinky.setSpeed(speed);
+    }
+
+    private void checkPowerTime(String mode) {
+        if(mode.equals("extreme"))
+            POWER_TIME = 2000;
+        else
+            POWER_TIME = 10000;
     }
 }

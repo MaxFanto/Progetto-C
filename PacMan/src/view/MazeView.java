@@ -302,7 +302,10 @@ public class MazeView extends BasicGame implements Observer {
 
     private void renderPacman() throws SlickException {
         if(!pacmanDeath)
-            pacman.draw(pacman.getxPos(), pacman.getyPos());
+            if(mode.equals("extreme"))
+                pacman.draw(pacman.getxPos(), pacman.getyPos(), Color.red);
+            else
+                pacman.draw(pacman.getxPos(), pacman.getyPos());
         else
             ready.draw(226, 384);
     }

@@ -38,7 +38,12 @@ public class PacmanGame {
             MazeView vl = new MazeView(this, mode);
             AppGameContainer app = new AppGameContainer(vl);
             app.setDisplayMode(608, 704, false);
-            app.setTargetFrameRate(60);
+           
+            if(mode.equals("extreme"))
+                app.setTargetFrameRate(260);
+            else 
+                app.setTargetFrameRate(60);
+
             app.setShowFPS(false);
             app.start();
         }
