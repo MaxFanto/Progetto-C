@@ -180,10 +180,10 @@ public abstract class Player extends Observable {
         }
         
         if(this instanceof Pinky) {
-            comands[0] = Input.KEY_1;
+            comands[0] = Input.KEY_5;
             comands[1] = Input.KEY_2;
-            comands[2] = Input.KEY_3;
-            comands[3] = Input.KEY_4;
+            comands[2] = Input.KEY_1;
+            comands[3] = Input.KEY_3;
         }
             
     }
