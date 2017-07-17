@@ -27,6 +27,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel controls;
     private javax.swing.JLabel multi_player;
     private javax.swing.JLabel quit;
+    private javax.swing.JLabel extreme;
     private javax.swing.JLabel single_player;
     private javax.swing.JLabel title;
     private javax.swing.JLabel image_menu;
@@ -55,6 +56,15 @@ public class Menu extends javax.swing.JFrame {
     public void multi_playerMousePressed(java.awt.event.MouseEvent evt) {                                           
         setVisible(false);
         controller.startGame("multi");
+    }
+    
+     /**
+     * This method checks if extreme's button is pressed by the player
+     * @param evt indetify the event
+     */  
+    public void extremeMousePressed(MouseEvent evt) {
+        setVisible(false);
+        controller.startGame("extreme");
     }
     
     /**
@@ -103,6 +113,7 @@ public class Menu extends javax.swing.JFrame {
         multi_player = new javax.swing.JLabel();
         controls = new javax.swing.JLabel();
         quit = new javax.swing.JLabel();
+        extreme = new javax.swing.JLabel();
         image_menu = new javax.swing.JLabel();
         controls_image = new javax.swing.JLabel();
         menu_label = new javax.swing.JLabel();
@@ -153,6 +164,17 @@ public class Menu extends javax.swing.JFrame {
         multi_player.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 multi_playerMousePressed(evt);
+                setVisible(false);
+            }
+        });       
+        
+        extreme.setFont(pac_man_font2.deriveFont(0,30)); 
+        extreme.setForeground(new java.awt.Color(255, 255, 0));
+        extreme.setText("Extreme");
+        extreme.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        extreme.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                extremeMousePressed(evt);
                 setVisible(false);
             }
         });        
@@ -212,6 +234,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(backgorund_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(extreme, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(controls, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(backgorund_panelLayout.createSequentialGroup()
@@ -228,12 +251,15 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(backgorund_panelLayout.createSequentialGroup()
             .addContainerGap()
             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(70, 70, 70)
+            .addGap(50, 50, 50)
             .addComponent(single_player, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(29, 29, 29)
             .addComponent(multi_player, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(29, 29, 29)
+            .addComponent(extreme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
             .addComponent(controls, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(5, 5, 5)
             .addComponent(image_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(10, 10, 10)
             .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
