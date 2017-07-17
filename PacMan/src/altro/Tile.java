@@ -13,12 +13,11 @@ public class Tile {
      *               with the other side of the map) or not. 
      * @param eat boolean tha identifies if on the tile there is a pill.
      */
-    public Tile(int width, int height, boolean blocked, boolean tunnel, boolean eat){
+    public Tile(int width, int height, boolean blocked, boolean tunnel){
         TILE_HEIGHT= height;
         TILE_WIDTH = width;
         this.blocked = blocked;
         this.tunnel = tunnel;
-        this.eat = eat;
     }
 
     /**
@@ -57,8 +56,5 @@ public class Tile {
      * 
      * @return if the tile contains a pill. 
      */
-    public boolean isEat() {
-        return eat;
-    }
 
 }

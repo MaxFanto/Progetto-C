@@ -74,13 +74,12 @@ public class Maze extends Observable {
     private void initializationTiles(MazeView mazeView) {
         boolean[][] blocked = mazeView.getBlocked();
         boolean[][] tunnel = mazeView.getTunnel();
-        boolean[][] eat = mazeView.getEat();
         
         tiles = new Tile[mazeMap.getWidth()][mazeMap.getHeight()];
         
         for (int i = 0; i < mazeMap.getWidth(); i++) {
             for (int j = 0; j < mazeMap.getHeight(); j++) {
-                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j]);
+                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j]);
             }
         }
     }
