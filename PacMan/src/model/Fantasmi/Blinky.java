@@ -1,6 +1,6 @@
 package model.Fantasmi;
 
-import altro.Tile;
+import other.Tile;
 import java.util.Random;
 
 

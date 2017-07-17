@@ -3,7 +3,7 @@ It tends to always turn right when it finds a frontal obstacle. If it runs in a 
 */
 package model.Fantasmi;
 
-import altro.Tile;
+import other.Tile;
 import java.util.Random;
 
 public class Pinky extends Ghost {

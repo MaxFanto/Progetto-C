@@ -1,7 +1,7 @@
 package model;
 
 import model.Fantasmi.Clyde;
-import altro.Tile;
+import other.Tile;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;

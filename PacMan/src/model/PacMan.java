@@ -1,6 +1,6 @@
 package model;
 
-import altro.Tile;
+import other.Tile;
 
 public class PacMan extends Player {
     private int lives;

@@ -1,8 +1,8 @@
-package altro;
+package other;
 
 public class Tile {
     private final int TILE_WIDTH, TILE_HEIGHT;
-    private boolean blocked, tunnel, eat;
+    private boolean blocked, tunnel;
     
     /**
      * 
@@ -10,8 +10,7 @@ public class Tile {
      * @param height int that indifies the height of each tile.
      * @param blocked boolean that identifies if each tile is accessible or not.
      * @param tunnel boolean that identifies if each tile is a tunnel(connection
-     *               with the other side of the map) or not. 
-     * @param eat boolean tha identifies if on the tile there is a pill.
+     *               with the other side of the map) or not.
      */
     public Tile(int width, int height, boolean blocked, boolean tunnel){
         TILE_HEIGHT= height;
@@ -51,10 +50,5 @@ public class Tile {
     public boolean isTunnel() {
         return tunnel;
     }
-    
-    /**
-     * 
-     * @return if the tile contains a pill. 
-     */
 
 }

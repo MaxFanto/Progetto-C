@@ -1,6 +1,6 @@
 package model;
 
-import altro.Tile;
+import other.Tile;
 import java.util.Observable;
 import model.Fantasmi.Blinky;
 import model.Fantasmi.Clyde;

@@ -4,7 +4,7 @@ casuale Ã¨ bloccata se ne sceglie un'altra fino a quando non ha via libera.
  */
 package model.Fantasmi;
 
-import altro.Tile;
+import other.Tile;
 import java.util.Random;
 import model.PacMan;
 

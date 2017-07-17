@@ -50,10 +50,10 @@ public class MazeView extends BasicGame implements Observer {
     
     private String mode;
     
-    public MazeView(PacmanGame controller,String mode) throws SlickException {
+    public MazeView(PacmanGame pacmanGame,String mode) throws SlickException {
         super("");
         this.mode = mode;
-        this.pacmanGame = controller;
+        this.pacmanGame = pacmanGame;
     }
 
     public Input getInput() {return input;}
@@ -66,6 +66,7 @@ public class MazeView extends BasicGame implements Observer {
     /**
      * This method inizializes map, images, animations and sounds 
      * @param container
+     * @throws SlickException
      */
     
     @Override
@@ -82,7 +83,7 @@ public class MazeView extends BasicGame implements Observer {
         begin.play();
         
         eatFruit = new Sound("data/pacmanSound/eatFruit.wav");
-        pacmanGame.initLabirinto(mazeMap,this);
+        pacmanGame.initMaze(mazeMap,this);
     }
     
     @Override

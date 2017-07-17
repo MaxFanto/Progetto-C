@@ -20,7 +20,7 @@ public class PacmanGame {
         sendInput(mode);
     }
 
-    public void initLabirinto(TiledMap mazeMap, MazeView mazeView) throws SlickException{
+    public void initMaze(TiledMap mazeMap, MazeView mazeView) throws SlickException{
         maze = new Maze(mazeMap,mazeView);
     }
     

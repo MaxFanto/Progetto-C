@@ -1,6 +1,6 @@
 package model.Fantasmi;
 
-import altro.Tile;
+import other.Tile;
 import model.Directions;
 import model.Player;
 
