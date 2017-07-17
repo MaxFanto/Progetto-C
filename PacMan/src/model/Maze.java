@@ -132,7 +132,8 @@ public class Maze extends Observable {
      * If it happens pacman will kill.
      */
     private void collision() {
-        if(checkGhostCollision(clyde) || checkGhostCollision(blinky) || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
+        if(checkGhostCollision(clyde) || checkGhostCollision(blinky) 
+           || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
             death.play();
             if(pacman.isDeath() == false)
                 pacman.setVite();
