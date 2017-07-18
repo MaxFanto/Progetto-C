@@ -1,13 +1,14 @@
 package model.Fantasmi;
 
-import Algorithms.RandomSearchStrategy;
+import Algorithms.DirectionStrategy;
+import Algorithms.RandomStrategy;
 import other.Tile;
 import java.util.Random;
 
 
 public class Blinky extends Ghost {
     private int currentDirection;
-    private RandomSearchStrategy search;
+    private DirectionStrategy search;
 
     /** 
      * @param tile_width identifies the width of a single tile
@@ -17,7 +18,7 @@ public class Blinky extends Ghost {
      */
     public Blinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        search = new RandomSearchStrategy();
+        search = new RandomStrategy();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
         currentDirection = chooseDirection();

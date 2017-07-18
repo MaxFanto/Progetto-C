@@ -12,12 +12,12 @@ import model.Fantasmi.Ghost;
  *
  * @author mattia
  */
-public class RandomSearchStrategy implements DirectionStrategy{
+public class RandomStrategy implements DirectionStrategy{
     private Integer randNumber;
     private Random rand;
     private boolean[] check;
 
-    public RandomSearchStrategy() {
+    public RandomStrategy() {
         this.randNumber = new Integer(0);
         rand = new Random();
     }

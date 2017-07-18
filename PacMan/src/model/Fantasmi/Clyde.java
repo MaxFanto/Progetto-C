@@ -4,14 +4,14 @@ casuale Ã¨ bloccata se ne sceglie un'altra fino a quando non ha via libera.
  */
 package model.Fantasmi;
 
-import Algorithms.RandomSearchStrategy;
+import Algorithms.RandomStrategy;
 import other.Tile;
 import java.util.Random;
 import model.PacMan;
 
 public class Clyde extends Ghost {
 
-    private RandomSearchStrategy search; //algoritmo
+    private RandomStrategy search; //algoritmo
     
  
     /** 
@@ -22,7 +22,7 @@ public class Clyde extends Ghost {
      */
     public Clyde(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
         super(tile_width, tile_heigth, mapWidth, tiles);
-        search = new RandomSearchStrategy();
+        search = new RandomStrategy();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
     }

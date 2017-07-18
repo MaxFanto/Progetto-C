@@ -1,6 +1,6 @@
 package model.Fantasmi;
 
-import Algorithms.RandomSearchStrategy;
+import Algorithms.RandomStrategy;
 import other.Tile;
 import java.util.Random;
 
@@ -8,7 +8,7 @@ import java.util.Random;
 public class Inky extends Ghost {
     
     private int currentDirection;
-    private RandomSearchStrategy search;
+    private RandomStrategy search;
     
     /** 
      * @param tile_width identifies the width of a single tile
@@ -18,7 +18,7 @@ public class Inky extends Ghost {
      */    
     public Inky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles){
         super(tile_width, tile_heigth, mapWidth, tiles);
-        search = new RandomSearchStrategy();
+        search = new RandomStrategy();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
         currentDirection = chooseDirection();
