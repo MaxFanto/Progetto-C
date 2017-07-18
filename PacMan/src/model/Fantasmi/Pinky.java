@@ -3,12 +3,12 @@ It tends to always turn right when it finds a frontal obstacle. If it runs in a 
 */
 package model.Fantasmi;
 
+import Algorithms.DirectionStrategy;
 import Algorithms.RandomStrategy;
 import other.Tile;
 
 public class Pinky extends Ghost {
-    private RandomStrategy search;
-    private int currentDirection;
+    private DirectionStrategy search;
     int a = 0, b = 0;
     
 
@@ -23,17 +23,20 @@ public class Pinky extends Ghost {
         search = new RandomStrategy();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
-        //currentDirection = chooseDirection();
+
     }
     
     /**
      * This method chooses the Pinky's direction
      * @return a random number that idententifies the direction 
      */
+    @Override
     public int chooseDirection() {
-        setCorners();                
+        setCorners();
         return search.direction(this);
     }
+    
+    
 
 //        if(x == 544 && y == 32){
 //            a++;

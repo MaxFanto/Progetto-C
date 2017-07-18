@@ -26,8 +26,10 @@ public class Inky extends Ghost {
      * This method chooses the Inky's direction
      * @return a random number that idententifies the direction 
      */
+    @Override
     public int chooseDirection() {
         setCorners();
         return search.direction(this);
     }    
+
 }

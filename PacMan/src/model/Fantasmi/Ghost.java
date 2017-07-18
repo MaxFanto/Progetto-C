@@ -42,7 +42,10 @@ public abstract class Ghost extends Character {
         }
     }
     
+    public abstract int chooseDirection();
+    
     public boolean isBlue() {return blue;}
     
     public void setBlue(boolean blue) {this.blue = blue;}
+    
 }

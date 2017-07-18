@@ -25,23 +25,11 @@ public class Clyde extends Ghost {
         y = Y_MAIN_POS;
     }
     
+    @Override
     public int chooseDirection() {
         setCorners();                
         return search.direction(this);
-    }
-    
-    /**
-     * 
-     * @param x x position of pacman
-     * @param y y position of pacman
-     * @return the distance between the ghost and pacman.
-     */
-    private double radar(int x, int y) {
-	return Math.sqrt(
-            Math.pow(this.x - x, 2) +
-            Math.pow(this.y - y, 2)
-        );
-    }   
+    } 
 }
 
 

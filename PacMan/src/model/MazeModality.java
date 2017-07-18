@@ -29,7 +29,7 @@ public abstract class MazeModality extends Observable {
     private int speedLow = 1;
     private int speedHigh = 2;
    
-    private PacMan pacman;
+    protected PacMan pacman;
     protected Clyde clyde;
     protected Blinky blinky;
     protected Inky inky;
@@ -105,7 +105,6 @@ public abstract class MazeModality extends Observable {
         checkModeGame(input);
         checkModeCollision();
         eatCollision();
-        //superPillCollision();
         
         setChanged();
         notifyObservers();
