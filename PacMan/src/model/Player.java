@@ -120,22 +120,31 @@ public abstract class Player extends Observable {
         return direction;
     }
      
-    public boolean checkBlockUp(){
+    /**
+     * 
+     * @return blocked matrix in order (up, down, left, right)
+     */
+    public boolean[] checkBlocked(){
+        boolean[] check = {checkBlockUp(),checkBlockDown(),checkBlockLeft(),checkBlockRight()};
+        return check;
+    }
+    
+    private boolean checkBlockUp(){
     return !tiles[xUpSx/tileWidth][(yUpSx - speed)/tileHeight].isBlocked() &&
            !tiles[xUpDx/tileWidth][(yUpDx - speed)/tileHeight].isBlocked();
     }
     
-    public boolean checkBlockDown(){
+    private boolean checkBlockDown(){
     return !tiles[xDownSx/tileWidth][(yDownSx + speed)/tileHeight].isBlocked() && 
            !tiles[xDownDx/tileWidth][(yDownDx + speed)/tileHeight].isBlocked();
     }
     
-    public boolean checkBlockLeft() {
+    private boolean checkBlockLeft() {
     return !tiles[(xUpSx - speed)/tileWidth][yUpSx/tileHeight].isBlocked() && 
            !tiles[(xDownSx - speed)/tileWidth][yDownSx/tileHeight].isBlocked();
     }
     
-    public boolean checkBlockRight() {
+    private boolean checkBlockRight() {
         return !tiles[(xUpDx + speed)/tileWidth][yUpDx/tileHeight].isBlocked() &&
                !tiles[(xDownDx + speed)/tileWidth][yDownDx/tileHeight].isBlocked();
     }

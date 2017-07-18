@@ -20,21 +20,21 @@ public abstract class Ghost extends Player {
     }
 
     public void AIMovement(int dir){
-        if ((dir == 0) && checkBlockUp()){   
+        if ((dir == 0) && super.checkBlocked()[0]){   
             y -= speed; 
             direction = Directions.UP;
         }
-        if ((dir == 1) && checkBlockDown()){
+        if ((dir == 1) && super.checkBlocked()[1]){
             y += speed;
             direction = Directions.DOWN;
         }                               
-        if ((dir == 2) && checkBlockLeft()){
+        if ((dir == 2) && super.checkBlocked()[2]){
             x -= speed;
             direction = Directions.LEFT;
             if (checkTunnelLeft()) 
                 x = tileWidth * (mapWidth - 1);            
         }
-        if ((dir == 3) && checkBlockRight()){
+        if ((dir == 3) && super.checkBlocked()[3]){
             x += speed;
             direction = Directions.RIGHT;
             if (checkTunnelRight())
