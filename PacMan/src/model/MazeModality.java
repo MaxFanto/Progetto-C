@@ -16,7 +16,7 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 import view.MazeView;
 
-public class Maze extends Observable {
+public abstract class MazeModality extends Observable {
     
     private Tile[][] tiles;
     private int mazeWidth,mazeHeight;
@@ -24,16 +24,16 @@ public class Maze extends Observable {
     
     private long time = 0;
     
-    private int POWER_TIME;
+    protected int POWER_TIME;
     
     private int speedLow = 1;
     private int speedHigh = 2;
    
     private PacMan pacman;
-    private Clyde clyde;
-    private Blinky blinky;
-    private Inky inky;
-    private Pinky pinky;
+    protected Clyde clyde;
+    protected Blinky blinky;
+    protected Inky inky;
+    protected Pinky pinky;
     
     private Sound eatGhost, death, eatSuperPill;
     
@@ -44,7 +44,7 @@ public class Maze extends Observable {
      * @param mazeView
      * @throws SlickException 
      */
-    public Maze(TiledMap mazeMap,MazeView mazeView) throws SlickException {
+    public MazeModality(TiledMap mazeMap,MazeView mazeView) throws SlickException {
 
         this.addObserver(mazeView);
         tileWidth = mazeMap.getTileWidth();
@@ -52,7 +52,9 @@ public class Maze extends Observable {
         mazeWidth = mazeMap.getWidth();
         mazeHeight = mazeMap.getHeight();   
         initializationTiles(mazeView);
+        
 
+        
         pacman = new PacMan(tileWidth, tileHeight, mazeWidth, tiles);
         
         clyde = new Clyde(tileWidth, tileHeight, mazeWidth, tiles);
@@ -80,17 +82,17 @@ public class Maze extends Observable {
         
         for (int i = 0; i < mazeWidth; i++) {
             for (int j = 0; j < mazeHeight; j++) {
-                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j], superP[i][j], fruit[i][j]);
+                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j],superP[i][j],fruit[i][j]);
             }
         }
+  
     }
     
     /**
      * This method notifies the changes
      * @param input from keybord by player
-     * @param mode can be single/multy player
      */   
-    public void notifyModify(Input input, String mode) {
+    public void notifyModify(Input input) {
         startMoment();
         
         gameOver();
@@ -99,10 +101,11 @@ public class Maze extends Observable {
         
         pacman.manualMovement(input);
         
-        checkPowerTime(mode);
-        checkModeGame(input, mode);
+        checkPowerTime();
+        checkModeGame(input);
         checkModeCollision();
         eatCollision();
+        //superPillCollision();
         
         setChanged();
         notifyObservers();
@@ -133,17 +136,19 @@ public class Maze extends Observable {
         return tiles;
     }
     
+
     /**
      * This method checks if there is collision between one of the ghosts and pacman.
      * If it happens pacman will kill.
      */
     private void collision() {
         if(checkGhostCollision(clyde) || checkGhostCollision(blinky) 
-          || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
+           || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
             death.play();
-            if(pacman.isDeath() == false)
+            if(pacman.isDeath() == false){
                 pacman.setVite();
-
+            }
+            
             pacman.setDeath(true);
         }
     }
@@ -177,6 +182,7 @@ public class Maze extends Observable {
         checkTime(time);
     }
     
+
     /**
      * This method checks if the is a collision between pacman and selected ghost
      * @param ghost selected ghost
@@ -186,6 +192,8 @@ public class Maze extends Observable {
         return (pacman.getxPos() + 15)/mazeWidth*tileWidth == (ghost.getxPos() + 15)/mazeWidth*tileWidth && 
                (pacman.getyPos() + 15)/mazeHeight*tileHeight == (ghost.getyPos() + 15)/mazeHeight*tileHeight;
     }
+    
+
 
     /**
      * This method resets the positions of pacman and the ghosts
@@ -204,7 +212,7 @@ public class Maze extends Observable {
             if (flag == true)
                 Thread.sleep(time);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Maze.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MazeModality.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -226,25 +234,7 @@ public class Maze extends Observable {
         }
     }
 
-     /**
-     * This method is gestion of modify from controller 
-     * @param input input from keyboard
-     * @param mode chose of modality
-     */
-    private void checkModeGame(Input input, String mode) {
-        if(mode.equals("single") || mode.equals("extreme")) {
-            clyde.AIMovement(clyde.chooseDirection());
-            blinky.AIMovement(blinky.chooseDirection());
-            inky.AIMovement(inky.chooseDirection());
-            pinky.AIMovement(pinky.chooseDirection());
-        }
-        if(mode.equals("multi")){
-            clyde.manualMovement(input);
-            blinky.manualMovement(input);
-            inky.manualMovement(input);
-            pinky.manualMovement(input);
-        }
-    }
+    protected abstract void checkModeGame(Input input);
 
     private void checkTime(long time) {
         if (System.currentTimeMillis() >= (time + POWER_TIME) && pacman.isPower()) {
@@ -282,7 +272,6 @@ public class Maze extends Observable {
             eatGhost.play();
         }
     }
-    
     /**
      * This method make Blinky returns to the starting coordinate
      */
@@ -339,10 +328,7 @@ public class Maze extends Observable {
         pinky.setSpeed(speed);
     }
 
-    private void checkPowerTime(String mode) {
-        if(mode.equals("extreme"))
-            POWER_TIME = 2000;
-        else
+    protected void checkPowerTime() {
             POWER_TIME = 10000;
     }
 }

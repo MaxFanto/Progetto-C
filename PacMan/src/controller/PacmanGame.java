@@ -2,7 +2,10 @@ package controller;
 
 import java.awt.FontFormatException;
 import java.io.IOException;
-import model.Maze;
+import model.Extreme;
+import model.MazeModality;
+import model.MultiPlayer;
+import model.SinglePlayer;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -12,16 +15,22 @@ import view.menu.Menu;
 
 public class PacmanGame {
     
-    private Maze maze;
+    private MazeModality maze;
     private Input input;
+    private String mode;
 
-    public void setInfo(Input input, String mode) {
+    public void setInfo(Input input) {
         this.input = input;
-        sendInput(mode);
+        sendInput();
     }
 
     public void initMaze(TiledMap mazeMap, MazeView mazeView) throws SlickException{
-        maze = new Maze(mazeMap, mazeView);
+        if(mode.equals("single"))
+        maze = new SinglePlayer(mazeMap, mazeView);
+        if(mode.equals("multi"))
+        maze = new MultiPlayer(mazeMap, mazeView);
+        if(mode.equals("extreme"))
+        maze = new Extreme(mazeMap, mazeView);
     }
     
     public void startMenu() throws FontFormatException, IOException{
@@ -35,6 +44,7 @@ public class PacmanGame {
     public void startGame(String mode){
         try
         {
+            this.mode = mode;
             MazeView vl = new MazeView(this, mode);
             AppGameContainer app = new AppGameContainer(vl);
             app.setDisplayMode(608, 704, false);
@@ -53,7 +63,7 @@ public class PacmanGame {
         }
     }
     
-    private void sendInput(String mode){
-        maze.notifyModify(input, mode);
+    private void sendInput(){
+        maze.notifyModify(input);
     }
 }

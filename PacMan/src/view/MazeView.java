@@ -7,7 +7,7 @@ import controller.PacmanGame;
 import java.util.Observable;
 import java.util.Observer;
 import model.Player;
-import model.Maze;
+import model.MazeModality;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -117,7 +117,7 @@ public class MazeView extends BasicGame implements Observer {
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         input = container.getInput();
-        pacmanGame.setInfo(input, this.mode);
+        pacmanGame.setInfo(input);
     }
     
     @Override
@@ -125,45 +125,43 @@ public class MazeView extends BasicGame implements Observer {
         
         for (int i = 0; i < mazeMap.getWidth(); i++) { 
             for (int j = 0; j < mazeMap.getHeight(); j++) {
-                eat[i][j] = ((Maze)o).getTiles()[i][j].isEat();
-                superP[i][j] = ((Maze)o).getTiles()[i][j].isSuperP();
-                fruit[i][j] = ((Maze)o).getTiles()[i][j].isFruit();
+                eat[i][j] = ((MazeModality)o).getTiles()[i][j].isEat();
+                superP[i][j] = ((MazeModality)o).getTiles()[i][j].isSuperP();
+                fruit[i][j] = ((MazeModality)o).getTiles()[i][j].isFruit();
             }
         }
-        
-        score = ((Maze)o).getPacman().getScore();
-        
+        score = ((MazeModality)o).getPacman().getScore();
         try {
-            updateOrientation(((Maze)o).getPacman(), pacman);
-            updateOrientation(((Maze)o).getClyde(), clyde);
-            updateOrientation(((Maze)o).getBlinky(), blinky);
-            updateOrientation(((Maze)o).getInky(), inky);
-            updateOrientation(((Maze)o).getPinky(), pinky);
+            updateOrientation(((MazeModality)o).getPacman(), pacman);
+            updateOrientation(((MazeModality)o).getClyde(), clyde);
+            updateOrientation(((MazeModality)o).getBlinky(), blinky);
+            updateOrientation(((MazeModality)o).getInky(), inky);
+            updateOrientation(((MazeModality)o).getPinky(), pinky);
         } catch (SlickException ex) {
             ex.printStackTrace();
         }
         
         if(!pacmanDeath) {
-            pacman.setxPos(((Maze)o).getPacman().getxPos());
-            pacman.setyPos(((Maze)o).getPacman().getyPos());
+            pacman.setxPos(((MazeModality)o).getPacman().getxPos());
+            pacman.setyPos(((MazeModality)o).getPacman().getyPos());
         }
         
-        clyde.setxPos(((Maze)o).getClyde().getxPos());
-        clyde.setyPos(((Maze)o).getClyde().getyPos());
+        clyde.setxPos(((MazeModality)o).getClyde().getxPos());
+        clyde.setyPos(((MazeModality)o).getClyde().getyPos());
         
-        blinky.setxPos(((Maze)o).getBlinky().getxPos());
-        blinky.setyPos(((Maze)o).getBlinky().getyPos());
+        blinky.setxPos(((MazeModality)o).getBlinky().getxPos());
+        blinky.setyPos(((MazeModality)o).getBlinky().getyPos());
         
-        inky.setxPos(((Maze)o).getInky().getxPos());
-        inky.setyPos(((Maze)o).getInky().getyPos());
+        inky.setxPos(((MazeModality)o).getInky().getxPos());
+        inky.setyPos(((MazeModality)o).getInky().getyPos());
         
-        pinky.setxPos(((Maze)o).getPinky().getxPos());
-        pinky.setyPos(((Maze)o).getPinky().getyPos());
+        pinky.setxPos(((MazeModality)o).getPinky().getxPos());
+        pinky.setyPos(((MazeModality)o).getPinky().getyPos());
         
-        pacmanDeath = ((Maze)o).getPacman().isDeath();
-        pacmanPower = ((Maze)o).getPacman().isPower();
+        pacmanDeath = ((MazeModality)o).getPacman().isDeath();
+        pacmanPower = ((MazeModality)o).getPacman().isPower();
         
-        lives = ((Maze)o).getPacman().getLives();
+        lives = ((MazeModality)o).getPacman().getLives();
     }
     
     /**
