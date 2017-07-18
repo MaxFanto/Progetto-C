@@ -21,14 +21,14 @@ public abstract class Player extends Observable {
     protected Directions direction = Directions.INITIAL;
     
     /** 
-     * @param tile_width identifies the width of a single tile
-     * @param tile_heigth identifies the height of a single tile
+     * @param tileWidth identifies the width of a single tile
+     * @param tileHeight identifies the height of a single tile
      * @param mapWidth identifies the width of the map
      * @param tiles informations about the tiles of the map
      */
-    public Player(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
-        this.tileWidth = tile_width;
-        this.tileHeight = tile_heigth;
+    public Player(int tileWidth, int tileHeight, int mapWidth, Tile[][] tiles) {
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
         this.mapWidth = mapWidth;
         this.tiles = tiles;
     }

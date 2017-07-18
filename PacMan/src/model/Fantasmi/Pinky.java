@@ -5,7 +5,6 @@ package model.Fantasmi;
 
 import Algorithms.RandomStrategy;
 import other.Tile;
-import java.util.Random;
 
 public class Pinky extends Ghost {
     private RandomStrategy search;
@@ -14,13 +13,13 @@ public class Pinky extends Ghost {
     
 
     /** 
-     * @param tile_width identifies the width of a single tile
-     * @param tile_heigth identifies the height of a single tile
+     * @param tileWidth identifies the width of a single tile
+     * @param tileHeight identifies the height of a single tile
      * @param mapWidth identifies the width of the map
      * @param tiles informations about the tiles of the map
      */    
-    public Pinky(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
-        super(tile_width, tile_heigth, mapWidth, tiles);
+    public Pinky(int tileWidth, int tileHeight, int mapWidth, Tile[][] tiles) {
+        super(tileWidth, tileHeight, mapWidth, tiles);
         search = new RandomStrategy();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;

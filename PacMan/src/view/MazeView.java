@@ -6,8 +6,6 @@ import view.Animations.PillAnimation;
 import controller.PacmanGame;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Player;
 import model.Maze;
 import org.newdawn.slick.BasicGame;
@@ -23,8 +21,6 @@ import view.Animations.AnimationsAdapter;
 import view.Animations.FruitAnimation;
 
 public class MazeView extends BasicGame implements Observer {
-    
-    
     
     boolean[][] blocked, tunnel, eat, superP, fruit;
     
@@ -67,7 +63,6 @@ public class MazeView extends BasicGame implements Observer {
     public boolean[][] getEat() {return eat;}
     public boolean[][] getSuperP() {return superP;}
     public boolean[][] getFruit() {return fruit;}
-    
     
     /**
      * This method inizializes map, images, animations and sounds 
@@ -112,9 +107,9 @@ public class MazeView extends BasicGame implements Observer {
         renderLives(g, lives);
         renderTitle(g);
         
-        if(lives == 0){
+        if(lives == 0)
             gameOver.draw(200, 384);
-        }
+
         if (youWin() == 0)
             youWin.draw(212, 384);
     }
@@ -135,7 +130,9 @@ public class MazeView extends BasicGame implements Observer {
                 fruit[i][j] = ((Maze)o).getTiles()[i][j].isFruit();
             }
         }
+        
         score = ((Maze)o).getPacman().getScore();
+        
         try {
             updateOrientation(((Maze)o).getPacman(), pacman);
             updateOrientation(((Maze)o).getClyde(), clyde);
@@ -145,6 +142,7 @@ public class MazeView extends BasicGame implements Observer {
         } catch (SlickException ex) {
             ex.printStackTrace();
         }
+        
         if(!pacmanDeath) {
             pacman.setxPos(((Maze)o).getPacman().getxPos());
             pacman.setyPos(((Maze)o).getPacman().getyPos());
@@ -204,7 +202,6 @@ public class MazeView extends BasicGame implements Observer {
      */
     
     private boolean[][] checkMazeProperty(String s) {
-        
         int height = mazeMap.getHeight();
         int weidth = mazeMap.getWidth();
         
@@ -289,33 +286,12 @@ public class MazeView extends BasicGame implements Observer {
                     else 
                         pill.draw(i*32, j*32);
 
-                        
                 if (superP[i][j] == true)
                     superPill.draw(i*32, j*32);
                 if (fruit[i][j] == true && score > 500)
-                    fruits.draw(i*32, j*32);
-                        
+                    fruits.draw(i*32, j*32);           
             }
         }
-    }
-
-    /**
-     * This method calculate the score
-     * @return the score
-     */
-    private int countScore() {
-        int s = -252560;
-        for (int i = 0; i < mazeMap.getWidth(); i++) { 
-            for (int j = 0; j < mazeMap.getHeight(); j++) {
-                if (eat[i][j] == false)
-                    s += 10;
-                if (superP[i][j] == false)
-                    s += 100;
-                if (fruit[i][j] == false)
-                    s += 500;
-            }
-        }
-        return s;
     }
 
     private void renderPacman() throws SlickException {

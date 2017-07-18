@@ -10,13 +10,13 @@ public abstract class Ghost extends Player {
     protected final int Y_MAIN_POS = 320;
 
     /** 
-     * @param tile_width identifies the width of a single tile
-     * @param tile_heigth identifies the height of a single tile
+     * @param tileWidth identifies the width of a single tile
+     * @param tileHeight identifies the height of a single tile
      * @param mapWidth identifies the width of the map
      * @param tiles informations about the tiles of the map
      */
-    public Ghost(int tile_width, int tile_heigth, int mapWidth, Tile[][] tiles) {
-        super(tile_width, tile_heigth, mapWidth, tiles);
+    public Ghost(int tileWidth, int tileHeight, int mapWidth, Tile[][] tiles) {
+        super(tileWidth, tileHeight, mapWidth, tiles);
     }
 
     public void AIMovement(int dir){
@@ -41,7 +41,6 @@ public abstract class Ghost extends Player {
                 x = 0;
         }
     }
-    
     
     public boolean isBlue() {return blue;}
     

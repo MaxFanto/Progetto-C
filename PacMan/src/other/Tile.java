@@ -20,7 +20,6 @@ public class Tile {
         this.eat = eat;
         this.superP = superP;
         this.fruit = fruit;
-        
     }
 
     /**

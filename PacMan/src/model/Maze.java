@@ -52,9 +52,7 @@ public class Maze extends Observable {
         mazeWidth = mazeMap.getWidth();
         mazeHeight = mazeMap.getHeight();   
         initializationTiles(mazeView);
-        
 
-        
         pacman = new PacMan(tileWidth, tileHeight, mazeWidth, tiles);
         
         clyde = new Clyde(tileWidth, tileHeight, mazeWidth, tiles);
@@ -82,10 +80,9 @@ public class Maze extends Observable {
         
         for (int i = 0; i < mazeWidth; i++) {
             for (int j = 0; j < mazeHeight; j++) {
-                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j],superP[i][j],fruit[i][j]);
+                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j], superP[i][j], fruit[i][j]);
             }
         }
-  
     }
     
     /**
@@ -106,7 +103,6 @@ public class Maze extends Observable {
         checkModeGame(input, mode);
         checkModeCollision();
         eatCollision();
-        //superPillCollision();
         
         setChanged();
         notifyObservers();
@@ -137,19 +133,17 @@ public class Maze extends Observable {
         return tiles;
     }
     
-
     /**
      * This method checks if there is collision between one of the ghosts and pacman.
      * If it happens pacman will kill.
      */
     private void collision() {
         if(checkGhostCollision(clyde) || checkGhostCollision(blinky) 
-           || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
+          || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
             death.play();
-            if(pacman.isDeath() == false){
+            if(pacman.isDeath() == false)
                 pacman.setVite();
-            }
-            
+
             pacman.setDeath(true);
         }
     }
@@ -183,7 +177,6 @@ public class Maze extends Observable {
         checkTime(time);
     }
     
-
     /**
      * This method checks if the is a collision between pacman and selected ghost
      * @param ghost selected ghost
@@ -193,8 +186,6 @@ public class Maze extends Observable {
         return (pacman.getxPos() + 15)/mazeWidth*tileWidth == (ghost.getxPos() + 15)/mazeWidth*tileWidth && 
                (pacman.getyPos() + 15)/mazeHeight*tileHeight == (ghost.getyPos() + 15)/mazeHeight*tileHeight;
     }
-    
-
 
     /**
      * This method resets the positions of pacman and the ghosts
@@ -240,7 +231,6 @@ public class Maze extends Observable {
      * @param input input from keyboard
      * @param mode chose of modality
      */
-    
     private void checkModeGame(Input input, String mode) {
         if(mode.equals("single") || mode.equals("extreme")) {
             clyde.AIMovement(clyde.chooseDirection());
@@ -292,6 +282,7 @@ public class Maze extends Observable {
             eatGhost.play();
         }
     }
+    
     /**
      * This method make Blinky returns to the starting coordinate
      */
