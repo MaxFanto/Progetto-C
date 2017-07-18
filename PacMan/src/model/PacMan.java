@@ -2,7 +2,7 @@ package model;
 
 import other.Tile;
 
-public class PacMan extends Player {
+public class PacMan extends Character {
     private int lives;
     private boolean power;
     private int score;

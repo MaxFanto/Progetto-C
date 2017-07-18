@@ -6,7 +6,7 @@ import view.Animations.PillAnimation;
 import controller.PacmanGame;
 import java.util.Observable;
 import java.util.Observer;
-import model.Player;
+import model.Character;
 import model.MazeModality;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -224,7 +224,7 @@ public class MazeView extends BasicGame implements Observer {
      * @param animation animation that has to be rotate
      * @throws SlickException 
      */
-    private void updateOrientation(Player player, AnimationsAdapter animation) throws SlickException {
+    private void updateOrientation(Character player, AnimationsAdapter animation) throws SlickException {
         switch(player.getDirection()){
             case UP:
                 animation.rotate(270);

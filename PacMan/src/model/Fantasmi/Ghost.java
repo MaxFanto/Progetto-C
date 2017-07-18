@@ -2,9 +2,9 @@ package model.Fantasmi;
 
 import other.Tile;
 import model.Directions;
-import model.Player;
+import model.Character;
 
-public abstract class Ghost extends Player {
+public abstract class Ghost extends Character {
     private boolean blue;
     protected final int X_MAIN_POS = 288;
     protected final int Y_MAIN_POS = 320;

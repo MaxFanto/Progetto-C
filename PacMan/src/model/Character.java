@@ -8,7 +8,7 @@ import model.Fantasmi.Inky;
 import model.Fantasmi.Pinky;
 import org.newdawn.slick.Input;
 
-public abstract class Player extends Observable {
+public abstract class Character extends Observable {
     protected int x, y;
     public int memButton, tileWidth, tileHeight, mapWidth;
     public Tile[][] tiles;
@@ -26,7 +26,7 @@ public abstract class Player extends Observable {
      * @param mapWidth identifies the width of the map
      * @param tiles informations about the tiles of the map
      */
-    public Player(int tileWidth, int tileHeight, int mapWidth, Tile[][] tiles) {
+    public Character(int tileWidth, int tileHeight, int mapWidth, Tile[][] tiles) {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.mapWidth = mapWidth;
