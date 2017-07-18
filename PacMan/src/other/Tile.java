@@ -2,7 +2,7 @@ package other;
 
 public class Tile {
     private final int TILE_WIDTH, TILE_HEIGHT;
-    private boolean blocked, tunnel;
+    private boolean blocked, tunnel, eat, superP, fruit;
     
     /**
      * 
@@ -12,11 +12,15 @@ public class Tile {
      * @param tunnel boolean that identifies if each tile is a tunnel(connection
      *               with the other side of the map) or not.
      */
-    public Tile(int width, int height, boolean blocked, boolean tunnel){
+    public Tile(int width, int height, boolean blocked, boolean tunnel, boolean eat, boolean superP, boolean fruit){
         TILE_HEIGHT= height;
         TILE_WIDTH = width;
         this.blocked = blocked;
         this.tunnel = tunnel;
+        this.eat = eat;
+        this.superP = superP;
+        this.fruit = fruit;
+        
     }
 
     /**
@@ -51,4 +55,27 @@ public class Tile {
         return tunnel;
     }
 
+    public boolean isEat() {
+        return eat;
+    }
+
+    public void setEat(boolean eat) {
+        this.eat = eat;
+    }
+
+    public boolean isSuperP() {
+        return superP;
+    }
+
+    public void setSuperP(boolean superP) {
+        this.superP = superP;
+    }
+
+    public boolean isFruit() {
+        return fruit;
+    }
+
+    public void setFruit(boolean fruit) {
+        this.fruit = fruit;
+    }
 }

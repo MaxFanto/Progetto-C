@@ -6,6 +6,8 @@ import view.Animations.PillAnimation;
 import controller.PacmanGame;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Player;
 import model.Maze;
 import org.newdawn.slick.BasicGame;
@@ -21,6 +23,8 @@ import view.Animations.AnimationsAdapter;
 import view.Animations.FruitAnimation;
 
 public class MazeView extends BasicGame implements Observer {
+    
+    
     
     boolean[][] blocked, tunnel, eat, superP, fruit;
     
@@ -61,7 +65,9 @@ public class MazeView extends BasicGame implements Observer {
     public boolean[][] getBlocked() {return blocked;}
     public boolean[][] getTunnel() {return tunnel;}
     public boolean[][] getEat() {return eat;}
-    public boolean[][] getPills() {return superP;}
+    public boolean[][] getSuperP() {return superP;}
+    public boolean[][] getFruit() {return fruit;}
+    
     
     /**
      * This method inizializes map, images, animations and sounds 
@@ -102,13 +108,13 @@ public class MazeView extends BasicGame implements Observer {
         
         renderGhosts();
         
-        score = countScore();
-        renderScore(g, score);
+        renderScore(g);
         renderLives(g, lives);
         renderTitle(g);
         
-        if(lives == 0)
+        if(lives == 0){
             gameOver.draw(200, 384);
+        }
         if (youWin() == 0)
             youWin.draw(212, 384);
     }
@@ -121,6 +127,15 @@ public class MazeView extends BasicGame implements Observer {
     
     @Override
     public void update(Observable o, Object o1) {
+        
+        for (int i = 0; i < mazeMap.getWidth(); i++) { 
+            for (int j = 0; j < mazeMap.getHeight(); j++) {
+                eat[i][j] = ((Maze)o).getTiles()[i][j].isEat();
+                superP[i][j] = ((Maze)o).getTiles()[i][j].isSuperP();
+                fruit[i][j] = ((Maze)o).getTiles()[i][j].isFruit();
+            }
+        }
+        score = ((Maze)o).getPacman().getScore();
         try {
             updateOrientation(((Maze)o).getPacman(), pacman);
             updateOrientation(((Maze)o).getClyde(), clyde);
@@ -238,7 +253,7 @@ public class MazeView extends BasicGame implements Observer {
      * @param g
      * @param score identify the points scored by the player
      */
-    private void renderScore(Graphics g, int score) {
+    private void renderScore(Graphics g) {
         g.setColor(Color.yellow);
         g.drawString("SCORE: " + score, 24, 1);
     }
@@ -279,13 +294,7 @@ public class MazeView extends BasicGame implements Observer {
                     superPill.draw(i*32, j*32);
                 if (fruit[i][j] == true && score > 500)
                     fruits.draw(i*32, j*32);
-                
-                if ((x == i*32 && y == j*32) || (x + 31 == i*32 + 31 && y == j*32) || (x == i*32 && y + 31 == j*32 + 31) ||
-                   (x + 31 == i*32 + 31 && y + 31 == j*32 + 31)) {
-                        eat[i][j] = false;
-                        superP[i][j] = false;
-                        fruit[i][j] = false;
-                }        
+                        
             }
         }
     }

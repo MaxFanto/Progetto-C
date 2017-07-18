@@ -18,10 +18,8 @@ import view.MazeView;
 
 public class Maze extends Observable {
     
-    private TiledMap mazeMap;
-    
     private Tile[][] tiles;
-    
+    private int mazeWidth,mazeHeight;
     private int tileWidth, tileHeight;
     
     private long time = 0;
@@ -40,27 +38,29 @@ public class Maze extends Observable {
     private Sound eatGhost, death, eatSuperPill;
     
     private boolean delayFlag = true;
-    private boolean superFlagUL=true,superFlagUR=true, superFlagDL=true, superFlagDR=true;
 
     /**
      * @param mazeMap
      * @param mazeView
      * @throws SlickException 
      */
-    public Maze(TiledMap mazeMap, MazeView mazeView) throws SlickException {
+    public Maze(TiledMap mazeMap,MazeView mazeView) throws SlickException {
 
-        this.mazeMap = mazeMap;
-        initializationTiles(mazeView);
         this.addObserver(mazeView);
         tileWidth = mazeMap.getTileWidth();
         tileHeight = mazeMap.getTileHeight();
+        mazeWidth = mazeMap.getWidth();
+        mazeHeight = mazeMap.getHeight();   
+        initializationTiles(mazeView);
         
-        pacman = new PacMan(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
+
         
-        clyde = new Clyde(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
-        blinky = new Blinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
-        inky = new Inky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
-        pinky = new Pinky(tileWidth, tileHeight, mazeMap.getWidth(), tiles);
+        pacman = new PacMan(tileWidth, tileHeight, mazeWidth, tiles);
+        
+        clyde = new Clyde(tileWidth, tileHeight, mazeWidth, tiles);
+        blinky = new Blinky(tileWidth, tileHeight, mazeWidth, tiles);
+        inky = new Inky(tileWidth, tileHeight, mazeWidth, tiles);
+        pinky = new Pinky(tileWidth, tileHeight, mazeWidth, tiles);
         
         eatGhost = new Sound("data/pacmanSound/eatGhost.wav");
         death = new Sound("data/pacmanSound/death.wav");
@@ -74,14 +74,18 @@ public class Maze extends Observable {
     private void initializationTiles(MazeView mazeView) {
         boolean[][] blocked = mazeView.getBlocked();
         boolean[][] tunnel = mazeView.getTunnel();
+        boolean[][] eat = mazeView.getEat();
+        boolean[][] superP = mazeView.getSuperP();
+        boolean[][] fruit = mazeView.getFruit();
         
-        tiles = new Tile[mazeMap.getWidth()][mazeMap.getHeight()];
+        tiles = new Tile[mazeWidth][mazeHeight];
         
-        for (int i = 0; i < mazeMap.getWidth(); i++) {
-            for (int j = 0; j < mazeMap.getHeight(); j++) {
-                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j]);
+        for (int i = 0; i < mazeWidth; i++) {
+            for (int j = 0; j < mazeHeight; j++) {
+                tiles[i][j] = new Tile(tileWidth, tileHeight, blocked[i][j], tunnel[i][j], eat[i][j],superP[i][j],fruit[i][j]);
             }
         }
+  
     }
     
     /**
@@ -101,11 +105,13 @@ public class Maze extends Observable {
         checkPowerTime(mode);
         checkModeGame(input, mode);
         checkModeCollision();
-        superPillCollision();
+        eatCollision();
+        //superPillCollision();
         
         setChanged();
         notifyObservers();
     }
+
 
     public PacMan getPacman() {
         return pacman;
@@ -127,6 +133,11 @@ public class Maze extends Observable {
         return pinky;
     }
 
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+    
+
     /**
      * This method checks if there is collision between one of the ghosts and pacman.
      * If it happens pacman will kill.
@@ -135,12 +146,43 @@ public class Maze extends Observable {
         if(checkGhostCollision(clyde) || checkGhostCollision(blinky) 
            || checkGhostCollision(pinky) || checkGhostCollision(inky)) {
             death.play();
-            if(pacman.isDeath() == false)
+            if(pacman.isDeath() == false){
                 pacman.setVite();
+            }
             
             pacman.setDeath(true);
         }
     }
+
+    /**
+     * This method manages the collision with pill and superPill
+     */
+    private void eatCollision(){
+        int x = pacman.getxPos();
+        int y = pacman.getyPos();
+        int i = x/32;
+        int j = y/32;
+        if((x == i*32 && y == j*32) || (x + 31 == i*32 + 31 && y == j*32) || (x == i*32 && y + 31 == j*32 + 31) ||(x + 31 == i*32 + 31 && y + 31 == j*32 + 31)){
+            if(tiles[i][j].isEat()==true){
+                tiles[i][j].setEat(false);
+                pacman.setScore(10);
+            }
+            if(tiles[i][j].isSuperP() == true){
+                tiles[i][j].setSuperP(false);
+                pacman.setScore(100);
+                pacman.setPower(true);
+                time = System.currentTimeMillis();
+                setGhostsSpeed(speedHigh);
+                eatSuperPill.play();  
+            }
+            if(tiles[i][j].isFruit() == true){
+                tiles[i][j].setFruit(false);
+                pacman.setScore(500);
+            }
+        } 
+        checkTime(time);
+    }
+    
 
     /**
      * This method checks if the is a collision between pacman and selected ghost
@@ -148,59 +190,11 @@ public class Maze extends Observable {
      * @return true if there is collision
      */
     private boolean checkGhostCollision(Ghost ghost) {
-        return (pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (ghost.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-               (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (ghost.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight();
+        return (pacman.getxPos() + 15)/mazeWidth*tileWidth == (ghost.getxPos() + 15)/mazeWidth*tileWidth && 
+               (pacman.getyPos() + 15)/mazeHeight*tileHeight == (ghost.getyPos() + 15)/mazeHeight*tileHeight;
     }
     
-    /**
-     * This method manages the collision with a super-pill
-     */
-    private void superPillCollision() {
-        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagUL == true) {
-            
-            pacman.setPower(true);
-            time = System.currentTimeMillis();
-            superFlagUL = false;
-            setGhostsSpeed(speedHigh);
-            eatSuperPill.play();
-        }
-        
-        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (64 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagUR == true) {
-            
-            pacman.setPower(true);
-            time = System.currentTimeMillis();
-            superFlagUR = false;
-            setGhostsSpeed(speedHigh);
-            eatSuperPill.play();
-        }
-        
-        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (32 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagDL == true) {
-            
-            pacman.setPower(true);
-            time = System.currentTimeMillis();
-            superFlagDL = false;
-            setGhostsSpeed(speedHigh);
-            eatSuperPill.play();
-        }
-        if ((pacman.getxPos() + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() == (544 + 15)/mazeMap.getWidth()*mazeMap.getTileWidth() && 
-           (pacman.getyPos() + 15)/mazeMap.getHeight()*mazeMap.getTileHeight() == (608 + 15)/mazeMap.getHeight()*mazeMap.getTileHeight()
-           && superFlagDR == true) {
-            
-            pacman.setPower(true);
-            time = System.currentTimeMillis();
-            superFlagDR = false;
-            setGhostsSpeed(speedHigh);
-            eatSuperPill.play();
-        }
-        
-        checkTime(time);
-    }
+
 
     /**
      * This method resets the positions of pacman and the ghosts
@@ -278,18 +272,22 @@ public class Maze extends Observable {
 
     private void collisionPower() {
         if (checkGhostCollision(clyde)) {
+            pacman.setScore(200);
             clyde.setDeath(true);
             eatGhost.play();
         }
         if (checkGhostCollision(blinky)) {
+            pacman.setScore(200);
             blinky.setDeath(true);
             eatGhost.play();
         }
         if (checkGhostCollision(pinky)) {
+            pacman.setScore(200);
             pinky.setDeath(true);
             eatGhost.play();
         }
         if (checkGhostCollision(inky)) {
+            pacman.setScore(200);
             inky.setDeath(true);
             eatGhost.play();
         }

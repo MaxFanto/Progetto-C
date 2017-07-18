@@ -15,7 +15,7 @@ public class PacManAnimation extends Animation implements AnimationsAdapter {
     public PacManAnimation() throws SlickException {
         super.addFrame(new Image(PATH_IMAGE_0), DURATION);
         super.addFrame(new Image(PATH_IMAGE_1), DURATION);
-        super.addFrame(new Image(PATH_IMAGE_2), DURATION);
+        //super.addFrame(new Image(PATH_IMAGE_2), DURATION);
     }
     
     public int getxPos() {return xPos;}

@@ -21,7 +21,7 @@ public class Inky extends Ghost {
         search = new RandomStrategy();
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
-        currentDirection = chooseDirection();
+        //currentDirection = chooseDirection();
     }
     
     /**

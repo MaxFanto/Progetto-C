@@ -21,7 +21,7 @@ public class PacmanGame {
     }
 
     public void initMaze(TiledMap mazeMap, MazeView mazeView) throws SlickException{
-        maze = new Maze(mazeMap,mazeView);
+        maze = new Maze(mazeMap, mazeView);
     }
     
     public void startMenu() throws FontFormatException, IOException{

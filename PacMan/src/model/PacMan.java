@@ -5,6 +5,7 @@ import other.Tile;
 public class PacMan extends Player {
     private int lives;
     private boolean power;
+    private int score;
     private final int X_MAIN_POS = 288;
     private final int Y_MAIN_POS = 512;
 
@@ -13,6 +14,7 @@ public class PacMan extends Player {
         x = X_MAIN_POS;
         y = Y_MAIN_POS;
         lives = 3;
+        score = 0;
     }
 
     /**
@@ -35,5 +37,14 @@ public class PacMan extends Player {
      * @param power set the pill as power 
      */
     public void setPower(boolean power) {this.power = power;}
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score += score;
+    }
+    
     
 }

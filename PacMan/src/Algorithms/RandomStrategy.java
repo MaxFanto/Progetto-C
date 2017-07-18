@@ -20,6 +20,7 @@ public class RandomStrategy implements DirectionStrategy{
     public RandomStrategy() {
         this.randNumber = new Integer(0);
         rand = new Random();
+        check = null;
     }
     
      /**
