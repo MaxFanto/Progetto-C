@@ -38,6 +38,7 @@ public abstract class MazeModality extends Observable {
     private Sound eatGhost, death, eatSuperPill;
     
     private boolean delayFlag = true;
+    private int countWin;
 
     /**
      * @param mazeMap
@@ -96,11 +97,11 @@ public abstract class MazeModality extends Observable {
         startMoment();
         
         gameOver();
+        YouWin();
         
         checkDeath();
         
         pacman.manualMovement(input);
-        
         checkPowerTime();
         checkModeGame(input);
         checkModeCollision();
@@ -164,6 +165,7 @@ public abstract class MazeModality extends Observable {
             if(tiles[i][j].isEat()==true){
                 tiles[i][j].setEat(false);
                 pacman.setScore(10);
+                countWin++;
             }
             if(tiles[i][j].isSuperP() == true){
                 tiles[i][j].setSuperP(false);
@@ -171,7 +173,8 @@ public abstract class MazeModality extends Observable {
                 pacman.setPower(true);
                 time = System.currentTimeMillis();
                 setGhostsSpeed(speedHigh);
-                eatSuperPill.play();  
+                eatSuperPill.play();
+                countWin++;
             }
             if(tiles[i][j].isFruit() == true){
                 tiles[i][j].setFruit(false);
@@ -228,6 +231,13 @@ public abstract class MazeModality extends Observable {
      */
     private void gameOver() {
         if(pacman.getLives() == 0){
+            delay(true, 3000);
+            Display.destroy();
+        }
+    }
+    
+    private void YouWin() {
+        if(countWin == 156){
             delay(true, 3000);
             Display.destroy();
         }
