@@ -1,3 +1,6 @@
+/**
+ * This class manages the "behavior" of red ghost.
+ */
 package model.Fantasmi;
 
 import Algorithms.DirectionStrategy;

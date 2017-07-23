@@ -1,3 +1,6 @@
+/**
+ * The tiles are the elements who the map are made of.
+ */
 package other;
 
 public class Tile {

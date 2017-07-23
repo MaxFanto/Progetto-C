@@ -1,3 +1,7 @@
+/**
+ * This class manages all the events of the game like collision between pacman and+
+ * ghosts or fruit etc..
+ */
 package model;
 
 import model.Fantasmi.Clyde;

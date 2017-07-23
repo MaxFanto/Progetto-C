@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * This class is form multiplayer modality
  */
 package model;
 
@@ -10,10 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import view.MazeView;
 
-/**
- *
- * @author Lollodan
- */
+
 public class MultiPlayer extends MazeModality{
     
     public MultiPlayer(TiledMap mazeMap, MazeView mazeView) throws SlickException {

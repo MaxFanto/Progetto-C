@@ -1,6 +1,5 @@
-/*
-Questo fantasmino seglie la direzione in modo casuale. Se la direzione scelta in modo
-casuale Ã¨ bloccata se ne sceglie un'altra fino a quando non ha via libera.
+/**
+ * This class manages the "behavior" of yellow ghost.
  */
 package model.Fantasmi;
 

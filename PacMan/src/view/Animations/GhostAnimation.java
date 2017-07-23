@@ -1,3 +1,6 @@
+/**
+ * This Class manages the animation of the ghosts based on the model.
+ */
 package view.Animations;
 
 import org.newdawn.slick.Animation;

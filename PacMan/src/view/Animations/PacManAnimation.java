@@ -1,3 +1,7 @@
+/**
+ * This Class manages the animations of pacman based on the model and on the
+ * events of the game.
+ */
 package view.Animations;
 
 import org.newdawn.slick.Animation;

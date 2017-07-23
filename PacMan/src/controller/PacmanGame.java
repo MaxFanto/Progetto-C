@@ -1,3 +1,6 @@
+/**
+ * In this class there is the method who controls the game
+ */
 package controller;
 
 import java.awt.FontFormatException;
@@ -24,6 +27,12 @@ public class PacmanGame {
         sendInput();
     }
 
+    /**
+     * This method creates the mape based on the game modality
+     * @param mazeMap
+     * @param mazeView
+     * @throws SlickException 
+     */
     public void initMaze(TiledMap mazeMap, MazeView mazeView) throws SlickException{
         if(mode.equals("single"))
         maze = new SinglePlayer(mazeMap, mazeView);

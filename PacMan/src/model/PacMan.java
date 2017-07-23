@@ -1,3 +1,6 @@
+/**
+ * Clas who extends the Class Character; it controls the "behavior" of pacman
+ */
 package model;
 
 import other.Tile;
