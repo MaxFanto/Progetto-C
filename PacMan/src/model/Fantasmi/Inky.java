@@ -1,12 +1,14 @@
 package model.Fantasmi;
 
+import Algorithms.DirectionStrategy;
 import Algorithms.RandomStrategy;
+import Algorithms.TraceStrategy;
 import other.Tile;
 
 public class Inky extends Ghost {
     
     private int currentDirection;
-    private RandomStrategy search;
+    private DirectionStrategy search;
     
     /** 
      * @param tileWidth identifies the width of a single tile
@@ -27,7 +29,7 @@ public class Inky extends Ghost {
      * @return a random number that idententifies the direction 
      */
     @Override
-    public int chooseDirection() {
+    public int chooseDirection(int xPacMan, int yPacMan) {
         setCorners();
         return search.direction(this);
     }    

@@ -4,13 +4,14 @@ casuale Ã¨ bloccata se ne sceglie un'altra fino a quando non ha via libera.
  */
 package model.Fantasmi;
 
+import Algorithms.DirectionStrategy;
 import Algorithms.RandomStrategy;
+import Algorithms.TraceStrategy;
 import other.Tile;
 
 public class Clyde extends Ghost {
 
-    private RandomStrategy search; //algoritmo
-    
+    private DirectionStrategy search; //algoritmo
  
     /** 
      * @param tileWidth identifies the width of a single tile
@@ -26,7 +27,9 @@ public class Clyde extends Ghost {
     }
     
     @Override
-    public int chooseDirection() {
+    public int chooseDirection(int xPacMan, int yPacMan) {
+        setxPacMan(xPacMan);
+        setyPacMan(yPacMan);
         setCorners();                
         return search.direction(this);
     } 

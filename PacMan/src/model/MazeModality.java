@@ -136,6 +136,9 @@ public abstract class MazeModality extends Observable {
         return tiles;
     }
     
+    
+    
+    
 
     /**
      * This method checks if there is collision between one of the ghosts and pacman.

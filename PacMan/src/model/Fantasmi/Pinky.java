@@ -5,6 +5,7 @@ package model.Fantasmi;
 
 import Algorithms.DirectionStrategy;
 import Algorithms.RandomStrategy;
+import Algorithms.TraceStrategy;
 import other.Tile;
 
 public class Pinky extends Ghost {
@@ -31,7 +32,7 @@ public class Pinky extends Ghost {
      * @return a random number that idententifies the direction 
      */
     @Override
-    public int chooseDirection() {
+    public int chooseDirection(int xPacMan, int yPacMan) {
         setCorners();
         return search.direction(this);
     }

@@ -101,7 +101,7 @@ public abstract class Character extends Observable {
             return false;
     }
 
-    protected void setCorners(){
+    public void setCorners(){
         xUpSx = x; yUpSx = y;
         xUpDx = x + tileWidth - 1; yUpDx = y;
         xDownSx = x; yDownSx = y + tileHeight - 1;
@@ -129,22 +129,22 @@ public abstract class Character extends Observable {
         return check;
     }
     
-    private boolean checkBlockUp(){
+    public boolean checkBlockUp(){        
     return !tiles[xUpSx/tileWidth][(yUpSx - speed)/tileHeight].isBlocked() &&
            !tiles[xUpDx/tileWidth][(yUpDx - speed)/tileHeight].isBlocked();
     }
     
-    private boolean checkBlockDown(){
+    public boolean checkBlockDown(){
     return !tiles[xDownSx/tileWidth][(yDownSx + speed)/tileHeight].isBlocked() && 
            !tiles[xDownDx/tileWidth][(yDownDx + speed)/tileHeight].isBlocked();
     }
     
-    private boolean checkBlockLeft() {
+    public boolean checkBlockLeft() {
     return !tiles[(xUpSx - speed)/tileWidth][yUpSx/tileHeight].isBlocked() && 
            !tiles[(xDownSx - speed)/tileWidth][yDownSx/tileHeight].isBlocked();
     }
     
-    private boolean checkBlockRight() {
+    public boolean checkBlockRight() {
         return !tiles[(xUpDx + speed)/tileWidth][yUpDx/tileHeight].isBlocked() &&
                !tiles[(xDownDx + speed)/tileWidth][yDownDx/tileHeight].isBlocked();
     }

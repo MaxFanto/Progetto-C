@@ -8,6 +8,7 @@ public abstract class Ghost extends Character {
     private boolean blue;
     protected final int X_MAIN_POS = 288;
     protected final int Y_MAIN_POS = 320;
+    protected int xPacMan, yPacMan;
 
     /** 
      * @param tileWidth identifies the width of a single tile
@@ -19,33 +20,46 @@ public abstract class Ghost extends Character {
         super(tileWidth, tileHeight, mapWidth, tiles);
     }
 
-    public void AIMovement(int dir){
-        if ((dir == 0) && super.checkBlocked()[0]){   
+    public int[] AIMovement(int dir){
+        int[] coordinates = new int[2];
+        if ((dir == 0) && super.checkBlockUp()){   
             y -= speed; 
             direction = Directions.UP;
         }
-        if ((dir == 1) && super.checkBlocked()[1]){
+        if ((dir == 1) && super.checkBlockDown()){
             y += speed;
             direction = Directions.DOWN;
         }                               
-        if ((dir == 2) && super.checkBlocked()[2]){
+        if ((dir == 2) && super.checkBlockLeft()){
             x -= speed;
             direction = Directions.LEFT;
             if (checkTunnelLeft()) 
                 x = tileWidth * (mapWidth - 1);            
         }
-        if ((dir == 3) && super.checkBlocked()[3]){
+        if ((dir == 3) && super.checkBlockRight()){
             x += speed;
             direction = Directions.RIGHT;
             if (checkTunnelRight())
                 x = 0;
         }
+        //per test
+        coordinates[0] = x;
+        coordinates[1] = y;
+        return coordinates;
     }
     
-    public abstract int chooseDirection();
+    public abstract int chooseDirection(int xPacMan, int yPacMan);
     
+    //getter
     public boolean isBlue() {return blue;}
+    public int getxPacMan() {return xPacMan;}
+    public int getyPacMan() {return yPacMan;}
+ 
     
+    //setter
     public void setBlue(boolean blue) {this.blue = blue;}
+    public void setxPacMan(int xPacMan) {this.xPacMan = xPacMan;}
+    public void setyPacMan(int yPacMan) {this.yPacMan = yPacMan;}
+    
     
 }

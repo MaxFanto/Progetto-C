@@ -21,6 +21,17 @@ public class Tile {
         this.superP = superP;
         this.fruit = fruit;
     }
+    
+    //for tests
+    public Tile(boolean blocked){
+        TILE_HEIGHT = 32;
+        TILE_WIDTH = 32;
+        this.blocked = blocked;
+        tunnel = false;
+        eat = false;
+        superP = false;
+        fruit = false;
+    }
 
     /**
      * 

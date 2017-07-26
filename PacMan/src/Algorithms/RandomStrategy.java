@@ -9,8 +9,8 @@ public class RandomStrategy implements DirectionStrategy{
     private boolean[] check;
 
     public RandomStrategy() {
-        this.randNumber = new Integer(0);
         rand = new Random();
+        randNumber = rand.nextInt(2)+2;
         check = null;
     }
     
@@ -21,27 +21,40 @@ public class RandomStrategy implements DirectionStrategy{
      */ 
     @Override
     public int direction(Ghost ghost) {
+        boolean walkFlag = true;
         check = ghost.checkBlocked();
+        do{
         switch(randNumber){
-            case 0:
-                if((check[0]) == false)
-                    randNumber = rand.nextInt(2)+2;
-                break;
-            case 1:
-                if((check[1]) == false)
-                    randNumber = rand.nextInt(2)+2;
-                break;
-            case 2:
-                if((check[2]) == false){
-                    randNumber = rand.nextInt(2);
-                }
-                break;
-            case 3:
-                if((check[3]) == false){
-                    randNumber = rand.nextInt(2);
-                }
-                break;
-        }
+                case 0:
+                    if((check[0]) == false){
+                        randNumber = rand.nextInt(2)+2;
+                        walkFlag = false;
+                    }
+                    else walkFlag = true;
+                    break;
+                case 1:
+                    if((check[1]) == false){
+                        randNumber = rand.nextInt(2)+2;
+                        walkFlag = false;
+                    }
+                    else walkFlag = true;
+                    break;
+                case 2:
+                    if((check[2]) == false){
+                        randNumber = rand.nextInt(2);
+                        walkFlag = false;
+                    }
+                    else walkFlag = true;
+                    break;
+                case 3:
+                    if((check[3]) == false){
+                        randNumber = rand.nextInt(2);
+                        walkFlag = false;
+                    }
+                    else walkFlag = true;
+                    break;
+            }
+        }while(walkFlag == false);
         return randNumber;
     }
 }

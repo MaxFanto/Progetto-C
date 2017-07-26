@@ -2,6 +2,7 @@ package model.Fantasmi;
 
 import Algorithms.DirectionStrategy;
 import Algorithms.RandomStrategy;
+import Algorithms.TraceStrategy;
 import other.Tile;
 
 public class Blinky extends Ghost {
@@ -26,7 +27,7 @@ public class Blinky extends Ghost {
      * This method chooses the Blinky's direction
      * @return a random number that idententifies the direction 
      */
-    public int chooseDirection() {
+    public int chooseDirection(int xPacMan, int yPacMan) {
         setCorners();  
         int prova = search.direction(this);
         return prova;

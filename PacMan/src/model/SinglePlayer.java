@@ -21,9 +21,9 @@ public class SinglePlayer extends MazeModality{
     }
     
     protected void checkModeGame(Input input) {
-            clyde.AIMovement(clyde.chooseDirection());
-            blinky.AIMovement(blinky.chooseDirection());
-            inky.AIMovement(inky.chooseDirection());
-            pinky.AIMovement(pinky.chooseDirection());
+            clyde.AIMovement(clyde.chooseDirection(pacman.getxPos(),pacman.getyPos()));
+            blinky.AIMovement(blinky.chooseDirection(pacman.getxPos(),pacman.getyPos()));
+            inky.AIMovement(inky.chooseDirection(pacman.getxPos(),pacman.getyPos()));
+            pinky.AIMovement(pinky.chooseDirection(pacman.getxPos(),pacman.getyPos()));
     }
 }
