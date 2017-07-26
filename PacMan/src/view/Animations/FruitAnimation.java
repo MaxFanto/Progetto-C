@@ -1,3 +1,6 @@
+/**
+ * This Class manages the animations of fruit.
+ */
 package view.Animations;
 
 import java.util.Random;

@@ -1,3 +1,6 @@
+/**
+ * This Class manages all the views of the game.
+ */
 package view;
 
 import view.Animations.PacManAnimation;

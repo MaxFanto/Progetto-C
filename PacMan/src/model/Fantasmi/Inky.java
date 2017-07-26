@@ -1,3 +1,6 @@
+/**
+ * This Class manages the "behavior" of Inky.
+ */
 package model.Fantasmi;
 
 import Algorithms.DirectionStrategy;

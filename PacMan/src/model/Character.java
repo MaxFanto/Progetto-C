@@ -1,3 +1,7 @@
+/**
+ * This class contains the methods for the manual movement of the various character
+ * (pacman and ghosts)
+ */
 package model;
 
 import other.Tile;
@@ -33,7 +37,11 @@ public abstract class Character extends Observable {
         this.tiles = tiles;
     }
     
-   public void manualMovement(Input input){ 
+    /**
+     * This method moves the character on the map based on the input
+     * @param input send by the keybord from user
+     */
+    public void manualMovement(Input input){ 
         setControlKeys();
         setCorners();
 
@@ -88,6 +96,12 @@ public abstract class Character extends Observable {
         }
     }
     
+    /**
+     * If user press a new button, this method memorizes it.
+     * @param input
+     * @param n
+     * @return 
+     */
     public boolean otherKeyPress(Input input, int n) {
         if ((input.isKeyDown(comands[1])) && checkBlockDown() && comands[1] != n)
                 return true;

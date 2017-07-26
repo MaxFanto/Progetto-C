@@ -1,6 +1,6 @@
-/*
-It tends to always turn right when it finds a frontal obstacle. If it runs in a circle, turns left once.
-*/
+/**
+ * This class manages the "behavior" of pink ghost.
+ */
 package model.Fantasmi;
 
 import Algorithms.DirectionStrategy;

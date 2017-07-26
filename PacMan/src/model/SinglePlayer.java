@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Class for the modality multyplayer. Also ghosts are coltrolled by keybord.
  */
 package model;
 
@@ -21,9 +19,9 @@ public class SinglePlayer extends MazeModality{
     }
     
     protected void checkModeGame(Input input) {
-            clyde.AIMovement(clyde.chooseDirection(pacman.getxPos(),pacman.getyPos()));
-            blinky.AIMovement(blinky.chooseDirection(pacman.getxPos(),pacman.getyPos()));
-            inky.AIMovement(inky.chooseDirection(pacman.getxPos(),pacman.getyPos()));
-            pinky.AIMovement(pinky.chooseDirection(pacman.getxPos(),pacman.getyPos()));
+            clyde.AIMovement(clyde.chooseDirection(clyde.getxPacMan(),clyde.getyPacMan()));
+            blinky.AIMovement(blinky.chooseDirection(blinky.getxPacMan(),blinky.getyPacMan()));
+            inky.AIMovement(inky.chooseDirection(inky.getxPacMan(),inky.getyPacMan()));
+            pinky.AIMovement(pinky.chooseDirection(inky.getxPacMan(),inky.getyPacMan()));
     }
 }

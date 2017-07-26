@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* This class is the extension of the modality single player
+*/
 package model;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import view.MazeView;
 
-/**
- *
- * @author Lollodan
- */
+
 public class Extreme extends SinglePlayer{
     
     public Extreme(TiledMap mazeMap, MazeView mazeView) throws SlickException {

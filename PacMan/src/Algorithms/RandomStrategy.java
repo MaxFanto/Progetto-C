@@ -1,7 +1,15 @@
+/**
+ * This class implements the interface DirectionStrategy. We can find in this 
+ * class the algorithm for the directions of the ghosts.
+ */
 package Algorithms;
 
 import java.util.Random;
 import model.Fantasmi.Ghost;
+/**
+ * 
+ * @author antonio
+ */
 
 public class RandomStrategy implements DirectionStrategy{
     private Integer randNumber;

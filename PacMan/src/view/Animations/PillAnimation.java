@@ -1,3 +1,6 @@
+/**
+ * This Class manages the animations of the pills.
+ */
 package view.Animations;
 
 import org.newdawn.slick.Animation;

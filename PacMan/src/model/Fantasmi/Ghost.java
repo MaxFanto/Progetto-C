@@ -1,3 +1,7 @@
+/**
+* This class class manages the common things of each ghost. In particular it contains 
+* the method for the artificial movement.
+*/ 
 package model.Fantasmi;
 
 import other.Tile;
@@ -20,9 +24,13 @@ public abstract class Ghost extends Character {
         super(tileWidth, tileHeight, mapWidth, tiles);
     }
 
+    /**
+     * This methods makes the ghost move random
+     * @param dir, int who indicates the directions 
+     */
     public int[] AIMovement(int dir){
         int[] coordinates = new int[2];
-        if ((dir == 0) && super.checkBlockUp()){   
+        if ((dir == 0) && super.checkBlocked()[0]){   
             y -= speed; 
             direction = Directions.UP;
         }
